@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choong.spr.mapper.BoardMapper">
+
+<!-- select -->
+  <!-- 게시판 리스트 가져오기 -->
+  <select id="selectOrder" resultType="com.choong.spr.domain.BoardDto">
+  	SELECT id, title, inserted 		
+  	FROM Board
+  	ORDER BY id
+  </select>
+  
+  <!--게시글 가져오기  -->
+  <select id="getBoard" resultType="com.choong.spr.domain.BoardDto" >
+  	SELECT id, title, body, inserted
+  	FROM Board
+  	WHERE id = #{id}
+  </select>
+  
+  
+ </mapper>
