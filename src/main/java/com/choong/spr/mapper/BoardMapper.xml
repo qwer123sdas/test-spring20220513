@@ -19,5 +19,24 @@
   	WHERE id = #{id}
   </select>
   
+ <!-- delete -->
+ 	<delete id="deleteBoard">
+ 		DELETE FROM Board
+  		WHERE id = #{id}
+ 	</delete>
+ 	
+ 	<!--게시글 수정  -->
+ 	<update id="modifyBoard">
+ 		UPDATE Board
+   	 	SET title = #{title},
+     	     body = #{body}
+    	WHERE id = #{id}
+ 	</update>
   
+<!-- 게시글 작성 -->
+	<insert useGeneratedKeys="true" id="writeBoard" keyColumn="id" keyProperty="id">
+		INSERT INTO Board(title, body, inserted)
+		VALUES (#{title}, #{body}, #{inserted})
+	</insert>
+
  </mapper>

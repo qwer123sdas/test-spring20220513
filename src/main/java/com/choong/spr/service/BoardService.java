@@ -18,13 +18,26 @@ public class BoardService {
 		return mapper.selectOrder();
 	}
 
-	// 게시글
+	// 게시글 출력
 	public BoardDto getBoard(int id) {
 		return mapper.getBoard(id);
 	}
 	
 	// 게시글 삭제
-	
+	public boolean deleteBoard(int id) {
+		int cnt = mapper.deleteBoard(id);
+		return cnt == 1;
+				
+	}
 	// 게시글 수정
-
+	public boolean modifyBoard(BoardDto boardDto) {
+		int cnt = mapper.modifyBoard(boardDto);
+		return cnt == 1;
+	}
+	// 게시글 작성
+	public void writeBoard(BoardDto boardDto) {
+		mapper.writeBoard(boardDto);
+	}
+	
+	
 }

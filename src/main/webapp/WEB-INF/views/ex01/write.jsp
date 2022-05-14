@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +13,7 @@
 <!-- Bulma  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
-<title>게시판</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<!-- navBar -->
@@ -58,40 +57,31 @@
     </div>
   </div>
 </nav>
-	
-	
-	<!-- .container>.row>.col>h1{글 목록} -->
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<h1>게시글 목록</h1>
 
-				<!-- 게시글 목록 -->
-				<table class="table">
-					<thead>
-						<tr>
-							<th><i class = "fa-solid fa-hashtag"></i></th>
-							<th>제목</th>
-							<th>작성일시<i class = "fa-solid fa-calendar"></i></th>
-						</tr>
-					</thead>
-					<tbody>
-					<c:forEach items="${boardList }" var = "board">
-						<tr>
-							<td>${board.id }</td>
-							<td>
-								<a href="${appRoot }/ex01/board/${board.id }">
-									${board.title }	
-								</a>
-							</td>
-							<td>${board.inserted }</td>
-						</tr>
-					</c:forEach>
-					</tbody>
-				</table>
-				
-			</div>
-		</div>
-	</div>
+<hr />
+
+	<!-- 글 작성  -->
+	<form class="box" action="${appRoot}/ex01/write2" method="post">
+	<input type="hidden" name="id" value="${board.id }"/>
+	  <div class="field">
+	    <label class="label">제목</label>
+	    <div class="control">
+	     	<input class="input" type="text" name="title" >
+	    </div>
+	  </div>
+	  <label class="label">내용</label>
+	  <textarea class="textarea" name="body"  placeholder="10 lines of textarea" rows="10"> </textarea>	
+		
+	  <div class="field">
+	    <label class="label">작성일시</label>
+	    <div class="control">
+	      <input class="input" type="datetime-local" >
+	    </div>
+	  </div>
+	  
+	  <button class="button is-primary">등록</button>
+	</form>
+	
+
 </body>
 </html>
