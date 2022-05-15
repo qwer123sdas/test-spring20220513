@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choong.spr.mapper.MemberMapper">
+	<!-- 유저 정보 가져오기 -->
+	<select id="getUser"  resultType="com.choong.spr.domain.MemberDto">
+		SELECT Member_PW
+  		FROM Member
+  		WHERE Member_ID = #{userID}
+	</select>
+	
+	
+</mapper>

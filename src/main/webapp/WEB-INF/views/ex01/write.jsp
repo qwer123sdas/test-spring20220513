@@ -66,11 +66,11 @@
 	  <div class="field">
 	    <label class="label">제목</label>
 	    <div class="control">
-	     	<input class="input" type="text" name="title" >
+	     	<input class="input" type="text" name="title" placeholder="제목을 입력해주세요.">
 	    </div>
 	  </div>
 	  <label class="label">내용</label>
-	  <textarea class="textarea" name="body"  placeholder="10 lines of textarea" rows="10"> </textarea>	
+	  <textarea class="textarea" name="body"  placeholder="10 lines of textarea" rows="10" placeholder="내용을 입력해주세요."> </textarea>	
 		
 	  
 	  <button class="button is-primary">등록</button>
