@@ -1,5 +1,6 @@
 package com.choong.spr.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class ReplyService {
 	}
 	// 댓글 추가
 	public void addReply(ReplyDto reply) {
+		reply.setInserted(LocalDateTime.now());
 		mapper.addReply(reply);
 	}
 	// 댓글 수정

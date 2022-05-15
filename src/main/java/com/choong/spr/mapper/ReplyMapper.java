@@ -16,5 +16,7 @@ public interface ReplyMapper {
 
 	// 댓글 삭제
 	void removeReply(int id);
+	
+	void deleteReplyByBoard(int id);
 
 }

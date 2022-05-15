@@ -27,8 +27,15 @@
 	</update>
 	
 <!--댓글 삭제  -->
+	<!-- 댓글만 지울 때 -->
 	<delete id="removeReply">
-		
+		DELETE FROM Reply
+		WHERE id = #{id}
+	</delete>
+	<!-- 게시글 지울 때, -->
+	<delete id="deleteReplyByBoard">
+		DELETE FROM Reply
+		WHERE board_id = #{boardId }
 	</delete>
 </mapper>
 

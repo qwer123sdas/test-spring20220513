@@ -25,7 +25,7 @@
   		WHERE id = #{id}
  	</delete>
  	
- 	<!--게시글 수정  -->
+ <!--게시글 수정  -->
  	<update id="modifyBoard">
  		UPDATE Board
    	 	SET title = #{title},
@@ -38,5 +38,4 @@
 		INSERT INTO Board(title, body, inserted)
 		VALUES (#{title}, #{body}, #{inserted})
 	</insert>
-
  </mapper>

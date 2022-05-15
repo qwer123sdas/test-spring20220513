@@ -26,6 +26,7 @@ $(document).ready(function(){
 		$("#delete-submit1").removeClass("d-none");
 	});
 	
+	
 	$("#delete-submit1").click(function(e) {
 		e.preventDefault();
 		if(confirm("삭제하시겠습니까?")){
@@ -37,8 +38,20 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#aaa").click(function(){
+		let formAddReply = $("$formAddReply");
+		let actionAttr = "${appRoot}/ex01/reply/add";
+		formAddReply.attr("action", actionAttr);
+		formAddReply.submit();
+	});
 
-	
+	function addReply(){
+		let formAddReply = $("$formAddReply");
+		let actionAttr = "${appRoot}/ex01/reply/add";
+		formAddReply.attr("action", actionAttr);
+		formAddReply.submit();
+	}
+});
 </script>
 </head>
 <body>
@@ -61,7 +74,7 @@ $(document).ready(function(){
       <a class="navbar-item" href="${appRoot }/ex01/write">
        	글 작성
       </a>
-
+		
       <a class="navbar-item">
         Documentation
       </a>
@@ -104,16 +117,64 @@ $(document).ready(function(){
 	      <input class="input" type="datetime-local" value="${board.inserted }" readonly >
 	    </div>
 	  </div>
-	  
-	  <button class="button is-primary" id="modify-submit1">수정</button>
-	  <button class="button is-primary" id="delete-submit1">삭제</button>
+	  <button class="button is-primary" id="edit-button1" > 수정하기</button>
+	  <button class="button is-primary d-none" id="modify-submit1">수정완료</button>
+	  <button class="button is-primary" id="delete-submit1">삭제하기</button>
 	</form>
 	
 	<!-- 댓글 ------------------------------------------------------------------------>
-	<label for=""> 댓글 작성 > </label>	
 	<c:url value="/ex01/reply/add" var="replyAddLink"></c:url>
+	
 	<form action="${replyAddLink }" method="post">
-		<input type="hidden" name="boardId" value="${boardDto.id }" />
+	<div class="card mb-2">
+		<div class="card-header bg-light">
+		        <i class="fa fa-comment fa"></i> 댓글작성
+		</div>
+		<div class="card-body">
+			<ul class="list-group list-group-flush">
+			    <li class="list-group-item">
+				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				<button type="button" class="btn btn-dark mt-3"> <!-- onClick="javascript:addReply();" -->댓글 쓰기</button>
+			    </li>
+			</ul>
+		</div>
+	</div>
+	</form>
+	
+	<c:forEach items="${replyList }" var="reply">
+		<div class="d-flex">
+			<div class="p-2"><i class='mt-3 fa fa-reply fa fa-rotate-180' aria-hidden='true'></i></div>
+			<div class="flex-fill">
+				<div class="card mt-2">
+					<div class="card-header">
+						<table>
+							<tr class="align-middle">
+								<td rowspan="2" class="pr-2"><i class="fa fa-user-o fa-2x"></i></td>
+								<td class="ml">${reply.id }</td>
+							</tr>
+							<tr>
+								<td>
+									<font size="2">${reply.inserted }</font> 
+									<!--삭제 버튼  -->
+										<span style="cursor:pointer"><i class="fa fa-window-close fa" aria-hidden="true"></i></span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="card-body">
+						<p class="card-text">${reply.content }</p>
+							<!-- <span class="badge badge-dark" style="cursor:pointer"><a onClick="">답글</a></span> -->
+					</div>
+				</div>
+			</div>
+		</div>		
+	</c:forEach>
+	
+	<!-- ------------------------------------------------------------------------------------------- -->
+	
+	<label for=""> 댓글 작성 > </label>	
+	<form action="${replyAddLink }" method="post">
+		<input type="hidden" name="boardId" value="${board.id }" />
 		댓글 : <input type="text" name="content" size="50"/>
 		<button>쓰기</button>
 	</form>
@@ -127,7 +188,7 @@ $(document).ready(function(){
 				<c:url value="/ex01/reply/modify" var="replyModifyLink"></c:url>
 				<form action="${replyModifyLink }" method="post">
 					<input type="hidden" name="id" value="${reply.id }"/>
-					<input type="hidden" name="boardId" value="${boardDto.id }"/>
+					<input type="hidden" name="boardId" value="${board.id }"/>
 					<input type="text" value="${reply.content }" name="content"/>
 					<button>수정</button>
 				</form>
@@ -135,7 +196,7 @@ $(document).ready(function(){
 				<c:url value="/ex01/reply/remove" var="replyRemoveLink" />
 				<form action="${replyRemoveLink }" method="post">
 					<input type="hidden" name="id" value="${reply.id }"/>
-					<input type="hidden" name="boardId" value="${boardDto.id }"/>
+					<input type="hidden" name="boardId" value="${board.id }"/>
 					<button >삭제</button>
 				</form>
 			</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,10 +60,9 @@
 </nav>
 
 <hr />
-
-	<!-- 글 작성  -->
-	<form class="box" action="${appRoot}/ex01/write2" method="post">
-	<input type="hidden" name="id" value="${board.id }"/>
+	<c:url value="/ex01/board/write"  var="writeLink"/>
+	<!-- 글 작성  --><%-- ${appRoot}/ex01/write2 --%>
+	<form class="box" action="${writeLink }" method="post">
 	  <div class="field">
 	    <label class="label">제목</label>
 	    <div class="control">
@@ -72,12 +72,6 @@
 	  <label class="label">내용</label>
 	  <textarea class="textarea" name="body"  placeholder="10 lines of textarea" rows="10"> </textarea>	
 		
-	  <div class="field">
-	    <label class="label">작성일시</label>
-	    <div class="control">
-	      <input class="input" type="datetime-local" >
-	    </div>
-	  </div>
 	  
 	  <button class="button is-primary">등록</button>
 	</form>

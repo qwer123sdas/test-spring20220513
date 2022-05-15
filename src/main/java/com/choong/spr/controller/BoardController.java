@@ -65,12 +65,12 @@ public class BoardController {
 		return "redirect:/ex01/board/" + boardDto.getId();
 	}
 	
-	// 게시글 작성????????????????
+	// 게시글 작성
 	@GetMapping("write")
 	public void writeBoard() {
 		
 	}
-	@PostMapping("write2")
+	@PostMapping("board/write")
 	public String writeBoardProcess(BoardDto boardDto) {
 		service.writeBoard(boardDto);
 		return "redirect:/ex01/board/" + boardDto.getId();
