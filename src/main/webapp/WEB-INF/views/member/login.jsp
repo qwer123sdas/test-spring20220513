@@ -64,9 +64,7 @@
 	
 	<!-- 메세지 -->
 	<c:if test="${not empty error }">
-		<c:if test="${param.error }">
-			<div class="alert alert-primary">아이디나 비밀번호가 일치 하지 않습니다.</div>
-		</c:if>
+		<div class="alert alert-primary">아이디나 비밀번호가 일치 하지 않습니다.</div>
 	</c:if>
 </body>
 </html>

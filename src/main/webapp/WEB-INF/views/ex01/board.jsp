@@ -89,12 +89,12 @@
 
 
 			</div>
-
+ 
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="buttons">
-						<a class="button is-primary"> <strong>Sign up</strong>
-						</a> <a class="button is-light"> Log in </a>
+						<a class="button is-primary" href="http://localhost:8080/spr/member/signUp"> <strong>Sign up</strong>
+						</a> <a class="button is-light" href="http://localhost:8080/spr/member/login"> Log in </a>
 					</div>
 				</div>
 			</div>

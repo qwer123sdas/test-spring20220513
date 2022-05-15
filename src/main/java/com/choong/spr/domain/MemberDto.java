@@ -8,7 +8,7 @@ public class MemberDto {
 	private int member_No;
 	private String member_ID;
 	private int member_PW;
-	private int member_Name;
+	private String member_Name;
 	private DateTimeFormat member_Date;
 	private String member_Sex;
 	private String member_Email;

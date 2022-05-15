@@ -1,5 +1,6 @@
 package com.choong.spr.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.choong.spr.domain.MemberDto;
 import com.choong.spr.service.MemberService;
 
 @Controller
@@ -23,13 +23,12 @@ public class MemberController {
 	}
 	
 	@PostMapping("login")
-	public String loginPrecess(String userID, int userPW, Model model) {
+	public String loginPrecess(String userID, int userPW) {
 		int cnt = service.loginProcess(userID, userPW);
 		
-		if(cnt == 0) {
-			return "/member/login?error=id";
+		if(cnt != 1) {
+			return "redirect:/member/login";
 		}
-		model.addAttribute("userData", memberDto.getMember_ID());
 		
 		return "redirect:/ex01/list";
 	}
