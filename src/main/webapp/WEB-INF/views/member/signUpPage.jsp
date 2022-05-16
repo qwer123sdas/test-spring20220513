@@ -113,8 +113,9 @@
 <style>
 </style>
 <body>
-	<div class="columns is-mobile is-centered">
-		<div class="column is-one-third">
+
+	<div class="box">
+		<div class="column is-one-third  ">
 			<p class="title is-1 is-centered">회원가입</p>
 			<form action="${appRoot }/member/signUp" method="post"
 				id="formButton" onsubmit="return checks()">
@@ -238,5 +239,6 @@
 			</form>
 		</div>
 	</div>
+
 </body>
 </html>

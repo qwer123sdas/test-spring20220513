@@ -28,16 +28,22 @@
 </head>
 <style>
 .test {
-  float: left;
-  margin-right: 15px;
+	float: left;
+	margin-right: 15px;
+}
 
+.panel-block {
+	display: flex;
+}
+
+.container1 {
+	display: flex;
 }
 </style>
 <body>
 	<article class="test panel is-success is-half">
 		<p class="panel-heading">회원 관리</p>
-		<p class="panel-tabs">
-		</p>
+		<p class="panel-tabs"></p>
 		<div class="panel-block">
 			<p class="control has-icons-left">
 				<input class="input is-success" type="text" placeholder="Search">
@@ -56,7 +62,7 @@
 			<span class="panel-icon">
 				<i class="fas fa-book" aria-hidden="true"></i>
 			</span>
-			보안설정
+			보안 설정
 		</a>
 		<a class="panel-block">
 			<span class="panel-icon">
@@ -65,7 +71,41 @@
 			미정
 		</a>
 	</article>
-	
-	<p> 회원 정보 페이지</p>
+
+	<div class="card border-secondary mb-3">
+		<div class="card-header">기본정보</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">이름</h5>
+			<p class="card-text">Some quick example text to build on the card</p>
+		</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">아이디</h5>
+			<p class="card-text">Some quick example text to build on the card</p>
+		</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">비밀번호</h5>
+			<p class="card-text">Some quick example text to build on the card</p>
+		</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">핸드폰번호</h5>
+			<p class="card-text">Some quick example text to build on the card</p>
+		</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">이메일 주소</h5>
+			<p class="card-text">Some quick example text to build on the card</p>
+		</div>
+	</div>
+
+	<div class="card border-secondary mb-3">
+		<div class="card-header">Header</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">Secondary card title</h5>
+			<p class="card-text">Some quick example text to build on the card
+				title and make up the bulk of the card's content.</p>
+		</div>
+	</div>
+
+
+
 </body>
 </html>

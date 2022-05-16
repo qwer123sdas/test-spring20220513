@@ -24,14 +24,13 @@ public class MemberService implements MemberServiceImpl {
 	@Override
 	public boolean userLogin(MemberDto dto, HttpSession session) throws Exception {
 		boolean isLogin = isLogin(dto.getMemberID());
-	
-		
 		if (!isLogin) {
 			String result = mapper.userLogin(dto);
 			if (result != null || result != "") {
 				setSession(session, dto);
+				return true;
 			}
-			return true;
+			
 		}
 		return false;
 	}

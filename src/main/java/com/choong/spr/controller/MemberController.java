@@ -32,7 +32,6 @@ public class MemberController {
 	@PostMapping("login")
 	public ModelAndView userLogin(@ModelAttribute MemberDto dto, HttpSession session, Model model) throws Exception {
 		boolean result = service.userLogin(dto, session);
-		
 		ModelAndView mav = new ModelAndView();
 		
 		if(result == true) {

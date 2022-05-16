@@ -36,7 +36,7 @@
 				<c:if test="${empty sessionScope.id }">
 					<div class="buttons">
 						<button class="button is-light"
-							onclick="location.href='/spr/member/signUp'">
+							onclick="location.href='/spr/member/signUpPage'">
 							<strong>Sign up</strong>
 						</button>
 						<button class="button is-light"

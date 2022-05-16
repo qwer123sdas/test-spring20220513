@@ -160,7 +160,7 @@
 					<c:url value="/ex01/reply/modify" var="replyModifyLink"></c:url>
 					<form action="${replyModifyLink }" method="post" id="reply-submit">
 						<input id="modify-reply-content" class="is-5 d-none" type="text"
-							value="${reply.content }" name="content" />
+							value="${reply.content }" name="content" style="border:0 solid black"/>
 						<input type="hidden" name="id" value="${reply.id }" />
 						<input type="hidden" name="boardId" value="${board.id }" />
 						<button class="is-5 d-none" id="edit-reply-button-close">수정완료</button>
