@@ -7,7 +7,7 @@ import lombok.Data;
 public class MemberDto {
 	private int memberNo;
 	private String memberID;
-	private int memberPW;
+	private String memberPW;
 	private String memberName;
 	private LocalDateTime memberDate;
 	private String memberSex;

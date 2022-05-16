@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,50 +28,7 @@
 <title>게시판</title>
 </head>
 <body>
-
-	<!-- navBar -->
-	<nav class="navbar" role="navigation" aria-label="main navigation">
-		<div class="navbar-brand">
-			<a class="navbar-item" href="${appRoot }/ex01/list">
-				HOME
-				<i class="fa-solid fa-house m"> </i>
-			</a>
-			<a role="button" class="navbar-burger" aria-label="menu"
-				aria-expanded="false" data-target="navbarBasicExample">
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-			</a>
-		</div>
-
-		<div id="navbarBasicExample" class="navbar-menu">
-			<div class="navbar-start">
-				<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a>
-				<a class="navbar-item"> Documentation </a>
-			</div>
-
-			<div class="navbar-end">
-				<div class="navbar-item">
-					<div class="buttons">
-						<button class="button is-light"
-							onclick="location.href='/spr/member/signUp'">
-							<strong>Sign up</strong>
-						</button>
-						<button class="button is-light"
-							onclick="location.href='/spr/member/loginPage'">Log in</button>
-					</div>
-					<%-- 					<c:if test="${id }">
-						<div class="buttons">
-							<p>aaa회원님</p>
-							<button class="button is-light" onclick="location.href='/spr/ex01/list'"> Log out </button>
-						</div>
-					</c:if> --%>
-				</div>
-			</div>
-		</div>
-	</nav>
-
-
+  <nav:navbar></nav:navbar>
 	<!-- .container>.row>.col>h1{글 목록} -->
 	<div class="container">
 		<div class="row">
@@ -91,16 +50,27 @@
 						</tr>
 					</thead>
 					<tbody>
+
 						<c:forEach items="${boardList }" var="board">
 							<tr>
 								<td>${board.id }</td>
-								<td>
-									<a href="${appRoot }/ex01/board/${board.id }">
-										${board.title } </a>
-								</td>
+								<c:if test="${not empty sessionScope.id }">
+									<td>
+										<a href="${appRoot }/ex01/board/${board.id }">
+											${board.title } </a>
+									</td>
+									<td>${board.inserted }</td>
+								</c:if>
+
+								<c:if test="${empty sessionScope.id }">
+									<td>
+										<a> ${board.title } </a>
+									</td>
+								</c:if>
 								<td>${board.inserted }</td>
 							</tr>
 						</c:forEach>
+
 					</tbody>
 				</table>
 

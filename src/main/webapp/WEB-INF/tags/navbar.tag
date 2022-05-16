@@ -1,5 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
-<%@ attribute name="path"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- navBar -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -18,22 +18,41 @@
 
 	<div id="navbarBasicExample" class="navbar-menu">
 		<div class="navbar-start">
-			<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a>
-			<a class="navbar-item"> Documentation </a>
-
-
+			<c:if test="${empty sessionScope.id }">
+				<a class="navbar-item"> 글 작성 </a>
+			</c:if>
+			<c:if test="${not empty sessionScope.id }">
+				<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a>
+				<a class="navbar-item" href="${appRoot }/member/editPage"> 회원 정보
+				</a>
+			</c:if>
 		</div>
+
+
+
 
 		<div class="navbar-end">
 			<div class="navbar-item">
-				<div class="buttons">
-					<a class="button is-primary"
-						href="http://localhost:8080/spr/member/signUp">
-						<strong>Sign up</strong>
-					</a>
-					<a class="button is-light"
-						href="http://localhost:8080/spr/member/login"> Log in </a>
-				</div>
+				<c:if test="${empty sessionScope.id }">
+					<div class="buttons">
+						<button class="button is-light"
+							onclick="location.href='/spr/member/signUp'">
+							<strong>Sign up</strong>
+						</button>
+						<button class="button is-light"
+							onclick="location.href='/spr/member/loginPage'">Log in</button>
+					</div>
+				</c:if>
+
+				<c:if test="${not empty sessionScope.id }">
+					<div class="buttons">
+						<p>${sessionScope.id }회원님</p>
+						<form action="${appRoot }/member/logout">
+							<input type="hidden" name="path" value="${URI }" />
+							<button class="button is-light">Log out</button>
+						</form>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

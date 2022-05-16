@@ -24,8 +24,9 @@
 <title>회원가입</title>
 <script>
 	function checks() {
-		// 값 불러오기
 		console.log("1111")
+		return true;
+		// 값 불러오기
 		var id = document.getElementById("id").value;
 		var pW = document.getElementById("pw").value;
 		var tempPw = document.getElementById("tempPw").value;
@@ -40,17 +41,7 @@
 		}
 	}
 
-	$(document).ready(function() {
-		$("#sign-cancle").click(function(e) {
-			e.preventDefault();
-			if (confirm("취소하시겠습니까?")) {
-				let form = $("#formButton");
-				let actionAttr = "${appRoot }/member/loginPage";
-				form.attr("action", actionAttr);
-				form.submit();
-			}
-		});
-	});
+
 </script>
 <script>
 	$(document).ready(function() {
@@ -180,7 +171,7 @@
 		<div class="field">
 			<label class="label">이름</label>
 			<div class="control">
-				<input class="input" type="text" name="memberNAME" id="name"
+				<input class="input" type="text" name="memberName" id="name"
 					placeholder="Text input">
 			</div>
 		</div>

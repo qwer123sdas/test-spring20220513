@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
+
 <%@ page import="java.util.*"%>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -64,43 +66,7 @@
 </script>
 </head>
 <body>
-	<!-- navBar -->
-	<nav class="navbar" role="navigation" aria-label="main navigation">
-		<div class="navbar-brand">
-			<a class="navbar-item" href="${appRoot }/ex01/list">
-				HOME
-				<i class="fa-solid fa-house m"> </i>
-			</a>
-			<a role="button" class="navbar-burger" aria-label="menu"
-				aria-expanded="false" data-target="navbarBasicExample">
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-			</a>
-		</div>
-
-		<div id="navbarBasicExample" class="navbar-menu">
-			<div class="navbar-start">
-				<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a>
-				<a class="navbar-item"> Documentation </a>
-
-
-			</div>
-
-			<div class="navbar-end">
-				<div class="navbar-item">
-					<div class="buttons">
-						<a class="button is-primary"
-							href="http://localhost:8080/spr/member/signUpPage">
-							<strong>Sign up</strong>
-						</a>
-						<a class="button is-light"
-							href="http://localhost:8080/spr/member/loginPage"> Log in </a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
+	<nav:navbar></nav:navbar>
 
 
 	<h1>${board.id }번게시글</h1>
@@ -205,8 +171,8 @@
 	</c:forEach>
 
 	<!-- ------------------------------------------------------------------------------------------- -->
-	
-<%-- 	<label for=""> 댓글 작성 > </label>
+
+	<%-- 	<label for=""> 댓글 작성 > </label>
 	<form action="${replyAddLink }" method="post">
 		<input type="hidden" name="boardId" value="${board.id }" />
 		댓글 :

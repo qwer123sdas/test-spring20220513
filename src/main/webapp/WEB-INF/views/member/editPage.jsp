@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -27,30 +26,45 @@
 
 <title>Insert title here</title>
 </head>
+<style>
+</style>
 <body>
-	<nav:navbar></nav:navbar>
-
-	<hr />
-	<c:url value="/ex01/board/write" var="writeLink" />
-	<!-- 글 작성  -->
-	<%-- ${appRoot}/ex01/write2 --%>
-	<form class="box" action="${writeLink }" method="post">
-		<div class="field">
-			<label class="label">제목</label>
-			<div class="control">
-				<input class="input" type="text" name="title"
-					placeholder="제목을 입력해주세요.">
-			</div>
+	<h1>회원정보 페이지</h1>
+	<article class="panel is-success">
+		<p class="panel-heading">Success</p>
+		<p class="panel-tabs">
+			<a class="is-active">All</a>
+			<a>Public</a>
+			<a>Private</a>
+			<a>Sources</a>
+			<a>Forks</a>
+		</p>
+		<div class="panel-block">
+			<p class="control has-icons-left">
+				<input class="input is-success" type="text" placeholder="Search">
+				<span class="icon is-left">
+					<i class="fas fa-search" aria-hidden="true"></i>
+				</span>
+			</p>
 		</div>
-		<label class="label">내용</label>
-		<textarea class="textarea" name="body"
-			placeholder="10 lines of textarea" rows="10"
-			placeholder="내용을 입력해주세요."> </textarea>
-
-
-		<button class="button is-primary">등록</button>
-	</form>
-
-
+		<a class="panel-block is-active">
+			<span class="panel-icon">
+				<i class="fas fa-book" aria-hidden="true"></i>
+			</span>
+			내 프로필
+		</a>
+		<a class="panel-block">
+			<span class="panel-icon">
+				<i class="fas fa-book" aria-hidden="true"></i>
+			</span>
+			보안설정
+		</a>
+		<a class="panel-block">
+			<span class="panel-icon">
+				<i class="fas fa-book" aria-hidden="true"></i>
+			</span>
+			미정
+		</a>
+	</article>
 </body>
 </html>

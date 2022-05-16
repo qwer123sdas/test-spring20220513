@@ -80,5 +80,11 @@ public class MemberService implements MemberServiceImpl {
 		return mapper.idCheck(id);
 	}
 
+	// 로그 아웃
+	public void logout(HttpSession session) {
+		loginUsers.remove(session.getId());
+		session.invalidate();
+	}
+
 
 }

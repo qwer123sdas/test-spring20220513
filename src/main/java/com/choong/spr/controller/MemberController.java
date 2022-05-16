@@ -44,6 +44,14 @@ public class MemberController {
 		return mav;
 	}
 	
+	// 로그아웃 하기
+	@GetMapping("logout")
+	public String logout(HttpSession session, String path) {
+		service.logout(session);
+		System.out.println("로그아웃 됨");
+		return "redirect:/ex01/list";
+	}
+	
 	// 회원 가입 페이지------------------------------------------------------------------
 
 	// 회원가입
@@ -69,7 +77,12 @@ public class MemberController {
 	}
 
 	
-
+	// 회원 정보 페이지 --------------------------------------------------------------------
+	@GetMapping("editPage")
+	public void eidtPage() {
+		
+	}
+	
 	
 
 }
