@@ -27,15 +27,15 @@
 <title>회원정보 페이지</title>
 </head>
 <style>
-.panel {
-	display: flex;
-	height: 100px;
-	justify-content: flex-start;
+.test {
+  float: left;
+  margin-right: 15px;
+
 }
 </style>
 <body>
-	<article class="panel is-success">
-		<p class="panel-heading">Success</p>
+	<article class="test panel is-success is-half">
+		<p class="panel-heading">회원 관리</p>
 		<p class="panel-tabs">
 		</p>
 		<div class="panel-block">
@@ -46,7 +46,7 @@
 				</span>
 			</p>
 		</div>
-		<a class="panel-block is-active">
+		<a class="panel-block">
 			<span class="panel-icon">
 				<i class="fas fa-book" aria-hidden="true"></i>
 			</span>

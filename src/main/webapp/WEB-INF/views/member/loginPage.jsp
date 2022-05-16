@@ -43,29 +43,55 @@
 			<a class="link is-info">Contact</a>
 		</p>
 	</nav>
+	<div class="columns is-mobile is-centered">
+		<div class="column is-one-third">
+			<!-- 로그인 -->
+			<form action="${appRoot }/member/login" method="post">
+				<div class="field" style="float: none; margin: 0 auto;">
+					<label class="label">아이디</label>
+					<div class="control has-icons-left ">
+						<input class="input" type="text" name="memberID">
+						<span class="icon is-small is-left">
+							<i class="fas fa-user"></i>
+						</span>
+					</div>
+				</div>
 
-	<!-- 로그인 -->
-	<form action="${appRoot }/member/login" method="post">
-		<div class="field" style="float: none; margin: 0 auto;">
-			<label class="label">아이디</label>
-			<div class="control">
-				<input class="input" type="text" name="memberID" >
+				<div class="field">
+					<label class="label">패스워드</label>
+					<div class="control has-icons-left">
+						<input class="input" type="password" name="memberPW">
+						<span class="icon is-small is-left">
+							<i class="fa-solid fa-unlock-keyhole"></i>
+						</span>
+					</div>
+				</div>
+				<div class=>
+					<button class="button is-link is-fullwidth">
+						<span>로그인</span>
+					</button>
+				</div>
+			</form>
+			<div class="tabs is-centered is-6-desktop">
+				<ul>
+					<li>
+						<a target="_blank" href="" class="find_text">비밀번호 찾기</a>
+					</li>
+					<li>
+						<a target="_blank" href="" class="find_text">아이디 찾기</a>
+					</li>
+					<li>
+						<a target="_blank"
+							href="http://localhost:8080/spr/member/signUpPage"
+							class="find_text">회원가입</a>
+					</li>
+
+				</ul>
 			</div>
 		</div>
+	</div>
 
-		<div class="field">
-			<label class="label">패스워드</label>
-			<div class="control">
-				<input class="input" type="password" name="memberPW">
-			</div>
-		</div>
-		<button>로그인</button>
-	</form>
-	
-	<form action="${appRoot }/member/signUpPage">
-		<button>회원가입</button>
-	</form>
-	
+
 	<!-- 메세지 -->
 	<c:if test="${not empty message }">
 		<div class="alert alert-primary">아이디나 비밀번호가 일치 하지 않습니다.</div>

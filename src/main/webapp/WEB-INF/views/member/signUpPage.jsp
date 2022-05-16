@@ -40,8 +40,6 @@
 			return false;
 		}
 	}
-
-
 </script>
 <script>
 	$(document).ready(function() {
@@ -115,125 +113,130 @@
 <style>
 </style>
 <body>
-	<h1>회원가입</h1>
-	<form action="${appRoot }/member/signUp" method="post" id="formButton"
-		onsubmit="return checks()">
-		<div class="field">
-			<label class="label">ID</label>
-			<div class="control has-icons-left has-icons-right">
-				<input class="input is-success" type="text" name="memberID" id="id"
-					placeholder="ID를 입력하세요.">
-				<span class="icon is-small is-left">
-					<i class="fas fa-user"></i>
-				</span>
-				<span class="icon is-small is-right">
-					<i class="fas fa-check"></i>
-				</span>
-			</div>
-			<button type="button" id="idCheck">중복 확인</button>
-			<p class="help is-success d-none" id="id-success">This ID is
-				available</p>
-			<p class="help is-danger d-none" id="id-danger">This ID is
-				invalid</p>
+	<div class="columns is-mobile is-centered">
+		<div class="column is-one-third">
+			<p class="title is-1 is-centered">회원가입</p>
+			<form action="${appRoot }/member/signUp" method="post"
+				id="formButton" onsubmit="return checks()">
+				<div class="field">
+					<label class="label">ID</label>
+					<div class="control has-icons-left has-icons-right">
+						<input class="input is-success" type="text" name="memberID"
+							id="id" placeholder="ID를 입력하세요.">
+						<span class="icon is-small is-left">
+							<i class="fas fa-user"></i>
+						</span>
+						<span class="icon is-small is-right">
+							<i class="fas fa-check"></i>
+						</span>
+					</div>
+					<button type="button" id="idCheck">중복 확인</button>
+					<p class="help is-success d-none" id="id-success">This ID is
+						available</p>
+					<p class="help is-danger d-none" id="id-danger">This ID is
+						invalid</p>
+				</div>
+
+				<div class="field">
+					<label class="label">비밀번호</label>
+					<div class="control has-icons-left has-icons-right">
+						<input class="input is-success" type="password" name="memberPW"
+							id="pw" onchange="pwCheck()" placeholder="비밀번호를 입력하세요.">
+						<span class="icon is-small is-left">
+							<i class="fas fa-user"></i>
+						</span>
+						<span class="icon is-small is-right">
+							<i class="fas fa-check"></i>
+						</span>
+					</div>
+					<p class="help is-danger" id="pw_msg"></p>
+				</div>
+
+				<div class="field">
+					<label class="label">비밀번호 재확인</label>
+					<div class="control has-icons-left has-icons-right">
+						<input class="input is-success" type="password"
+							name="memberTempPW" id="tempPw" onchange="pwConfirm()"
+							placeholder="비밀번호를 한번 더 입력하세요.">
+						<span class="icon is-small is-left">
+							<i class="fas fa-user"></i>
+						</span>
+						<span class="icon is-small is-right">
+							<i class="fas fa-check"></i>
+						</span>
+					</div>
+					<p class="help is-danger" id="temp_pw_msg"></p>
+				</div>
+
+
+				<div class="field">
+					<label class="label">이름</label>
+					<div class="control">
+						<input class="input" type="text" name="memberName" id="name"
+							placeholder="Text input">
+					</div>
+				</div>
+
+
+				<div class="field">
+					<label class="label">Email</label>
+					<div class="control has-icons-left has-icons-right">
+						<input class="input is-danger" type="email" name="memberEmail"
+							id="email" placeholder="Email input" value="hello@">
+						<span class="icon is-small is-left">
+							<i class="fas fa-envelope"></i>
+						</span>
+						<span class="icon is-small is-right">
+							<i class="fas fa-exclamation-triangle"></i>
+						</span>
+					</div>
+					<p class="help is-success">This email is available</p>
+					<p class="help is-danger">This email is invalid</p>
+				</div>
+
+				<div class="field">
+					<div class="control">
+						<label class="radio">
+							성별
+							<input type="radio" name="memberSex">
+							남
+						</label>
+						<label class="radio">
+							<input type="radio" name="memberSex">
+							여
+						</label>
+					</div>
+				</div>
+
+
+				<div class="field">
+					<label class="label">전화번호</label>
+					<div class="control">
+						<input type="text" name="memberRole" />
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="control">
+						<label class="checkbox">
+							<input type="checkbox">
+							I agree to the
+							<a href="#">terms and conditions</a>
+						</label>
+					</div>
+				</div>
+
+
+				<div class="field is-grouped">
+					<div class="control">
+						<button class="button is-link" id="sign-submit">Submit</button>
+					</div>
+					<div class="control">
+						<button class="button is-link is-light" id="sign-cancle">Cancel</button>
+					</div>
+				</div>
+			</form>
 		</div>
-
-		<div class="field">
-			<label class="label">비밀번호</label>
-			<div class="control has-icons-left has-icons-right">
-				<input class="input is-success" type="password" name="memberPW"
-					id="pw" onchange="pwCheck()" placeholder="비밀번호를 입력하세요.">
-				<span class="icon is-small is-left">
-					<i class="fas fa-user"></i>
-				</span>
-				<span class="icon is-small is-right">
-					<i class="fas fa-check"></i>
-				</span>
-			</div>
-			<p class="help is-danger" id="pw_msg"></p>
-		</div>
-
-		<div class="field">
-			<label class="label">비밀번호 재확인</label>
-			<div class="control has-icons-left has-icons-right">
-				<input class="input is-success" type="password" name="memberTempPW"
-					id="tempPw" onchange="pwConfirm()" placeholder="비밀번호를 한번 더 입력하세요.">
-				<span class="icon is-small is-left">
-					<i class="fas fa-user"></i>
-				</span>
-				<span class="icon is-small is-right">
-					<i class="fas fa-check"></i>
-				</span>
-			</div>
-			<p class="help is-danger" id="temp_pw_msg"></p>
-		</div>
-
-
-		<div class="field">
-			<label class="label">이름</label>
-			<div class="control">
-				<input class="input" type="text" name="memberName" id="name"
-					placeholder="Text input">
-			</div>
-		</div>
-
-
-		<div class="field">
-			<label class="label">Email</label>
-			<div class="control has-icons-left has-icons-right">
-				<input class="input is-danger" type="email" name="memberEmail"
-					id="email" placeholder="Email input" value="hello@">
-				<span class="icon is-small is-left">
-					<i class="fas fa-envelope"></i>
-				</span>
-				<span class="icon is-small is-right">
-					<i class="fas fa-exclamation-triangle"></i>
-				</span>
-			</div>
-			<p class="help is-success">This email is available</p>
-			<p class="help is-danger">This email is invalid</p>
-		</div>
-
-		<div class="field">
-			<div class="control">
-				<label class="radio">
-					성별
-					<input type="radio" name="memberSex">
-					남
-				</label>
-				<label class="radio">
-					<input type="radio" name="memberSex">
-					여
-				</label>
-			</div>
-		</div>
-
-
-		<div class="field">
-			<label class="label">전화번호</label>
-			<div class="control">
-				<input type="text" name="memberRole" />
-			</div>
-		</div>
-
-		<div class="field">
-			<div class="control">
-				<label class="checkbox">
-					<input type="checkbox">
-					I agree to the
-					<a href="#">terms and conditions</a>
-				</label>
-			</div>
-		</div>
-
-
-		<div class="field is-grouped">
-			<div class="control">
-				<button class="button is-link" id="sign-submit">Submit</button>
-			</div>
-			<div class="control">
-				<button class="button is-link is-light" id="sign-cancle">Cancel</button>
-			</div>
-		</div>
-	</form>
+	</div>
 </body>
 </html>
