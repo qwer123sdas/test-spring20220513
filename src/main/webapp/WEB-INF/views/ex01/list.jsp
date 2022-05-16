@@ -48,8 +48,8 @@
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="buttons">
-						<a class="button is-primary"> <strong>Sign up</strong>
-						</a> <a class="button is-light"> Log in </a>
+						<button class="button is-light" onclick="location.href='/spr/member/signUp'" > <strong>Sign up</strong> </button>
+						<button class="button is-light" onclick="location.href='/spr/member/loginPage'"> Log in </button>
 					</div>
 				</div>
 			</div>

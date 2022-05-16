@@ -62,6 +62,10 @@
 		<button>로그인</button>
 	</form>
 	
+	<form action="${appRoot }/member/signUp">
+		<button>회원가입</button>
+	</form>
+	
 	<!-- 메세지 -->
 	<c:if test="${not empty message }">
 		<div class="alert alert-primary">아이디나 비밀번호가 일치 하지 않습니다.</div>
