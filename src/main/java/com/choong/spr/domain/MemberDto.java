@@ -5,14 +5,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 @Data
 public class MemberDto {
-	private int member_No;
-	private String member_ID;
-	private int member_PW;
-	private String member_Name;
-	private DateTimeFormat member_Date;
-	private String member_Sex;
-	private String member_Email;
-	private String member_Role;
-	private int member_KaKao;
+	private int memberNo;
+	private String memberID;
+	private int memberPW;
+	private String memberName;
+	private DateTimeFormat memberDate;
+	private String memberSex;
+	private String memberEmail;
+	private String memberRole;
+	private int memberKaKao;
 	
 }

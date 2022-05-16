@@ -49,21 +49,21 @@
 		<div class="field">
 			<label class="label">아이디</label>
 			<div class="control">
-				<input class="input" type="text" name="userID" >
+				<input class="input" type="text" name="memberID" >
 			</div>
 		</div>
 
 		<div class="field">
 			<label class="label">패스워드</label>
 			<div class="control">
-				<input class="input" type="password" name="userPW">
+				<input class="input" type="password" name="memberPW">
 			</div>
 		</div>
 		<button>로그인</button>
 	</form>
 	
 	<!-- 메세지 -->
-	<c:if test="${not empty error }">
+	<c:if test="${not empty message }">
 		<div class="alert alert-primary">아이디나 비밀번호가 일치 하지 않습니다.</div>
 	</c:if>
 </body>

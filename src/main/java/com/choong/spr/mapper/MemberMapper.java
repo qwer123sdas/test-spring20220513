@@ -6,6 +6,9 @@ import com.choong.spr.domain.MemberDto;
 
 public interface MemberMapper {
 	// 유저 정보 가져오기
-	MemberDto getUser(@Param("userID") String userID, @Param("userPW") int userPW);
-
+	/*MemberDto getUser(@Param("userID") String userID, @Param("userPW") int userPW);*/
+	
+	String userLogin(MemberDto dto) throws Exception;
 }
+
+

@@ -4,11 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choong.spr.mapper.MemberMapper">
 	<!-- 유저 정보 가져오기 -->
-	<select id="getUser"  resultType="com.choong.spr.domain.MemberDto">
+<!-- 	<select id="getUser"  resultType="com.choong.spr.domain.MemberDto">
 		SELECT Member_Name, Member_ID, Member_PW
   		FROM Member
   		WHERE Member_ID = #{userID} AND Member_PW = #{userPW}
-	</select>
+	</select> -->
 	
+	<select id="userLogin" resultType="String">
+		SELECT Member_Name memberName FROM Member
+		WHERE Member_ID=#{memberID} AND Member_PW=#{memberPW}
+	</select>
 	
 </mapper>
