@@ -46,7 +46,7 @@
 
 	<!-- 로그인 -->
 	<form action="${appRoot }/member/login" method="post">
-		<div class="field">
+		<div class="field" style="float: none; margin: 0 auto;">
 			<label class="label">아이디</label>
 			<div class="control">
 				<input class="input" type="text" name="memberID" >
