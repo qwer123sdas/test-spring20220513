@@ -48,7 +48,6 @@ public class MemberController {
 	@GetMapping("logout")
 	public String logout(HttpSession session, String path) {
 		service.logout(session);
-		System.out.println("로그아웃 됨");
 		return "redirect:/ex01/list";
 	}
 	

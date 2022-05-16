@@ -24,20 +24,19 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
-<title>Insert title here</title>
+<title>회원정보 페이지</title>
 </head>
 <style>
+.panel {
+	display: flex;
+	height: 100px;
+	justify-content: flex-start;
+}
 </style>
 <body>
-	<h1>회원정보 페이지</h1>
 	<article class="panel is-success">
 		<p class="panel-heading">Success</p>
 		<p class="panel-tabs">
-			<a class="is-active">All</a>
-			<a>Public</a>
-			<a>Private</a>
-			<a>Sources</a>
-			<a>Forks</a>
 		</p>
 		<div class="panel-block">
 			<p class="control has-icons-left">
@@ -66,5 +65,7 @@
 			미정
 		</a>
 	</article>
+	
+	<p> 회원 정보 페이지</p>
 </body>
 </html>
