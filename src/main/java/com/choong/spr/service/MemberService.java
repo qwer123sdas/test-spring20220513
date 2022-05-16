@@ -1,5 +1,6 @@
 package com.choong.spr.service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -19,10 +20,12 @@ public class MemberService implements MemberServiceImpl {
 	@Autowired
 	private static Hashtable<String, String> loginUsers = new Hashtable<String, String>();
 
-	// 로그인
+	// 로그인 하기
 	@Override
 	public boolean userLogin(MemberDto dto, HttpSession session) throws Exception {
 		boolean isLogin = isLogin(dto.getMemberID());
+	
+		
 		if (!isLogin) {
 			String result = mapper.userLogin(dto);
 			if (result != null || result != "") {
@@ -33,40 +36,22 @@ public class MemberService implements MemberServiceImpl {
 		return false;
 	}
 
+	
+	// 회원가입
 	@Override
-	public void userJoin(MemberDto dto) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void signUp(MemberDto dto) throws Exception {
+		System.out.println(dto);
+		dto.setMemberID(dto.getMemberID());
+		dto.setMemberPW(dto.getMemberPW());
+		dto.setMemberName(dto.getMemberName());
+		dto.setMemberDate(LocalDateTime.now());
+		dto.setMemberSex(dto.getMemberSex());
+		dto.setMemberRole(dto.getMemberRole());
+		
+		mapper.singUp(dto);
 	}
-
-	/*	public int loginProcess (String userID, int userPW) {
-			int cnt = 0;
-			try {
-				MemberDto dto = mapper.getUser(userID, userPW);
-				
-				String name = dto.getMember_Name();
-				String ID = dto.getMember_ID();
-				int PW = dto.getMember_PW();
-				// ModelAndView model = new ModelAndView();
-				
-				 * -2 : 아이디 없음
-				 * -1 : 서버 오류
-				 * 0 :비밀번호 틀림
-				 * 1 : 로그인 성공
-				 
-				if(name !=null ) {
-					cnt = -2;
-				}else {
-					cnt =  1;
-				}
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-				cnt = -1;
-			}
-			return cnt;
-		}*/
-
+	
+	
 	// 로그인 되어있는지 확인
 	public boolean isLogin(String id) {
 		boolean isLogin = false;
@@ -83,10 +68,17 @@ public class MemberService implements MemberServiceImpl {
 		return isLogin;
 
 	}
-
+	
+	// 아이디 중복검사 및 session에 로그인 한 정보 저장
 	public void setSession(HttpSession session, MemberDto dto) {
 		loginUsers.put(session.getId(), dto.getMemberID());
 		session.setAttribute("id", dto.getMemberID());
 	}
+
+	// 아이디 중복 검사
+	public int idCheck(String id) {
+		return mapper.idCheck(id);
+	}
+
 
 }

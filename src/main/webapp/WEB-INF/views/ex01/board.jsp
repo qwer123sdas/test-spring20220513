@@ -59,18 +59,8 @@
 			$("#edit-reply-button-open").addClass("d-none")
 			$("#edit-reply-button-close").removeClass("d-none");
 		});
-		
-		$("#edit-reply-button-close").click(function(e){
-			e.preventDefault();
-			let form = $("#reply-submit");
-			let actionAttr = "${appRoot }/ex01/reply/modify";
-			form.attr("action", actionAttr);
-			form.submit();
-		})
 
 	});
-
-
 </script>
 </head>
 <body>
@@ -101,11 +91,11 @@
 				<div class="navbar-item">
 					<div class="buttons">
 						<a class="button is-primary"
-							href="http://localhost:8080/spr/member/signUp">
+							href="http://localhost:8080/spr/member/signUpPage">
 							<strong>Sign up</strong>
 						</a>
 						<a class="button is-light"
-							href="http://localhost:8080/spr/member/login"> Log in </a>
+							href="http://localhost:8080/spr/member/loginPage"> Log in </a>
 					</div>
 				</div>
 			</div>
@@ -144,7 +134,7 @@
 	<!-- 댓글 ------------------------------------------------------------------------>
 	<c:url value="/ex01/reply/add" var="replyAddLink"></c:url>
 	<form action="${appRoot}/ex01/reply/add">
-	<input type="hidden" name="boardId" value="${board.id }" />
+		<input type="hidden" name="boardId" value="${board.id }" />
 		<div class="card mb-2">
 			<div class="card-header bg-light">
 				<i class="fa fa-comment fa"></i>
@@ -156,8 +146,7 @@
 						<textarea class="form-control" id="exampleFormControlTextarea1"
 							name="content" rows="3"></textarea>
 						<button type="submit" class="btn btn-dark mt-3" id="addReply1">
-							댓글 쓰기
-						</button>
+							댓글 쓰기</button>
 					</li>
 				</ul>
 			</div>
@@ -184,7 +173,8 @@
 									<font size="2">${reply.inserted }</font>
 									<!--삭제 버튼  -->
 									<c:url value="/ex01/reply/remove" var="replyRemoveLink" />
-									<form action="${replyRemoveLink }" method="post" id="reply-submit">
+									<form action="${replyRemoveLink }" method="post"
+										id="reply-submit">
 										<input type="hidden" name="id" value="${reply.id }" />
 										<input type="hidden" name="boardId" value="${board.id }" />
 										<button>
@@ -192,24 +182,31 @@
 										</button>
 										<!-- 수정 버튼 -->
 										<button id="edit-reply-button-open">수정</button>
-										<button class="d-none" id="edit-reply-button-close">수정완료</button>
+
 									</form>
 								</td>
 							</tr>
 						</table>
 					</div>
 					<div class="card-body">
-						<p id="reply-content" class="card-text" >${reply.content }</p>
+						<p id="reply-content" class="card-text">${reply.content }</p>
 					</div>
-					<input id="modify-reply-content" class="d-none" type="text" value="${reply.content }" name="content" />
+					<c:url value="/ex01/reply/modify" var="replyModifyLink"></c:url>
+					<form action="${replyModifyLink }" method="post" id="reply-submit">
+						<input id="modify-reply-content" class="is-5 d-none" type="text"
+							value="${reply.content }" name="content" />
+						<input type="hidden" name="id" value="${reply.id }" />
+						<input type="hidden" name="boardId" value="${board.id }" />
+						<button class="is-5 d-none" id="edit-reply-button-close">수정완료</button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</c:forEach>
 
 	<!-- ------------------------------------------------------------------------------------------- -->
-
-	<label for=""> 댓글 작성 > </label>
+	
+<%-- 	<label for=""> 댓글 작성 > </label>
 	<form action="${replyAddLink }" method="post">
 		<input type="hidden" name="boardId" value="${board.id }" />
 		댓글 :
@@ -240,7 +237,7 @@
 			</div>
 
 		</c:forEach>
-	</div>
+	</div> --%>
 
 </body>
 </html>

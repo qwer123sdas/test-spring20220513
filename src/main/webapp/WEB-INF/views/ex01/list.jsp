@@ -30,27 +30,40 @@
 	<!-- navBar -->
 	<nav class="navbar" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
-			<a class="navbar-item" href="${appRoot }/ex01/list"> HOME<i
-				class="fa-solid fa-house m"> </i>
-			</a> <a role="button" class="navbar-burger" aria-label="menu"
-				aria-expanded="false" data-target="navbarBasicExample"> <span
-				aria-hidden="true"></span> <span aria-hidden="true"></span> <span
-				aria-hidden="true"></span>
+			<a class="navbar-item" href="${appRoot }/ex01/list">
+				HOME
+				<i class="fa-solid fa-house m"> </i>
+			</a>
+			<a role="button" class="navbar-burger" aria-label="menu"
+				aria-expanded="false" data-target="navbarBasicExample">
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
 			</a>
 		</div>
 
 		<div id="navbarBasicExample" class="navbar-menu">
 			<div class="navbar-start">
-				<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a> <a
-					class="navbar-item"> Documentation </a>
+				<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a>
+				<a class="navbar-item"> Documentation </a>
 			</div>
 
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="buttons">
-						<button class="button is-light" onclick="location.href='/spr/member/signUp'" > <strong>Sign up</strong> </button>
-						<button class="button is-light" onclick="location.href='/spr/member/loginPage'"> Log in </button>
+						<button class="button is-light"
+							onclick="location.href='/spr/member/signUp'">
+							<strong>Sign up</strong>
+						</button>
+						<button class="button is-light"
+							onclick="location.href='/spr/member/loginPage'">Log in</button>
 					</div>
+					<%-- 					<c:if test="${id }">
+						<div class="buttons">
+							<p>aaa회원님</p>
+							<button class="button is-light" onclick="location.href='/spr/ex01/list'"> Log out </button>
+						</div>
+					</c:if> --%>
 				</div>
 			</div>
 		</div>
@@ -67,17 +80,24 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th><i class="fa-solid fa-hashtag"></i></th>
+							<th>
+								<i class="fa-solid fa-hashtag"></i>
+							</th>
 							<th>제목</th>
-							<th>작성일시<i class="fa-solid fa-calendar"></i></th>
+							<th>
+								작성일시
+								<i class="fa-solid fa-calendar"></i>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${boardList }" var="board">
 							<tr>
 								<td>${board.id }</td>
-								<td><a href="${appRoot }/ex01/board/${board.id }">
-										${board.title } </a></td>
+								<td>
+									<a href="${appRoot }/ex01/board/${board.id }">
+										${board.title } </a>
+								</td>
 								<td>${board.inserted }</td>
 							</tr>
 						</c:forEach>

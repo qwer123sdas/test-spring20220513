@@ -62,7 +62,7 @@
 		<button>로그인</button>
 	</form>
 	
-	<form action="${appRoot }/member/signUp">
+	<form action="${appRoot }/member/signUpPage">
 		<button>회원가입</button>
 	</form>
 	

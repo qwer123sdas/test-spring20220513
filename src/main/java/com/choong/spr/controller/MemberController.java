@@ -1,5 +1,7 @@
 package com.choong.spr.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -21,12 +23,12 @@ public class MemberController {
 	@Autowired
 	MemberService service;
 	
-	// 로그인
+	// 로그인 페이지-----------------------------------------------------
 	@GetMapping("loginPage")
-	public void userLoginPage() {
+	public void userLoginPage1() {
 		
 	}
-	
+	// 로그인 하기
 	@PostMapping("login")
 	public ModelAndView userLogin(@ModelAttribute MemberDto dto, HttpSession session, Model model) throws Exception {
 		boolean result = service.userLogin(dto, session);
@@ -42,26 +44,32 @@ public class MemberController {
 		return mav;
 	}
 	
-	
-	/*	public String loginPrecess(String userID, int userPW) {
-			int cnt = service.loginProcess(userID, userPW);
-			
-			if(cnt != 1) {
-				return "redirect:/member/login";
-			}
-			
-			return "redirect:/ex01/list";
-		}
-	*/
-	
+	// 회원 가입 페이지------------------------------------------------------------------
+
 	// 회원가입
-	@GetMapping("signUp")
-	public void singUp() {
-		
+	@GetMapping("signUpPage")
+	public void signUpPage() {
 	}
+	
+	
 	@PostMapping("signUp")
-	public String singUpByLogin() {
-		return "";
+	public String signUp(@ModelAttribute MemberDto dto) throws Exception{
+		service.signUp(dto);
+		return "redirect:/member/loginPage";
 	}
+	
+	// 아이디 중복 검사
+	@PostMapping("/idCheck")
+	public void idCheck(String id, HttpServletResponse res) throws Exception{
+		int result = 0;
+		if(service.idCheck(id) != 0) {
+			result = 1;
+		}
+		res.getWriter().print(result);
+	}
+
+	
+
+	
 
 }
