@@ -29,7 +29,6 @@
 		var pW = document.getElementById("pw").value;
 		var tempPw = document.getElementById("tempPw").value;
 		var name = document.getElementById("name").value;
-		
 
 		if (id != "" && pw != "" && tempPw != "" && name != "") {
 			return true;
@@ -38,8 +37,7 @@
 			return false;
 		}
 	}
-</script>
-<script>
+
 	// 아이디 중복 여부 
 	$(document).ready(function() {
 		var id = document.getElementById("id");
@@ -108,6 +106,31 @@
 			return true;
 		}
 	}
+	
+	
+</script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+            	// 주소의 변수
+            	var addr = '';
+            	if(data.userSelectedType === 'R'){ // 사용자가 도로명 주소 선택
+            		addr = data.roadAddress;
+            	}else{  // 지번 주소 선택
+            		addr = data.jibunAddress;
+            	}
+            		
+            	document.getElementById("zoneCode").value = data.zonecode  // 새 우편번호 넣기
+                document.getElementById("mainAddress").value = addr; // 주소 넣기
+                document.querySelector("input[name=detailAddress]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
 </script>
 </head>
 
@@ -179,7 +202,31 @@
 					</div>
 				</div>
 
+				<!-- 주소  -->
+				<div class="field">
+					<label class="label">주소</label>
+					<div class="control">
+						<input class="input" type="text" id="zoneCode" name="zoneCode" placeholder="우편번호" readonly>
+					</div>
+					<div class="control">
+						<input class="input" type="text" id="mainAddress" name="mainAddress" placeholder="주소" >
+						<button id="address_kakao">우편번호 찾기</button>
+					</div>
+				</div>
+				<div class="field">
+					<label class="label">상세 주소</label>
+					<div class="control">
+						<input class="input" type="text"  name="detailAddress" placeholder="상세주소" >
+					</div>
+				</div>
 
+				<div class="field">
+					<label class="label">전화번호</label>
+					<div class="control">
+						<input type="text" name="memberRole" />
+					</div>
+				</div>
+				
 				<div class="field">
 					<label class="label">Email</label>
 					<div class="control has-icons-left has-icons-right">
@@ -195,7 +242,13 @@
 					<p class="help is-success">This email is available</p>
 					<p class="help is-danger">This email is invalid</p>
 				</div>
-
+				<div class="field">
+					<label class="label">생년월일</label>
+					<div class="control">
+						<input type="text" name="memberDate" />
+					</div>
+				</div>
+				
 				<div class="field">
 					<div class="control">
 						<label class="radio">
@@ -211,12 +264,6 @@
 				</div>
 
 
-				<div class="field">
-					<label class="label">전화번호</label>
-					<div class="control">
-						<input type="text" name="memberRole" />
-					</div>
-				</div>
 
 				<div class="field">
 					<div class="control">
@@ -227,6 +274,7 @@
 						</label>
 					</div>
 				</div>
+
 
 
 				<div class="field is-grouped">

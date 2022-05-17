@@ -51,6 +51,10 @@ public class MemberService implements MemberServiceImpl {
 		dto.setMemberSex(dto.getMemberSex());
 		dto.setMemberRole(dto.getMemberRole());
 		
+		dto.setMainAddress(dto.getMainAddress());
+		dto.setDetailAddress(dto.getDetailAddress());
+		dto.setZoneCode(dto.getZoneCode());
+		
 		mapper.singUp(dto);
 	}
 	

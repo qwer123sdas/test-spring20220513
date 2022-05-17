@@ -13,9 +13,9 @@
 	<!-- 회원 정보 페이지 -->
 	<select id="userDetail"
 		resultType="com.choong.spr.domain.MemberDto">
-		SELECT Member_ID memberID, Member_PW memberPW, Member_Name
-		memberName, Member_Date memberDate, Member_Sex memberSex, Member_Email
-		memberEmail, Member_Role memberRole
+		SELECT Member_ID memberID, Member_PW memberPW, Member_Name memberName,
+				Member_Date memberDate, Member_Sex memberSex, Member_Email memberEmail,
+				Member_Role memberRole, ZondCode zoneCode, MainAddress mainAddress, DetailAddress detailAddress
 		FROM Member
 		WHERE
 		Member_ID=#{id}
@@ -32,9 +32,9 @@
 	<insert id="singUp"
 		parameterType="com.choong.spr.domain.MemberDto">
 		INSERT INTO Member(Member_ID, Member_PW, Member_Name,
-		Member_Date, Member_Sex, Member_Email, Member_Role)
+		Member_Date, Member_Sex, Member_Email, Member_Role, ZondCode, MainAddress, DetailAddress)
 		VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberDate},
-		#{memberSex}, #{memberEmail}, #{memberRole})
+		#{memberSex}, #{memberEmail}, #{memberRole}, #{zoneCode}, #{mainAddress}, #{detailAddress})
 	</insert>
 
 	<!-- 회원정보 수정 -->
@@ -42,7 +42,11 @@
 		UPDATE Member
 		SET Member_Name = #{memberName},
 		    Member_Email = #{memberEmail},
-		    Member_Role = #{memberRole}
+		    Member_Role = #{memberRole},
+		    Member_Date = #{memberDate},
+		    ZondCode = ${zoneCode},
+		    MainAddress = #{mainAddress},
+		    DetailAddress = #{detailAddress}
 		WHERE Member_ID = #{memberID}
 	</update>
 	

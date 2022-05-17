@@ -27,6 +27,29 @@
 
 <title>회원정보 페이지</title>
 </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+            	// 주소의 변수
+            	var addr = '';
+            	if(data.userSelectedType === 'R'){ // 사용자가 도로명 주소 선택
+            		addr = data.roadAddress;
+            	}else{                             // 지번 주소 선택
+            		addr = data.jibunAddress;
+            	}
+            		
+            	document.getElementById("zoneCode").value = data.zonecode  // 새 우편번호 넣기
+                document.getElementById("mainAddress").value = addr; // 주소 넣기
+                document.querySelector("input[name=detailAddress]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
+</script>
 <script>
 	$(document).ready(function() {
 		$("#updateMember").click(function() {
@@ -119,6 +142,16 @@
 			<h5 class="card-title">이메일 주소</h5>
 			<p class="card-text">${memberDto.memberEmail }</p>
 		</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">생년월일</h5>
+			<p class="card-text">${memberDto.memberDate }</p>
+		</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">집주소</h5>
+			<p class="card-text">${memberDto.zoneCode }</p>
+			<p class="card-text">${memberDto.mainAddress }</p>
+			<p class="card-text">${memberDto.detailAddress }</p>
+		</div>
 	</div>
 
 	<div class="card border-secondary mb-3" id="memberS">
@@ -130,7 +163,8 @@
 		</div>
 	</div>
 
-	<form action="${appRoot }/member/editUser" method="post" id="updateMemberForm">
+	<form action="${appRoot }/member/editUser" method="post"
+		id="updateMemberForm">
 		<div class="card border-secondary mb-3 d-none" id="updateMemberBoard">
 			<div class="card-header">기본정보</div>
 			<div class="card-body text-secondary">
@@ -152,10 +186,36 @@
 				<input class="input is-success" type="text" name="memberEmail"
 					value="${memberDto.memberEmail }" style="border: 1 solid black" />
 			</div>
+
+			<div class="field">
+				<label class="label">주소</label>
+				<div class="control">
+					<input class="input" type="text" id="zoneCode" name="zoneCode"
+						value="${memberDto.zoneCode }">
+				</div>
+				<div class="control">
+					<input class="input" type="text" id="mainAddress" name="mainAddress"
+						value="${memberDto.mainAddress }">
+					<span class="tag is-primary" id="address_kakao" >우편번호 찾기</span>
+					<!-- <button id="address_kakao">우편번호 찾기</button> -->
+				</div>
+			</div>
+			<div class="field">
+				<label class="label">상세 주소</label>
+				<div class="control">
+					<input class="input" type="text" name="detailAddress"
+						value="${memberDto.detailAddress }">
+				</div>
+			</div>
+<%-- 			<div class="card-body text-secondary">
+				<h5 class="card-title">생년월일</h5>
+				<input class="input is-success" type="text" name="memberDate"
+					value="${memberDto.memberDate }" style="border: 1 solid black" />
+			</div> --%>
 			<input type="hidden" name="memberID" value="${memberDto.memberID }" />
 			<button>수정 완료</button>
 			<hr />
-			
+
 			<div class="card-body text-secondary" id="deleteMember">
 				<button>회원 탈퇴</button>
 			</div>

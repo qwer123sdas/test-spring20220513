@@ -13,6 +13,11 @@ public class MemberDto {
 	private String memberSex;
 	private String memberEmail;
 	private String memberRole;
+	
+	private int zoneCode;
+	private String mainAddress;
+	private String detailAddress;
+	
 	private int memberKaKao;
 	
 }
