@@ -46,7 +46,7 @@
 			e.preventDefault();
 			if (confirm("삭제하시겠습니까?")) {
 				let form1 = $("#formBoard");
-				let actionAttr = "${appRoot }/ex01/board/delete";
+				let actionAttr = "${appRoot }/ex01/board/deletUser";
 				form1.attr("action", actionAttr);
 
 				form1.submit();

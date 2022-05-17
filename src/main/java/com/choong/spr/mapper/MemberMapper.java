@@ -15,7 +15,13 @@ public interface MemberMapper {
 	int idCheck(String id);
 	
 	// 회원 정보 페이지
-	MemberDto userDetail(String name);
+	MemberDto userDetail(String id);
+
+	// 회원 정보 수정
+	void editUser(MemberDto dto);
+
+	// 회원 탈퇴
+	void deletUser(String id);
 }
 
 

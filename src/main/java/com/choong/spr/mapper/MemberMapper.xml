@@ -5,28 +5,50 @@
 <mapper namespace="com.choong.spr.mapper.MemberMapper">
 	<!-- 로그인 하기 -->
 	<select id="userLogin" resultType="String">
-		SELECT Member_Name memberName FROM Member
+		SELECT Member_Name memberName
+		FROM Member
 		WHERE Member_ID=#{memberID} AND Member_PW=#{memberPW}
 	</select>
-	
-	<!-- 회원 정보 페이지  -->
-	<select id="userDetail" resultType="com.choong.spr.domain.MemberDto">
-		SELECT Member_ID memberID, Member_PW memberPW, Member_Name memberName, Member_Date memberDate, Member_Sex memberSex, Member_Email memberEmail, Member_Role memberRole
+
+	<!-- 회원 정보 페이지 -->
+	<select id="userDetail"
+		resultType="com.choong.spr.domain.MemberDto">
+		SELECT Member_ID memberID, Member_PW memberPW, Member_Name
+		memberName, Member_Date memberDate, Member_Sex memberSex, Member_Email
+		memberEmail, Member_Role memberRole
 		FROM Member
-		WHERE Member_Name=#{name}
+		WHERE
+		Member_ID=#{id}
 	</select>
-	
+
 	<!-- 아이디 중복 검사 -->
 	<select id="idCheck" resultType="int">
-		SELECT count(Member_ID) FROM Member 
+		SELECT count(Member_ID) FROM
+		Member
 		WHERE Member_ID=#{id}
 	</select>
-	
-	<!-- 회원가입  -->
-	<insert id="singUp" parameterType="com.choong.spr.domain.MemberDto">
-		INSERT INTO Member(Member_ID, Member_PW, Member_Name, Member_Date, Member_Sex, Member_Email, Member_Role)
-		VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberDate}, #{memberSex}, #{memberEmail}, #{memberRole})
+
+	<!-- 회원가입 -->
+	<insert id="singUp"
+		parameterType="com.choong.spr.domain.MemberDto">
+		INSERT INTO Member(Member_ID, Member_PW, Member_Name,
+		Member_Date, Member_Sex, Member_Email, Member_Role)
+		VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberDate},
+		#{memberSex}, #{memberEmail}, #{memberRole})
 	</insert>
+
+	<!-- 회원정보 수정 -->
+	<update id="editUser">
+		UPDATE Member
+		SET Member_Name = #{memberName},
+		    Member_Email = #{memberEmail},
+		    Member_Role = #{memberRole}
+		WHERE Member_ID = #{memberID}
+	</update>
 	
-	
+	<!-- 회원 탈퇴 -->
+	<delete id="deletUser">
+		DELETE FROM Member
+  		WHERE Member_ID = #{id}
+	</delete>
 </mapper>

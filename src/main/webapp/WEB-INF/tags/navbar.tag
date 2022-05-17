@@ -18,10 +18,10 @@
 
 	<div id="navbarBasicExample" class="navbar-menu">
 		<div class="navbar-start">
-			<c:if test="${empty sessionScope.id }">
+			<c:if test="${empty sessionScope.name }">
 				<a class="navbar-item"> 글 작성 </a>
 			</c:if>
-			<c:if test="${not empty sessionScope.id }">
+			<c:if test="${not empty sessionScope.name }">
 				<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a>
 				<a class="navbar-item" href="${appRoot }/member/userDetailPage"> 회원 정보
 				</a>
@@ -33,7 +33,7 @@
 
 		<div class="navbar-end">
 			<div class="navbar-item">
-				<c:if test="${empty sessionScope.id }">
+				<c:if test="${empty sessionScope.name }">
 					<div class="buttons">
 						<button class="button is-light"
 							onclick="location.href='/spr/member/signUpPage'">
@@ -44,9 +44,9 @@
 					</div>
 				</c:if>
 
-				<c:if test="${not empty sessionScope.id }">
+				<c:if test="${not empty sessionScope.name }">
 					<div class="buttons">
-						<p>${sessionScope.id }회원님</p>
+						<p>${sessionScope.name }회원님</p>
 						<form action="${appRoot }/member/logout">
 							<input type="hidden" name="path" value="${URI }" />
 							<button class="button is-light">Log out</button>

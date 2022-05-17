@@ -54,7 +54,7 @@
 						<c:forEach items="${boardList }" var="board">
 							<tr>
 								<td>${board.id }</td>
-								<c:if test="${not empty sessionScope.id }">
+								<c:if test="${not empty sessionScope.name }">
 									<td>
 										<a href="${appRoot }/ex01/board/${board.id }">
 											${board.title } </a>
@@ -62,7 +62,7 @@
 									<td>${board.inserted }</td>
 								</c:if>
 
-								<c:if test="${empty sessionScope.id }">
+								<c:if test="${empty sessionScope.name }">
 									<td>
 										<a> ${board.title } </a>
 									</td>

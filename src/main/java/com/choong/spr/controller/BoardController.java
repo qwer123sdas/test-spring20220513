@@ -2,6 +2,8 @@ package com.choong.spr.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,9 +33,10 @@ public class BoardController {
 	
 	// 게시판 목록 
 	@RequestMapping("list")
-	public void orderList(Model model) {
+	public void orderList(Model model, HttpSession session) {
 		List<BoardDto> boardList = service.findOrder();
 		model.addAttribute("boardList", boardList);
+		
 	}
 	
 	// 게시글 보기 + 댓글 목록 보기

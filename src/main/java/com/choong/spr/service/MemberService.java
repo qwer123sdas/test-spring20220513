@@ -24,10 +24,14 @@ public class MemberService implements MemberServiceImpl {
 	@Override
 	public boolean userLogin(MemberDto dto, HttpSession session) throws Exception {
 		boolean isLogin = isLogin(dto.getMemberID());
+		
 		if (!isLogin) {
-			String result = mapper.userLogin(dto);
-			if (result != null && result != "") {
-				setSession(session, dto);
+			String name = mapper.userLogin(dto);
+			if (name != null && name != "") {
+				MemberDto user = mapper.userDetail(dto.getMemberID());
+				String userName = user.getMemberName();
+				String userId = user.getMemberID();
+				setSession(session, dto, userName, userId);
 				return true;
 			}
 			
@@ -68,10 +72,11 @@ public class MemberService implements MemberServiceImpl {
 
 	}
 	
-	// 아이디 중복검사 및 session에 로그인 한 정보 저장
-	public void setSession(HttpSession session, MemberDto dto) {
+	// 아이디 중복검사 및 session에 로그인 한 정보 저장(이름)
+	public void setSession(HttpSession session, MemberDto dto, String userName, String userId) {
 		loginUsers.put(session.getId(), dto.getMemberID());
-		session.setAttribute("id", dto.getMemberID());
+		session.setAttribute("name", userName);
+		session.setAttribute("id", userId);
 	}
 
 	// 아이디 중복 검사
@@ -87,9 +92,19 @@ public class MemberService implements MemberServiceImpl {
 
 
 	
-	// 회원홈페이지 들어갈 때
-	public MemberDto userDetail(String name) {
-		return mapper.userDetail(name);
+	// 회원홈페이지 들어갈 때, 회원정보 가져오기
+	public MemberDto userDetail(String id) {
+		return mapper.userDetail(id);
+	}
+
+	// 회원 정보 수정
+	public void editUser(MemberDto dto) {
+		mapper.editUser(dto);
+	}
+
+	// 회원 탈퇴
+	public void deleteUser(String id) {
+		mapper.deletUser(id);
 	}
 
 

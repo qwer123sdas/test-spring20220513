@@ -26,7 +26,7 @@ public class MemberController {
 	// 로그인 페이지-----------------------------------------------------
 	@GetMapping("loginPage")
 	public void userLoginPage1() {
-		
+
 	}
 	// 로그인 하기
 	@PostMapping("login")
@@ -38,6 +38,7 @@ public class MemberController {
 			mav.setViewName("redirect:/ex01/list");
 		}else {
 			//model.addAttribute(, );
+			System.out.println("로그인 안됨");
 			mav.setViewName("/member/loginPage");
 		}
 		return mav;
@@ -77,16 +78,30 @@ public class MemberController {
 	
 	// 회원 정보 페이지 --------------------------------------------------------------------
 	@RequestMapping("userDetailPage")
-	public void userDetailPage(HttpSession session, Model model) {
-		String name = (String)session.getAttribute("id");
-		System.out.println(name);
-		MemberDto memberDto = service.userDetail(name);
-		System.out.println(memberDto);
+	public void userDetailPage(HttpSession session, Model model) throws Exception{
+		String id = (String)session.getAttribute("id");
+		MemberDto memberDto = service.userDetail(id);
+		
+		session.setAttribute("name", memberDto.getMemberName());
 		model.addAttribute("memberDto", memberDto);
 	}
-	@GetMapping("editPage")
-	public void eidtPage(MemberDto dto, HttpSession session) {
+	
+	// 회원 정보 수정
+	@PostMapping("editUser")
+	public String editPage(MemberDto dto, HttpSession session) {
+		service.editUser(dto);
 		
+		return "redirect:/member/userDetailPage";
+	}
+	
+	// 회원 탈퇴
+	@PostMapping("deleteUser")
+	public String deleteUser(HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		service.deleteUser(id);
+		
+		
+		return "redirect:/member/loginPage";
 	}
 	
 	
