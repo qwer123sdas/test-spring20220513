@@ -21,6 +21,14 @@
 <!-- Bulma  -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<!-- Naver -->
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	
+	
 <title>회원가입</title>
 <script>
 	function checks() {
@@ -106,31 +114,29 @@
 			return true;
 		}
 	}
-	
-	
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-window.onload = function(){
-    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-        //카카오 지도 발생
-        new daum.Postcode({
-            oncomplete: function(data) { //선택시 입력값 세팅
-            	// 주소의 변수
-            	var addr = '';
-            	if(data.userSelectedType === 'R'){ // 사용자가 도로명 주소 선택
-            		addr = data.roadAddress;
-            	}else{  // 지번 주소 선택
-            		addr = data.jibunAddress;
-            	}
-            		
-            	document.getElementById("zoneCode").value = data.zonecode  // 새 우편번호 넣기
-                document.getElementById("mainAddress").value = addr; // 주소 넣기
-                document.querySelector("input[name=detailAddress]").focus(); //상세입력 포커싱
-            }
-        }).open();
-    });
-}
+	window.onload = function() {
+		document.getElementById("address_kakao").addEventListener("click",function() {   //주소입력칸을 클릭하면
+			new daum.Postcode( //카카오 지도 발생
+					{
+						oncomplete : function(data) { //선택시 입력값 세팅
+							// 주소의 변수
+							var addr = '';
+							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소 선택
+								addr = data.roadAddress;
+							} else { // 지번 주소 선택
+								addr = data.jibunAddress;
+							}
+
+							document.getElementById("zoneCode").value = data.zonecode // 새 우편번호 넣기
+							document.getElementById("mainAddress").value = addr; // 주소 넣기
+							document.querySelector("input[name=detailAddress]").focus(); //상세입력 포커싱
+						}
+					}).open();
+			});
+	}
 </script>
 </head>
 
@@ -206,17 +212,20 @@ window.onload = function(){
 				<div class="field">
 					<label class="label">주소</label>
 					<div class="control">
-						<input class="input" type="text" id="zoneCode" name="zoneCode" placeholder="우편번호" readonly>
+						<input class="input" type="text" id="zoneCode" name="zoneCode"
+							placeholder="우편번호" readonly>
 					</div>
 					<div class="control">
-						<input class="input" type="text" id="mainAddress" name="mainAddress" placeholder="주소" >
+						<input class="input" type="text" id="mainAddress"
+							name="mainAddress" placeholder="주소">
 						<button id="address_kakao">우편번호 찾기</button>
 					</div>
 				</div>
 				<div class="field">
 					<label class="label">상세 주소</label>
 					<div class="control">
-						<input class="input" type="text"  name="detailAddress" placeholder="상세주소" >
+						<input class="input" type="text" name="detailAddress"
+							placeholder="상세주소">
 					</div>
 				</div>
 
@@ -226,7 +235,7 @@ window.onload = function(){
 						<input type="text" name="memberRole" />
 					</div>
 				</div>
-				
+
 				<div class="field">
 					<label class="label">Email</label>
 					<div class="control has-icons-left has-icons-right">
@@ -248,7 +257,7 @@ window.onload = function(){
 						<input type="text" name="memberDate" />
 					</div>
 				</div>
-				
+
 				<div class="field">
 					<div class="control">
 						<label class="radio">
@@ -288,6 +297,40 @@ window.onload = function(){
 			</form>
 		</div>
 	</div>
-
 </body>
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
+			"http://localhost:8080/spr/member/naverCallBack");
+	// 네이버 사용자 프로필 조회
+	naver_id_login.get_naver_userprofile("naverSignInCallback()");
+
+	function naverSignInCallback() {
+		if(naver_id_login.getProfileData('id')){
+			var id = naver_id_login.getProfileData('id');
+			var name = naver_id_login.getProfileData('name');
+			var email = naver_id_login.getProfileData('email');
+			var gender = naver_id_login.getProfileData('gender');
+			var birthday = naver_id_login.getProfileData('birthday');
+			var mobile = naver_id_login.getProfileData('mobile');
+		}
+	}
+		
+	
+	
+	function signUpCheck(id, name, email){
+		$.ajax({
+			type: "POST",
+			url: "${appRoot}/member/signUpCheck?memberKaKao=" + id + "&name=" + name+ "&email=" + email,
+			data: {"memberKaKao" : "id", "memberName" : "name", "memberEmail" : "email"},
+			contentType: "application/json; charset=utf-8",
+			success : function(result){
+							if(result == 0){
+								alter("회원가입을 해야 합니다.")
+							}else if(result == 1){
+								alter("이미 회원가입이 되어있습니다.")
+							}
+					}
+		});
+	};
+</script>
 </html>

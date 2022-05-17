@@ -22,6 +22,9 @@ public interface MemberMapper {
 
 	// 회원 탈퇴
 	void deletUser(String id);
+	
+	// 네이버 아이디 연동 여부 확인
+	int signUpCheck(@Param("memberKaKao") int memberKaKao, @Param("name")String name, @Param("email")String email);
 }
 
 

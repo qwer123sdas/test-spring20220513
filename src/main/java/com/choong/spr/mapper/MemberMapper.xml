@@ -27,6 +27,12 @@
 		Member
 		WHERE Member_ID=#{id}
 	</select>
+	<!--네이버 아이디 연동여부 확인 -->
+	<select id="signUpCheck">
+		SELECT count(Member_KaKao) FROM
+		Member
+		WHERE Member_KaKao=#{memberKaKao} AND Member_Email=#{email} AND Member_Name=#{name}
+	</select>
 
 	<!-- 회원가입 -->
 	<insert id="singUp"

@@ -110,7 +110,18 @@ public class MemberController {
 	@RequestMapping("naverCallBack")
 	public void callback() {
 	}
-
+	
+	// 네이버 연동 아이디 있는 지 여부 파악
+	@PostMapping("signUpCheck")
+	public void signUpCheck(int memberKaKao, String name, String email, HttpServletResponse res) throws Exception {
+		int result = 0;
+		if(service.signUpCheck(memberKaKao, name, email) != 0 ) {
+			// 이미 회원 가입
+			result = 1;
+		}
+		
+		res.getWriter().print(result);
+	}
 
 	/*	@RequestMapping("personalInfo")
 		public void personalInfo(HttpServletRequest request, HttpSession session) throws Exception {

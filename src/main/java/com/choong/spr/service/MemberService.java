@@ -111,6 +111,11 @@ public class MemberService implements MemberServiceImpl {
 		mapper.deletUser(id);
 	}
 
+	// 네이버 아이디 연동 여부 확인
+	public int signUpCheck(int memberKaKao, String name, String email) {
+		return mapper.signUpCheck(memberKaKao, name, email);
+	}
+
 
 
 }

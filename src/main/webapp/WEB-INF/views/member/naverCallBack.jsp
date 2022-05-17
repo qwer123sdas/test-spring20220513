@@ -16,32 +16,40 @@
 		var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
 				"http://localhost:8080/spr/member/naverCallBack");
 		// 접근 토큰 값 출력
-		$('body')
-				.append(
-						'<h4>접속토큰:' + naver_id_login.oauthParams.access_token
-								+ '</h4>');
+		$('body').append('<h4>접속토큰:' + naver_id_login.oauthParams.access_token
+							+ '</h4>');
 		// 네이버 사용자 프로필 조회
 		naver_id_login.get_naver_userprofile("naverSignInCallback()");
 		// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
 		function naverSignInCallback() {
-			const email = naver_id_login.getProfileData('email');
-			const nickname = naver_id_login.getProfileData('nickname');
-			const name = naver_id_login.getProfileData('name');
-			const age = naver_id_login.getProfileData('age');
-			const gender = naver_id_login.getProfileData('gender');
-			const birthday = naver_id_login.getProfileData('birthday');
-			const mobile = naver_id_login.getProfileData('mobile');
-
-			let body = $('body');
-			body.append('로그인 성공!');
-			body.append('<h4>이메일:' + email + '</h4>');
-			body.append('<h4>닉네임:' + nickname + '</h4>');
-			body.append('<h4>이름:' + name + '</h4>');
-			//body.append('<h4>나이:'+age+'</h4>');
-			body.append('<h4>성별:' + gender + '</h4>');
-			body.append('<h4>생일:' + birthday + '</h4>');
-			body.append('<h4>전화번호:' + mobile + '</h4>');
+			if(naver_id_login.getProfileData('id')){
+				var id = naver_id_login.getProfileData('id');
+				var name = naver_id_login.getProfileData('name');
+				var email = naver_id_login.getProfileData('email');
+				var gender = naver_id_login.getProfileData('gender');
+				var birthday = naver_id_login.getProfileData('birthday');
+				var mobile = naver_id_login.getProfileData('mobile');
+			}
 		}
+			
+		
+		
+		function signUpCheck(id, name, email){
+			$.ajax({
+				type: "POST",
+				url: "${appRoot}/member/signUpCheck",
+				
+				data: {"memberKaKao" : "id", "memberName" : "name", "memberEmail" : "email"},
+				contentType: "application/json; charset=utf-8",
+				success : function(result){
+								if(result == 0){
+									alter("회원가입을 해야 합니다.")
+								}else if(result == 1){
+									alter("이미 회원가입이 되어있습니다.")
+								}
+						}
+			});
+		};
 	</script>
 </body>
 </html>

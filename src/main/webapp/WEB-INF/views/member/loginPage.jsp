@@ -106,7 +106,7 @@
 		var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
 				"http://localhost:8080/spr/member/naverCallBack");
 		var state = naver_id_login.getUniqState();
-		naver_id_login.setButton("white", 2, 40);
+		naver_id_login.setButton("green", 3, 40);
 		naver_id_login.setDomain("YOUR_SERVICE_URL");
 		naver_id_login.setState(state);
 		naver_id_login.setPopup();
