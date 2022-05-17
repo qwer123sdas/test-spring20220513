@@ -11,7 +11,7 @@
 	
 	<!-- 아이디 중복 검사 -->
 	<select id="idCheck" resultType="int">
-		SELECT count(*) FROM Member 
+		SELECT count(Member_ID) FROM Member 
 		WHERE Member_ID=#{id}
 	</select>
 	

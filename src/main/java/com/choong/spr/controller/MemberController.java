@@ -67,10 +67,12 @@ public class MemberController {
 	// 아이디 중복 검사
 	@PostMapping("/idCheck")
 	public void idCheck(String id, HttpServletResponse res) throws Exception{
+		System.out.println(id);
 		int result = 0;
 		if(service.idCheck(id) != 0) {
 			result = 1;
 		}
+		System.out.println("마지막 result = " + result);
 		res.getWriter().print(result);
 	}
 

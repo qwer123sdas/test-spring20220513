@@ -26,7 +26,7 @@ public class MemberService implements MemberServiceImpl {
 		boolean isLogin = isLogin(dto.getMemberID());
 		if (!isLogin) {
 			String result = mapper.userLogin(dto);
-			if (result != null || result != "") {
+			if (result != null && result != "") {
 				setSession(session, dto);
 				return true;
 			}

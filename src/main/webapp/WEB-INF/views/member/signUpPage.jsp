@@ -24,14 +24,12 @@
 <title>회원가입</title>
 <script>
 	function checks() {
-		console.log("1111")
-		return true;
-		// 값 불러오기
+		// 값 불러오기  // value 불러오기
 		var id = document.getElementById("id").value;
 		var pW = document.getElementById("pw").value;
 		var tempPw = document.getElementById("tempPw").value;
 		var name = document.getElementById("name").value;
-		// value 불러오기
+		
 
 		if (id != "" && pw != "" && tempPw != "" && name != "") {
 			return true;
@@ -42,11 +40,13 @@
 	}
 </script>
 <script>
+	// 아이디 중복 여부 
 	$(document).ready(function() {
+		var id = document.getElementById("id");
 		$("#idCheck").on('click', function() {
 			$.ajax({
 				type : 'POST',
-				url : '${appRoot}/member/idCheck?id=' + $('#memberID').val(),
+				url : '${appRoot}/member/idCheck?id=' + $('#id').val(),
 				success : function(data) {
 					if (data == 0) {
 						alert("사용가능")
@@ -56,6 +56,7 @@
 						alert("사용 불가능")
 						$('#id-success').addClass("d-none");
 						$('#id-danger').removeClass("d-none");
+						id.value = "";
 						$('#memberID').val('');
 					}
 				}
