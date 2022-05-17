@@ -68,7 +68,6 @@
 <body>
 	<nav:navbar></nav:navbar>
 
-
 	<h1>${board.id }번게시글</h1>
 
 	<form class="box" id="formBoard" action="${appRoot }/ex01/board/modify"

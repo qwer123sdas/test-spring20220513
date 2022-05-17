@@ -3,7 +3,7 @@
 
 <!-- navBar -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
-	<div class="navbar-brand">
+	<div class="navbar-brand has-icons-left" >
 		<a class="navbar-item" href="${appRoot }/ex01/list">
 			HOME
 			<i class="fa-solid fa-house m"> </i>
@@ -23,7 +23,7 @@
 			</c:if>
 			<c:if test="${not empty sessionScope.id }">
 				<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a>
-				<a class="navbar-item" href="${appRoot }/member/editPage"> 회원 정보
+				<a class="navbar-item" href="${appRoot }/member/userDetailPage"> 회원 정보
 				</a>
 			</c:if>
 		</div>

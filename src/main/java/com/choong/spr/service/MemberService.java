@@ -86,4 +86,12 @@ public class MemberService implements MemberServiceImpl {
 	}
 
 
+	
+	// 회원홈페이지 들어갈 때
+	public MemberDto userDetail(String name) {
+		return mapper.userDetail(name);
+	}
+
+
+
 }

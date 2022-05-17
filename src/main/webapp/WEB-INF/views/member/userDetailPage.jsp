@@ -42,7 +42,13 @@
 </style>
 <body>
 	<article class="test panel is-success is-half">
-		<p class="panel-heading">회원 관리</p>
+
+		<p class="panel-heading">
+			<a class="navbar-item" href="${appRoot }/ex01/list">
+				<i class="fa-solid fa-house m"> </i>
+			</a>
+			회원 관리
+		</p>
 		<p class="panel-tabs"></p>
 		<div class="panel-block">
 			<p class="control has-icons-left">
@@ -76,23 +82,22 @@
 		<div class="card-header">기본정보</div>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">이름</h5>
-			<p class="card-text">Some quick example text to build on the card</p>
+			<p class="card-text">${memberDto.memberName }</p>
 		</div>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">아이디</h5>
-			<p class="card-text">Some quick example text to build on the card</p>
-		</div>
-		<div class="card-body text-secondary">
-			<h5 class="card-title">비밀번호</h5>
-			<p class="card-text">Some quick example text to build on the card</p>
+			<p class="card-text">${memberDto.memberID }</p>
 		</div>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">핸드폰번호</h5>
-			<p class="card-text">Some quick example text to build on the card</p>
+			<p class="card-text">${memberDto.memberRole }</p>
 		</div>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">이메일 주소</h5>
-			<p class="card-text">Some quick example text to build on the card</p>
+			<p class="card-text">${memberDto.memberEmail }</p>
+		</div>
+		<div class="card-body text-secondary">
+			<a class="card-title">회원 탈퇴</a>
 		</div>
 	</div>
 

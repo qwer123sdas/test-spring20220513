@@ -67,19 +67,25 @@ public class MemberController {
 	// 아이디 중복 검사
 	@PostMapping("/idCheck")
 	public void idCheck(String id, HttpServletResponse res) throws Exception{
-		System.out.println(id);
 		int result = 0;
 		if(service.idCheck(id) != 0) {
 			result = 1;
 		}
-		System.out.println("마지막 result = " + result);
 		res.getWriter().print(result);
 	}
 
 	
 	// 회원 정보 페이지 --------------------------------------------------------------------
+	@RequestMapping("userDetailPage")
+	public void userDetailPage(HttpSession session, Model model) {
+		String name = (String)session.getAttribute("id");
+		System.out.println(name);
+		MemberDto memberDto = service.userDetail(name);
+		System.out.println(memberDto);
+		model.addAttribute("memberDto", memberDto);
+	}
 	@GetMapping("editPage")
-	public void eidtPage() {
+	public void eidtPage(MemberDto dto, HttpSession session) {
 		
 	}
 	

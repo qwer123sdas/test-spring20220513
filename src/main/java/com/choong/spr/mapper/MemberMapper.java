@@ -1,5 +1,7 @@
 package com.choong.spr.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.choong.spr.domain.MemberDto;
 
 public interface MemberMapper {
@@ -11,6 +13,9 @@ public interface MemberMapper {
 	
 	// 아이디 중복 검사
 	int idCheck(String id);
+	
+	// 회원 정보 페이지
+	MemberDto userDetail(String name);
 }
 
 
