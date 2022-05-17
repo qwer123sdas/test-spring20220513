@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
 
-<%@ page import="java.net.URLEncoder"%>
-<%@ page import="java.security.SecureRandom"%>
-<%@ page import="java.math.BigInteger"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +26,7 @@
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <title>로그인 화면</title>
 </head>
+
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
@@ -100,21 +98,20 @@
 			</div>
 		</div>
 	</div>
-	<%
-		String clientId = "myKQG3U17i94iAlkHWR4";//애플리케이션 클라이언트 아이디값";
-	String redirectURI = URLEncoder.encode("http://localhost:8080/spr/member/callback", "UTF-8");
-	SecureRandom random = new SecureRandom();
-	String state = new BigInteger(130, random).toString();
-	String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-	apiURL += "&client_id=" + clientId;
-	apiURL += "&redirect_uri=" + redirectURI;
-	apiURL += "&state=" + state;
-	session.setAttribute("state", state);
-	%>
-	<a href="<%=apiURL%>">
-		<img height="50"
-			src="http://static.nid.naver.com/oauth/small_g_in.PNG" />
-	</a>
+	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
+	<div id="naver_id_login"></div>
+	<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+	
+	<script type="text/javascript">
+		var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
+				"http://localhost:8080/spr/member/naverCallBack");
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("white", 2, 40);
+		naver_id_login.setDomain("YOUR_SERVICE_URL");
+		naver_id_login.setState(state);
+		naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+	</script>
 
 	<!-- 메세지 -->
 	<c:if test="${not empty message }">
