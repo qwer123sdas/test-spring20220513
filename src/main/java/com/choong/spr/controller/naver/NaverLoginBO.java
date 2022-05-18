@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -13,7 +14,7 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-
+@Service
 public class NaverLoginBO {
 	/* 인증 요청문을 구성하는 파라미터 */
 	// client_id: 애플리케이션 등록 후 발급받은 클라이언트 아이디
@@ -78,6 +79,7 @@ public class NaverLoginBO {
 	}
 
 	/* Access Token을 이용하여 네이버 사용자 프로필 API를 호출 */
+	// 사용자 프로필 조회
 	public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException{
 	OAuth20Service oauthService =new ServiceBuilder()
 	.apiKey(CLIENT_ID)

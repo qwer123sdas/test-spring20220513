@@ -16,6 +16,12 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<!-- ToStringBuilder -->
+		<dependency>
+			  <groupId>org.apache.commons</groupId>
+		 	 <artifactId>commons-lang3</artifactId>
+			  <version>3.4</version>
+		</dependency>
 		<!-- naver -->
 		<dependency>
 			<groupId>com.github.scribejava</groupId>

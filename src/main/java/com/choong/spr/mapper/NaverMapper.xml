@@ -3,9 +3,5 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choong.spr.mapper.NaverMapper">
-	<select id="signUpCheck" resultType="int">
-		SELECT count(sns_id) FROM
-		Member
-		WHERE Member_Name=#{name} AND Member_No=#{id}
-	</select>
+
 </mapper>

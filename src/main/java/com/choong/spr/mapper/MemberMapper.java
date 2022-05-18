@@ -3,6 +3,7 @@ package com.choong.spr.mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.choong.spr.domain.MemberDto;
+import com.choong.spr.domain.SnsUserDto;
 
 public interface MemberMapper {
 	// 로그인 하기
@@ -22,6 +23,12 @@ public interface MemberMapper {
 
 	// 회원 탈퇴
 	void deletUser(String id);
+	
+	// BO, 유저 이름 가져오기
+	MemberDto getUserByUserName(String userName);
+	
+	// BO, 유저 아이디 가져오기
+	SnsUserDto getUserBySnsId(String snsId);
 }
 
 

@@ -11,8 +11,7 @@ public class NaverService {
 	@Autowired
 	NaverMapper mapper;
 	
-	public int signUpCheck(String name, String id) {
-		return mapper.signUpCheck(name, Integer.valueOf(id));
+	public void method1() {
+		mapper.method();
 	}
-
 }
