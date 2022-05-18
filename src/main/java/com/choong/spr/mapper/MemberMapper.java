@@ -9,7 +9,7 @@ public interface MemberMapper {
 	String userLogin(MemberDto dto) throws Exception;
 	
 	// 회원 가입
-	void singUp(MemberDto dto);
+	void singUp(@Param("dto") MemberDto dto, @Param("id") int id);
 	
 	// 아이디 중복 검사
 	int idCheck(String id);
@@ -22,9 +22,6 @@ public interface MemberMapper {
 
 	// 회원 탈퇴
 	void deletUser(String id);
-	
-	// 네이버 아이디 연동 여부 확인
-	int signUpCheck(@Param("memberKaKao") int memberKaKao, @Param("name")String name, @Param("email")String email);
 }
 
 

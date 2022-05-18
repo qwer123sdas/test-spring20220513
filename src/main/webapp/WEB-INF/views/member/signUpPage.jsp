@@ -153,7 +153,7 @@
 					<label class="label">ID</label>
 					<div class="control has-icons-left has-icons-right">
 						<input class="input is-success" type="text" name="memberID"
-							id="id" placeholder="ID를 입력하세요.">
+							id="id" placeholder="ID를 입력하세요." >
 						<span class="icon is-small is-left">
 							<i class="fas fa-user"></i>
 						</span>
@@ -204,7 +204,7 @@
 					<label class="label">이름</label>
 					<div class="control">
 						<input class="input" type="text" name="memberName" id="name"
-							placeholder="Text input">
+							placeholder="Text input" value="${name}">
 					</div>
 				</div>
 
@@ -283,7 +283,7 @@
 						</label>
 					</div>
 				</div>
-
+				<input type="hidden" name="id" value="id"/>
 
 
 				<div class="field is-grouped">

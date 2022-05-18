@@ -42,7 +42,7 @@ public class MemberService implements MemberServiceImpl {
 	
 	// 회원가입
 	@Override
-	public void signUp(MemberDto dto) throws Exception {
+	public void signUp(MemberDto dto, int id) throws Exception {
 		System.out.println(dto);
 		dto.setMemberID(dto.getMemberID());
 		dto.setMemberPW(dto.getMemberPW());
@@ -54,8 +54,8 @@ public class MemberService implements MemberServiceImpl {
 		dto.setMainAddress(dto.getMainAddress());
 		dto.setDetailAddress(dto.getDetailAddress());
 		dto.setZoneCode(dto.getZoneCode());
-		
-		mapper.singUp(dto);
+	
+		mapper.singUp(dto, id);
 	}
 	
 	
@@ -111,9 +111,11 @@ public class MemberService implements MemberServiceImpl {
 		mapper.deletUser(id);
 	}
 
-	// 네이버 아이디 연동 여부 확인
-	public int signUpCheck(int memberKaKao, String name, String email) {
-		return mapper.signUpCheck(memberKaKao, name, email);
+
+	@Override
+	public void signUp(MemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 

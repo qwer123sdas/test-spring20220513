@@ -27,20 +27,17 @@
 		Member
 		WHERE Member_ID=#{id}
 	</select>
-	<!--네이버 아이디 연동여부 확인 -->
-	<select id="signUpCheck">
-		SELECT count(Member_KaKao) FROM
-		Member
-		WHERE Member_KaKao=#{memberKaKao} AND Member_Email=#{email} AND Member_Name=#{name}
-	</select>
+
 
 	<!-- 회원가입 -->
-	<insert id="singUp"
-		parameterType="com.choong.spr.domain.MemberDto">
+	<insert id="singUp" parameterType="com.choong.spr.domain.MemberDto">
 		INSERT INTO Member(Member_ID, Member_PW, Member_Name,
-		Member_Date, Member_Sex, Member_Email, Member_Role, ZondCode, MainAddress, DetailAddress)
-		VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberDate},
-		#{memberSex}, #{memberEmail}, #{memberRole}, #{zoneCode}, #{mainAddress}, #{detailAddress})
+		                   Member_Date, Member_Sex, Member_Email, Member_Role, ZondCode, MainAddress, DetailAddress)
+		  VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberDate},
+		         #{memberSex}, #{memberEmail}, #{memberRole}, #{zoneCode}, #{mainAddress}, #{detailAddress})
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+     		 SELECT LAST_INSERT_ID()
+   		 </selectKey>
 	</insert>
 
 	<!-- 회원정보 수정 -->

@@ -36,7 +36,7 @@ public class BoardController {
 	public void orderList(Model model, HttpSession session) {
 		List<BoardDto> boardList = service.findOrder();
 		model.addAttribute("boardList", boardList);
-		
+		System.out.println("list 세션 " + session.getAttribute("name"));
 	}
 	
 	// 게시글 보기 + 댓글 목록 보기

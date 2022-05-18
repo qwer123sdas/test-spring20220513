@@ -22,8 +22,10 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.choong.spr.controller" />
-
-
 	
 	
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverLoginBO" class="com.choong.spr.controller.naver.NaverLoginBO" />
+
+
 </beans:beans>

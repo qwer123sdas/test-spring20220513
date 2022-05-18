@@ -1,6 +1,10 @@
 package com.choong.spr.controller;
 
 
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -22,14 +26,15 @@ public class MemberController {
 	@Autowired
 	MemberService service;
 
+	private String CLIENT_ID = "myKQG3U17i94iAlkHWR4";
 	// 로그인 페이지-----------------------------------------------------
 	@GetMapping("loginPage")
-	public void userLoginPage1() {
+	public void userLoginPage1(HttpSession session, Model model) throws Exception{
 
 	}
 
 	// 로그인 하기
-	@PostMapping("login")
+	@RequestMapping("login")
 	public ModelAndView userLogin(@ModelAttribute MemberDto dto, HttpSession session, Model model) throws Exception {
 		boolean result = service.userLogin(dto, session);
 		ModelAndView mav = new ModelAndView();
@@ -39,7 +44,8 @@ public class MemberController {
 		} else {
 			//model.addAttribute(, );
 			System.out.println("로그인 안됨");
-			mav.setViewName("/member/loginPage");
+			model.addAttribute("message", "다시 로그인 해주세요.");
+			mav.setViewName("login");
 		}
 		return mav;
 	}
@@ -58,9 +64,9 @@ public class MemberController {
 	public void signUpPage() {
 	}
 
-	@PostMapping("signUp")
-	public String signUp(@ModelAttribute MemberDto dto) throws Exception {
-		service.signUp(dto);
+	@PostMapping("signUp")                   // 네이버 고유 id 처리
+	public String signUp(@ModelAttribute MemberDto dto, int id) throws Exception {
+		service.signUp(dto, id);
 		return "redirect:/member/loginPage";
 	}
 
@@ -101,58 +107,5 @@ public class MemberController {
 		return "redirect:/member/loginPage";
 	}
 
-	// 네이버 로그인 ----------------------------------------------------
-	@RequestMapping("naverlogin")
-	public void naverLogin() {
-
-	}
-
-	@RequestMapping("naverCallBack")
-	public void callback() {
-	}
-	
-	// 네이버 연동 아이디 있는 지 여부 파악
-	@PostMapping("signUpCheck")
-	public void signUpCheck(int memberKaKao, String name, String email, HttpServletResponse res) throws Exception {
-		int result = 0;
-		if(service.signUpCheck(memberKaKao, name, email) != 0 ) {
-			// 이미 회원 가입
-			result = 1;
-		}
-		
-		res.getWriter().print(result);
-	}
-
-	/*	@RequestMapping("personalInfo")
-		public void personalInfo(HttpServletRequest request, HttpSession session) throws Exception {
-			String token = "AAAAOCEQBBeCjzP9sTGcOpbD9DNpYyYcgm75YANDzlPcmDk2ZNNoKUv5I3Sm5NiKRgLPjH-IJ70aoyqFFzh9y5UeTWs";
-			// 네이버 로그인 접근 토큰; 여기에 복사한 토큰값을 넣어줍니다.       
-			String header = "Bearer " + token; // Bearer 다음에 공백 추가     
-			try {
-				String apiURL = "https://openapi.naver.com/v1/nid/me";
-				URL url = new URL(apiURL);
-				HttpURLConnection con = (HttpURLConnection) url.openConnection();
-				con.setRequestMethod("GET");
-				con.setRequestProperty("Authorization", header);
-				int responseCode = con.getResponseCode();
-				BufferedReader br;
-				if (responseCode == 200) { // 정상 호출           
-					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				} else { // 에러 발생          
-					br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-				}
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-	
-				while ((inputLine = br.readLine()) != null) {
-					response.append(inputLine);
-				}
-				br.close();
-				System.out.println(response.toString());
-				
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-		}*/
 
 }

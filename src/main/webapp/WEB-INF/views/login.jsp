@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="nav" tagdir="/WEB-INF/tags"%>
-
+<%@ page import="java.util.*"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
+
 <!--font-awesome  -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -24,14 +27,9 @@
 <!-- Bulma  -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-<title>로그인 화면</title>
+	
+<title>Insert title here</title>
 </head>
-
-<script type="text/javascript"
-	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-	charset="utf-8"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <body>
 	<nav class="level">
 		<p class="level-item has-text-centered">
@@ -78,6 +76,7 @@
 					<button class="button is-link is-fullwidth">
 						<span>로그인</span>
 					</button>
+					<h1>${message }</h1>
 				</div>
 			</form>
 			<div class="tabs is-centered is-6-desktop">
@@ -101,20 +100,21 @@
 
 	
 
-	<!--  -->
-	<div id="naver_id_login" style="text-align: center">
-		<a href="http://localhost:8080/spr/naverlogin">
-			<img width="223"
-				src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" />
-		</a>
-	</div>
 
+			<!-- 네이버 로그인 창으로 이동 -->
+			<div id="naver_id_login" style="text-align: center">
+				<a href="${url}">
+					<img width="223"
+						src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" />
+				</a>
+			</div>
 	
-	<!-- 메세지 -->
+		<!-- 메세지 -->
 	<c:if test="${not empty message }">
 		<div class="alert alert-primary">아이디나 비밀번호가 일치 하지 않습니다.</div>
 	</c:if>
+	
+	
+
 </body>
-
-
 </html>

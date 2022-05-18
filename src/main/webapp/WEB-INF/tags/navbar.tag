@@ -40,7 +40,7 @@
 							<strong>Sign up</strong>
 						</button>
 						<button class="button is-light"
-							onclick="location.href='/spr/member/loginPage'">Log in</button>
+							onclick="location.href='/spr/naverlogin'">Log in</button>
 					</div>
 				</c:if>
 
