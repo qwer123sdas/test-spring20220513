@@ -20,7 +20,7 @@ public class ReplyService {
 	}
 	// 댓글 추가
 	public void addReply(ReplyDto reply) {
-		reply.setInserted(LocalDateTime.now());
+		//reply.setInserted(LocalDateTime.now());
 		mapper.addReply(reply);
 	}
 	// 댓글 수정

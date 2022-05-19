@@ -46,8 +46,8 @@ public class MemberService implements MemberServiceImpl {
 		dto.setMemberID(dto.getMemberID());
 		dto.setMemberPW(dto.getMemberPW());
 		dto.setMemberName(dto.getMemberName());
-		dto.setMemberDate(LocalDateTime.now());
-		dto.setMemberSex(dto.getMemberSex());
+		dto.setMemberEmail(dto.getMemberEmail());
+		// dto.setMemberDate(LocalDateTime.now());
 		dto.setMemberRole(dto.getMemberRole());
 		
 		dto.setMainAddress(dto.getMainAddress());

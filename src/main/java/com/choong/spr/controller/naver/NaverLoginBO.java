@@ -1,10 +1,13 @@
 package com.choong.spr.controller.naver;
 
 import java.io.IOException;
+
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -14,7 +17,9 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
+
 @Service
+@PropertySource("classpath:naverApi.properties")
 public class NaverLoginBO {
 	/* 인증 요청문을 구성하는 파라미터 */
 	// client_id: 애플리케이션 등록 후 발급받은 클라이언트 아이디
@@ -22,9 +27,15 @@ public class NaverLoginBO {
 	// redirect_uri: 네이버 로그인 인증의 결과를 전달받을 콜백 URL(URL 인코딩). 애플리케이션을 등록할 때 Callback
 	// URL에 설정한 정보입니다.
 	// state: 애플리케이션이 생성한 상태 토큰
-	private final static String CLIENT_ID = "myKQG3U17i94iAlkHWR4";
-	private final static String CLIENT_SECRET = "LmdnIBXirE";
-	private final static String REDIRECT_URI = "http://localhost:8080/spr/member/naverCallBack";
+	@Value("${naverClient.ID}")
+	private String CLIENT_ID;
+	
+	@Value("${naverClient.PW}")
+	private String CLIENT_SECRET;
+	
+	@Value("${naverRedirect.URI}")
+	private String REDIRECT_URI;
+	
 	private final static String SESSION_STATE = "oauth_state";
 	/* 프로필 조회 API URL */
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";

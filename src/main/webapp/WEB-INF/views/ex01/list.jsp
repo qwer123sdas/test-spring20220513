@@ -66,8 +66,8 @@
 									<td>
 										<a> ${board.title } </a>
 									</td>
+									<td>${board.inserted }</td>
 								</c:if>
-								<td>${board.inserted }</td>
 							</tr>
 						</c:forEach>
 

@@ -14,7 +14,7 @@
 <body>
 	<script type="text/javascript">
 		var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
-				"http://localhost:8080/spr/member/naverCallBack");
+				"http://13.124.183.14/spr/member/naverCallBack");
 		// 접근 토큰 값 출력
 		//$('body').append('<h4>접속토큰:' + naver_id_login.oauthParams.access_token + '</h4>');
 		// 네이버 사용자 프로필 조회
@@ -34,7 +34,6 @@
 	<h1>콜백 페이지, 회원한텐 안보여야 함</h1>
 	<button id="signUpCheck">버튼</button>
 	<h3>'${name}' 님 환영합니다! </h3>
-	<h3><a href="http://localhost:8080/spr/naverlogout">로그아웃</a></h3>
 
 </body>
 </html>

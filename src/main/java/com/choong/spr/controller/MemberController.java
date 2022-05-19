@@ -45,7 +45,7 @@ public class MemberController {
 		} else {
 			//model.addAttribute(, );
 			System.out.println("로그인 안됨");
-			rttr.addAttribute("message", "다시 로그인 해주세요.");
+			rttr.addFlashAttribute("message", "다시 로그인 해주세요.");
 			mav.setViewName("redirect:/naverlogin");
 		}
 		return mav;

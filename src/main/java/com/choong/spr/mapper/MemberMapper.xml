@@ -46,10 +46,8 @@
 	</select> -->
 	<!-- 회원가입 -->
 	<insert id="singUp" parameterType="com.choong.spr.domain.MemberDto">
-		INSERT INTO Member(Member_ID, Member_PW, Member_Name,
-		                   Member_Date, Member_Sex, Member_Email, Member_Role, ZondCode, MainAddress, DetailAddress)
-		  VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberDate},
-		         #{memberSex}, #{memberEmail}, #{memberRole}, #{zoneCode}, #{mainAddress}, #{detailAddress})
+		INSERT INTO Member(Member_ID, Member_PW, Member_Name, Member_Email, Member_Role, ZondCode, MainAddress, DetailAddress)
+		  VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberEmail}, #{memberRole}, #{zoneCode}, #{mainAddress}, #{detailAddress})
 	</insert>
 
 	<!-- 회원정보 수정 -->

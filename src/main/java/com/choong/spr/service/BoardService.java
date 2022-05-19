@@ -46,7 +46,7 @@ public class BoardService {
 	}
 	// 게시글 작성
 	public void writeBoard(BoardDto boardDto) {
-		boardDto.setInserted(LocalDateTime.now());
+		//boardDto.setInserted(LocalDateTime.now());
 		
 		mapper.writeBoard(boardDto);
 	}

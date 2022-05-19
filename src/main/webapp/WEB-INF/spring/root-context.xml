@@ -18,6 +18,7 @@
 	<!-- properties  -->
 	<context:property-placeholder location="classpath:mydb2.properties"/>
 	
+	
 	<!--data source  -->
 	<bean id="dataSource" class="org.mariadb.jdbc.MariaDbPoolDataSource" destroy-method="close">
 		<property name="url" value="${db.fullUrl}"></property>

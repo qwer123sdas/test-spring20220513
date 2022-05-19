@@ -78,6 +78,8 @@
 					<button class="button is-link is-fullwidth">
 						<span>로그인</span>
 					</button>
+					<h1>loginPage</h1>
+					<h1>${message }</h1>
 				</div>
 			</form>
 			<div class="tabs is-centered is-6-desktop">
@@ -90,7 +92,7 @@
 					</li>
 					<li>
 						<a target="_blank"
-							href="http://localhost:8080/spr/member/signUpPage"
+							href="${appRoot }/member/signUpPage"
 							class="find_text">회원가입</a>
 					</li>
 
@@ -103,7 +105,7 @@
 
 	<!--  -->
 	<div id="naver_id_login" style="text-align: center">
-		<a href="http://localhost:8080/spr/naverlogin">
+		<a href="${appRoot }/naverlogin">
 			<img width="223"
 				src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" />
 		</a>

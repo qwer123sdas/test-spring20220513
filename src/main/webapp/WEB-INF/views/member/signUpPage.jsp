@@ -30,12 +30,32 @@
 	
 	
 <title>회원가입</title>
+<!-- 네이버 callBack시 필요한 부분 -->
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
+			"http://13.124.183.14/spr/member/naverCallBack");
+	// 네이버 사용자 프로필 조회
+	naver_id_login.get_naver_userprofile("naverSignInCallback()");
+
+	function naverSignInCallback() {
+		if(naver_id_login.getProfileData('id')){
+/* 			var id = naver_id_login.getProfileData('id');
+			var name = naver_id_login.getProfileData('name');
+			var email = naver_id_login.getProfileData('email');
+			var gender = naver_id_login.getProfileData('gender');
+			var birthday = naver_id_login.getProfileData('birthday');
+			var mobile = naver_id_login.getProfileData('mobile'); */
+		}
+	}
+		
+</script>
 <script>
 	function checks() {
 		// 값 불러오기  // value 불러오기
 		var id = document.getElementById("id").value;
 		var pW = document.getElementById("pw").value;
 		var tempPw = document.getElementById("tempPw").value;
+		var name = document.getElementById("name").value;
 		var zoneCode = document.getElementById("zoneCode").value;
 		var detailAddress = document.getElementById("detailAddress").value;
 		var memberRole = document.getElementById("memberRole").value;
@@ -300,39 +320,5 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
-			"http://localhost:8080/spr/member/naverCallBack");
-	// 네이버 사용자 프로필 조회
-	naver_id_login.get_naver_userprofile("naverSignInCallback()");
 
-	function naverSignInCallback() {
-		if(naver_id_login.getProfileData('id')){
-			var id = naver_id_login.getProfileData('id');
-			var name = naver_id_login.getProfileData('name');
-			var email = naver_id_login.getProfileData('email');
-			var gender = naver_id_login.getProfileData('gender');
-			var birthday = naver_id_login.getProfileData('birthday');
-			var mobile = naver_id_login.getProfileData('mobile');
-		}
-	}
-		
-	
-	
-	function signUpCheck(id, name, email){
-		$.ajax({
-			type: "POST",
-			url: "${appRoot}/member/signUpCheck?memberKaKao=" + id + "&name=" + name+ "&email=" + email,
-			data: {"memberKaKao" : "id", "memberName" : "name", "memberEmail" : "email"},
-			contentType: "application/json; charset=utf-8",
-			success : function(result){
-							if(result == 0){
-								alter("회원가입을 해야 합니다.")
-							}else if(result == 1){
-								alter("이미 회원가입이 되어있습니다.")
-							}
-					}
-		});
-	};
-</script>
 </html>
