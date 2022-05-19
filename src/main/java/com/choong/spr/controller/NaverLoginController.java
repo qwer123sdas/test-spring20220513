@@ -87,12 +87,7 @@ public class NaverLoginController {
 		 /* ++네이버 사용자 프로필 정보를 이용하여 가입되어있는 사용자를 DB에서 조회하여 가져온다. */
 		 // NaverDto naverDto = memberBO.getUserByNaverUser(naverUser);
 		
-		 /* ++ 만약 일치하는 사용자가 없다면 현재 로그인한 네이버 사용자 계정으로 회원가입이 가능하도록 가입페이지로 전달한다 */
-			/*		if (naverDto == null) {
-						// 계정 없음
-						System.out.println("꼐정이 없다!!");
-						return "redirect:/member/signUpPage";
-					}*/
+		 
 		
 		
 		//2. String형식인 apiResult를 json형태로 바꿈
@@ -108,6 +103,7 @@ public class NaverLoginController {
 		
 		
 		// ++ 회원가입된 계정 유무 확인
+		/* ++ 만약 일치하는 사용자가 없다면 현재 로그인한 네이버 사용자 계정으로 회원가입이 가능하도록 가입페이지로 전달한다 */
 		int result = service.signUpCheck(name, memberId);
 		if(result == 0) {
 			rttr.addFlashAttribute("id", memberId);
