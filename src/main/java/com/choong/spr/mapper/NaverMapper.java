@@ -6,5 +6,8 @@ public interface NaverMapper {
 
 	void method();
 	
+	// 회원가입 유무
+	int signUpCheck(@Param("name") String name, @Param("memberId")String memberId);
+	
 
 }

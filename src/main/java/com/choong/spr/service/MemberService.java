@@ -41,8 +41,7 @@ public class MemberService implements MemberServiceImpl {
 
 	
 	// 회원가입
-	@Override
-	public void signUp(MemberDto dto, int id) throws Exception {
+	public void signUp(MemberDto dto) throws Exception {
 		System.out.println(dto);
 		dto.setMemberID(dto.getMemberID());
 		dto.setMemberPW(dto.getMemberPW());
@@ -55,7 +54,7 @@ public class MemberService implements MemberServiceImpl {
 		dto.setDetailAddress(dto.getDetailAddress());
 		dto.setZoneCode(dto.getZoneCode());
 	
-		mapper.singUp(dto, id);
+		mapper.singUp(dto);
 	}
 	
 	
@@ -112,11 +111,8 @@ public class MemberService implements MemberServiceImpl {
 	}
 
 
-	@Override
-	public void signUp(MemberDto dto) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+
+
 
 
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choong.spr.domain.MemberDto;
 import com.choong.spr.service.MemberService;
@@ -35,7 +36,7 @@ public class MemberController {
 
 	// 로그인 하기
 	@RequestMapping("login")
-	public ModelAndView userLogin(@ModelAttribute MemberDto dto, HttpSession session, Model model) throws Exception {
+	public ModelAndView userLogin(@ModelAttribute MemberDto dto, HttpSession session, RedirectAttributes  rttr) throws Exception {
 		boolean result = service.userLogin(dto, session);
 		ModelAndView mav = new ModelAndView();
 
@@ -44,8 +45,8 @@ public class MemberController {
 		} else {
 			//model.addAttribute(, );
 			System.out.println("로그인 안됨");
-			model.addAttribute("message", "다시 로그인 해주세요.");
-			mav.setViewName("login");
+			rttr.addAttribute("message", "다시 로그인 해주세요.");
+			mav.setViewName("redirect:/naverlogin");
 		}
 		return mav;
 	}
@@ -64,10 +65,10 @@ public class MemberController {
 	public void signUpPage() {
 	}
 
-	@PostMapping("signUp")                   // 네이버 고유 id 처리
-	public String signUp(@ModelAttribute MemberDto dto, int id) throws Exception {
-		service.signUp(dto, id);
-		return "redirect:/member/loginPage";
+	@PostMapping("signUp")                  
+	public String signUp(@ModelAttribute MemberDto dto) throws Exception {
+		service.signUp(dto);
+		return "redirect:/naverlogin";
 	}
 
 	// 아이디 중복 검사
@@ -103,8 +104,8 @@ public class MemberController {
 	public String deleteUser(HttpSession session) {
 		String id = (String) session.getAttribute("id");
 		service.deleteUser(id);
-
-		return "redirect:/member/loginPage";
+		session.invalidate();
+		return "redirect:/naverlogin";
 	}
 
 

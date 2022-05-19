@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.choong.spr.BO.MemberBO;
 import com.choong.spr.controller.naver.NaverLoginBO;
 import com.choong.spr.controller.naver.NaverUser;
-import com.choong.spr.domain.SnsUserDto;
+import com.choong.spr.domain.NaverDto;
 import com.choong.spr.service.NaverService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
@@ -81,19 +81,18 @@ public class NaverLoginController {
 		"message":"success",
 		"response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
 		**/
-		
+		// response 객체, hashMap
 		// 무엇을 가져오는 것일 까? 22
-		NaverUser naverUser = memberBO.getNaverUserSession(session);
+		// NaverUser naverUser = memberBO.getNaverUserSession(session);
 		 /* ++네이버 사용자 프로필 정보를 이용하여 가입되어있는 사용자를 DB에서 조회하여 가져온다. */
-		SnsUserDto snsUser = memberBO.getUserByNaverUser(naverUser);
+		 // NaverDto naverDto = memberBO.getUserByNaverUser(naverUser);
 		
 		 /* ++ 만약 일치하는 사용자가 없다면 현재 로그인한 네이버 사용자 계정으로 회원가입이 가능하도록 가입페이지로 전달한다 */
-		if (snsUser == null) {
-			// 계정 없음
-			System.out.println("꼐정이 없다!!");
-			return "redirect:/member/signUpPage";
-		}
-		
+			/*		if (naverDto == null) {
+						// 계정 없음
+						System.out.println("꼐정이 없다!!");
+						return "redirect:/member/signUpPage";
+					}*/
 		
 		
 		//2. String형식인 apiResult를 json형태로 바꿈
@@ -103,15 +102,25 @@ public class NaverLoginController {
 		//3. 데이터 파싱
 		//Top레벨 단계 _response 파싱
 		JSONObject response_obj = (JSONObject)jsonObj.get("response");
-		//response의 nickname값 파싱
+		//response의 name값 파싱
 		String name = (String)response_obj.get("name");
+		String memberId = (String)response_obj.get("id");
+		
 		
 		// ++ 회원가입된 계정 유무 확인
-
+		int result = service.signUpCheck(name, memberId);
+		if(result == 0) {
+			rttr.addFlashAttribute("id", memberId);
+			rttr.addFlashAttribute("name", name);
+			return "redirect:/member/signUpPage";
+		}
+		
+		
 		/* ++ 만약 일치하는 사용자가 있다면 현재 세션에 사용자 로그인 정보를 저장 */
 		//4.파싱 닉네임 세션으로 저장
 		System.out.println("세션 저장 :  "+ name);
 		session.setAttribute("name", name); //세션 생성
+		session.setAttribute("id", memberId);
 		rttr.addAttribute("result", apiResult);
 		return "redirect:/ex01/list";
 

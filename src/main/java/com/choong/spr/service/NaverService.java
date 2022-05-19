@@ -14,4 +14,10 @@ public class NaverService {
 	public void method1() {
 		mapper.method();
 	}
+	
+	// 회원가입 유무
+	public int signUpCheck(String name, String memberId) {
+		int cnt = mapper.signUpCheck(name, memberId);
+		return cnt;
+	}
 }

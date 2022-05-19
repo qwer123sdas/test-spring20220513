@@ -36,23 +36,20 @@
 	</select>
 	
 	<!-- 네이버 아이디로 로그인 사용자 유니크 식별자를 통하여 가입정보를 조회 -->
-	<select id="getUserBySnsId" resultMap="com.choong.spr.domain.SnsUserDto">
+<!-- 	<select id="getUserBySnsId" resultMap="com.choong.spr.domain.NaverDto">
 		SELECT a.Member_Name,
 				a.Member_PW,
 				b.sns_id,
 				b.sns_name
-		FROM Member a, Naver_Info b
+		FROM Member a, Naver_INFO b
 		WHERE a.Member_No = b.id
-	</select>
+	</select> -->
 	<!-- 회원가입 -->
 	<insert id="singUp" parameterType="com.choong.spr.domain.MemberDto">
 		INSERT INTO Member(Member_ID, Member_PW, Member_Name,
 		                   Member_Date, Member_Sex, Member_Email, Member_Role, ZondCode, MainAddress, DetailAddress)
 		  VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberDate},
 		         #{memberSex}, #{memberEmail}, #{memberRole}, #{zoneCode}, #{mainAddress}, #{detailAddress})
-		<selectKey resultType="int" keyProperty="id" order="AFTER">
-     		 SELECT LAST_INSERT_ID()
-   		 </selectKey>
 	</insert>
 
 	<!-- 회원정보 수정 -->

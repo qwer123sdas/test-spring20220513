@@ -2,12 +2,13 @@ package com.choong.spr.BO;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.choong.spr.controller.naver.NaverUser;
 import com.choong.spr.domain.MemberDto;
-import com.choong.spr.domain.SnsUserDto;
+import com.choong.spr.domain.NaverDto;
 import com.choong.spr.mapper.MemberMapper;
 @Service
 public class MemberBO {
@@ -29,20 +30,21 @@ public class MemberBO {
 		session.setAttribute(USER_SESSION, dto);
 	}
 	
-	// 어떻게 무엇을 가져 오는 것?? 회원 정보?
-	public SnsUserDto getUserByNaverUser(NaverUser naverUser) {
-		/* TODO: implement */
-		if(naverUser != null){
-			String snsId = naverUser.getId();
-			return (SnsUserDto)mapper.getUserBySnsId(snsId);
-		}
-		return null;
-	}
-	
-	// 
+	// ???
 	public NaverUser getNaverUserSession(HttpSession session) {
 		NaverUser naverUser = (NaverUser)session.getAttribute(NAVER_SESSION);
 		return naverUser;
 	}
+	
+	// 어떻게 무엇을 가져 오는 것?? 회원 정보?
+	public NaverDto getUserByNaverUser(NaverUser naverUser) {
+		/* TODO: implement */
+		if(naverUser != null){
+			String snsId = naverUser.getId();
+			return (NaverDto)mapper.getUserBySnsId(snsId);
+		}
+		return null;
+	}
+	
 
 }

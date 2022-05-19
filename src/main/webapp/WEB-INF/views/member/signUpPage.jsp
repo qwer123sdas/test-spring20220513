@@ -36,9 +36,11 @@
 		var id = document.getElementById("id").value;
 		var pW = document.getElementById("pw").value;
 		var tempPw = document.getElementById("tempPw").value;
-		var name = document.getElementById("name").value;
-
-		if (id != "" && pw != "" && tempPw != "" && name != "") {
+		var zoneCode = document.getElementById("zoneCode").value;
+		var detailAddress = document.getElementById("detailAddress").value;
+		var memberRole = document.getElementById("memberRole").value;
+		var email = document.getElementById("email").value;
+		if (id != "" && pw != "" && tempPw != "" && name != "" && zoneCode !="" && detailAddress != "" && memberRole != "" && email !="") {
 			return true;
 		} else {
 			alert("전부 입력하시오");
@@ -153,7 +155,7 @@
 					<label class="label">ID</label>
 					<div class="control has-icons-left has-icons-right">
 						<input class="input is-success" type="text" name="memberID"
-							id="id" placeholder="ID를 입력하세요." >
+							id="id" placeholder="ID를 입력하세요." value="${id}">
 						<span class="icon is-small is-left">
 							<i class="fas fa-user"></i>
 						</span>
@@ -218,13 +220,14 @@
 					<div class="control">
 						<input class="input" type="text" id="mainAddress"
 							name="mainAddress" placeholder="주소">
+						<span class="tag is-primary" id="address_kakao" >우편번호 찾기</span>
 						<button id="address_kakao">우편번호 찾기</button>
 					</div>
 				</div>
 				<div class="field">
 					<label class="label">상세 주소</label>
 					<div class="control">
-						<input class="input" type="text" name="detailAddress"
+						<input class="input" type="text" name="detailAddress" id="detailAddress"
 							placeholder="상세주소">
 					</div>
 				</div>
@@ -232,7 +235,7 @@
 				<div class="field">
 					<label class="label">전화번호</label>
 					<div class="control">
-						<input type="text" name="memberRole" />
+						<input type="text" name="memberRole" id="memberRole"/>
 					</div>
 				</div>
 
@@ -283,7 +286,6 @@
 						</label>
 					</div>
 				</div>
-				<input type="hidden" name="id" value="id"/>
 
 
 				<div class="field is-grouped">

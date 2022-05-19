@@ -2,15 +2,16 @@ package com.choong.spr.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.choong.spr.controller.naver.NaverUser;
 import com.choong.spr.domain.MemberDto;
-import com.choong.spr.domain.SnsUserDto;
+import com.choong.spr.domain.NaverDto;
 
 public interface MemberMapper {
 	// 로그인 하기
 	String userLogin(MemberDto dto) throws Exception;
 	
 	// 회원 가입
-	void singUp(@Param("dto") MemberDto dto, @Param("id") int id);
+	void singUp(MemberDto dto);
 	
 	// 아이디 중복 검사
 	int idCheck(String id);
@@ -28,7 +29,7 @@ public interface MemberMapper {
 	MemberDto getUserByUserName(String userName);
 	
 	// BO, 유저 아이디 가져오기
-	SnsUserDto getUserBySnsId(String snsId);
+	NaverDto getUserBySnsId(String snsId);
 }
 
 
