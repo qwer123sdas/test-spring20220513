@@ -241,7 +241,6 @@
 						<input class="input" type="text" id="mainAddress"
 							name="mainAddress" placeholder="주소">
 						<span class="tag is-primary" id="address_kakao" >우편번호 찾기</span>
-						<button id="address_kakao">우편번호 찾기</button>
 					</div>
 				</div>
 				<div class="field">
@@ -271,8 +270,8 @@
 							<i class="fas fa-exclamation-triangle"></i>
 						</span>
 					</div>
-					<p class="help is-success">This email is available</p>
-					<p class="help is-danger">This email is invalid</p>
+				<!-- <p class="help is-success">This email is available</p>
+					<p class="help is-danger">This email is invalid</p> -->
 				</div>
 				<div class="field">
 					<label class="label">생년월일</label>
