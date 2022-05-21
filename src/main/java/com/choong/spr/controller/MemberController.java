@@ -83,12 +83,13 @@ public class MemberController {
 
 	// 회원 정보 페이지 --------------------------------------------------------------------
 	@RequestMapping("userDetailPage")
-	public void userDetailPage(HttpSession session, Model model) throws Exception {
+	public String userDetailPage(HttpSession session, Model model) throws Exception {
 		String id = (String) session.getAttribute("id");
 		MemberDto memberDto = service.userDetail(id);
 
 		session.setAttribute("name", memberDto.getMemberName());
 		model.addAttribute("memberDto", memberDto);
+		return "member/userDetailPage";
 	}
 
 	// 회원 정보 수정
