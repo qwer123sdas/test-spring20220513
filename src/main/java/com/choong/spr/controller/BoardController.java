@@ -23,11 +23,10 @@ import com.choong.spr.service.ReplyService;
 public class BoardController {
 	
 	private BoardService service;
-	private ReplyService replyService;
+
 	@Autowired
-	BoardController(BoardService service, ReplyService replyService){
+	BoardController(BoardService service){
 		this.service = service;
-		this.replyService = replyService;
 	}
 
 	
@@ -39,15 +38,15 @@ public class BoardController {
 		System.out.println("list 세션 " + session.getAttribute("name"));
 	}
 	
-	// 게시글 보기 + 댓글 목록 보기
+	// 게시글 보기 
 	@RequestMapping("board/{id}")
 	public String getBoard(@PathVariable int id, Model model) {
 		BoardDto board = service.getBoard(id);
 		model.addAttribute("board", board);
 		
 		// 댓글작성한 내용 보이게 하는 메서드
-		List<ReplyDto> replyList = replyService.listReplyByBoardId(id);
-		model.addAttribute("replyList", replyList);
+		//List<ReplyDto> replyList = replyService.listReplyByBoardId(id);
+		//model.addAttribute("replyList", replyList);
 				
 		return "ex01/board";
 	}

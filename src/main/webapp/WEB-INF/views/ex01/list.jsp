@@ -61,6 +61,12 @@
 									<td>
 										<a href="${appRoot }/ex01/board/${board.id }">
 											${board.title } </a>
+										<c:if test="${board.numOfReply > 0 }">
+										<span class="badge rounded-pill bg-light text-dark">
+											<i class="fa-solid fa-comment-dots"></i>
+											${board.numOfReply }
+										</span>
+									</c:if>
 									</td>
 									<td>${board.inserted }</td>
 								</c:if>
@@ -68,7 +74,14 @@
 								<c:if test="${empty sessionScope.name }">
 									<td>
 										<a> ${board.title } </a>
+										<c:if test="${board.numOfReply > 0 }">
+											<span class="badge rounded-pill bg-light text-dark">
+												<i class="fa-solid fa-comment-dots"></i>
+												${board.numOfReply }
+											</span>
+										</c:if>
 									</td>
+
 									<td>${board.inserted }</td>
 								</c:if>
 							</tr>

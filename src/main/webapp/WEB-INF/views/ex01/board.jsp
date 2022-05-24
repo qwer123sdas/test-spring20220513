@@ -41,7 +41,7 @@
 			$("#delete-submit1").addClass("d-none");
 			$("#modify-submit1").removeClass("d-none");
 		});
-
+		/* 게시글 삭제  */
 		$("#delete-submit1").click(function(e) {
 			e.preventDefault();
 			if (confirm("삭제하시겠습니까?")) {
@@ -52,7 +52,26 @@
 				form1.submit();
 			}
 		});
-
+		/* --------------------------------------------------------------------------------- */
+		/* 댓글목록 */
+		const data = {boardId : ${board.id}};
+		$.ajax({
+			url : '${appRoot}/ex01/reply/list',
+			type : 'POST',
+			data : data,
+			success : function(list){
+				const replyListElement = $('#replyList1');
+				for(let i = 0; i < list.length; i++){
+					//const replyElement = $("<div class='d-flex' />");
+					const replyElement = $("<p />");
+					replyElement.text(list[i].content);
+					replyListElement.append(replyElement);
+				}
+			},
+			error : function(){
+				console.log("댓글 가져오기 실패");
+			}
+		});
 		/*  댓글 수정*/
 		$("#edit-reply-button-open").click(function(e) {
 			e.preventDefault();
@@ -61,13 +80,17 @@
 			$("#edit-reply-button-open").addClass("d-none")
 			$("#edit-reply-button-close").removeClass("d-none");
 		});
-		$('#reply-submit-button')
+		
+		$('#edit-reply-button-close')
 		$.ajax({
 			url : '${appRoot}/ex01/reply/modify',
 			type : 'PUT',
-			success : JSON.stringify(data),
-			
-		})
+			data : JSON.stringify(data),
+			contentType : 'application/json',
+			success : function(data){
+				console.log("수정완료");
+			}
+		});
 		
 
 	});
@@ -126,7 +149,8 @@
 		</div>
 	</form>
 
-	<c:forEach items="${replyList }" var="reply">
+	<%-- <c:forEach items="${replyList }" var="reply"> --%>
+	<container id="replyList1">
 		<div class="d-flex" >
 			<div class="p-2">
 				<i class='mt-3 fa fa-reply fa fa-rotate-180' aria-hidden='true'></i>
@@ -170,12 +194,13 @@
 							value="${reply.content }" name="content" style="border:0 solid black"/>
 						<input type="hidden" name="id" value="${reply.id }" />
 						<input type="hidden" name="boardId" value="${board.id }" />
-						<button class="is-5 d-none" id="edit-reply-button-close reply-submit">수정완료</button>
+						<button class="is-5 d-none" id="edit-reply-button-close">수정완료</button>
 					</form>
 				</div>
 			</div>
 		</div>
-	</c:forEach>
+	</container>
+	<%-- </c:forEach> --%>
 
 
 </body>
