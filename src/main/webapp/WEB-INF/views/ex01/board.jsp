@@ -61,6 +61,14 @@
 			$("#edit-reply-button-open").addClass("d-none")
 			$("#edit-reply-button-close").removeClass("d-none");
 		});
+		$('#reply-submit-button')
+		$.ajax({
+			url : '${appRoot}/ex01/reply/modify',
+			type : 'PUT',
+			success : JSON.stringify(data),
+			
+		})
+		
 
 	});
 </script>
@@ -100,7 +108,7 @@
 	<c:url value="/ex01/reply/add" var="replyAddLink"></c:url>
 	<form action="${appRoot}/ex01/reply/add">
 		<input type="hidden" name="boardId" value="${board.id }" />
-		<div class="card mb-2">
+		<div class="card mb-2"  data-board-id="${board.id }">
 			<div class="card-header bg-light">
 				<i class="fa fa-comment fa"></i>
 				댓글작성
@@ -119,7 +127,7 @@
 	</form>
 
 	<c:forEach items="${replyList }" var="reply">
-		<div class="d-flex">
+		<div class="d-flex" >
 			<div class="p-2">
 				<i class='mt-3 fa fa-reply fa fa-rotate-180' aria-hidden='true'></i>
 			</div>
@@ -162,47 +170,13 @@
 							value="${reply.content }" name="content" style="border:0 solid black"/>
 						<input type="hidden" name="id" value="${reply.id }" />
 						<input type="hidden" name="boardId" value="${board.id }" />
-						<button class="is-5 d-none" id="edit-reply-button-close">수정완료</button>
+						<button class="is-5 d-none" id="edit-reply-button-close reply-submit">수정완료</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</c:forEach>
 
-	<!-- ------------------------------------------------------------------------------------------- -->
-
-	<%-- 	<label for=""> 댓글 작성 > </label>
-	<form action="${replyAddLink }" method="post">
-		<input type="hidden" name="boardId" value="${board.id }" />
-		댓글 :
-		<input type="text" name="content" size="50" />
-		<button>쓰기</button>
-	</form>
-
-	<hr />
-	<div>
-		<c:forEach items="${replyList }" var="reply">
-			<div style="border: 1px solid black; margin-bottom: 3px;">
-				${reply.inserted } : ${reply.content }
-				<!-- 수정  -->
-				<c:url value="/ex01/reply/modify" var="replyModifyLink"></c:url>
-				<form action="${replyModifyLink }" method="post">
-					<input type="hidden" name="id" value="${reply.id }" />
-					<input type="hidden" name="boardId" value="${board.id }" />
-					<input type="text" value="${reply.content }" name="content" />
-					<button>수정</button>
-				</form>
-				<!-- 삭제 -->
-
-				<form action="${replyRemoveLink }" method="post">
-					<input type="hidden" name="id" value="${reply.id }" />
-					<input type="hidden" name="boardId" value="${board.id }" />
-					<button>삭제</button>
-				</form>
-			</div>
-
-		</c:forEach>
-	</div> --%>
 
 </body>
 </html>
