@@ -147,22 +147,7 @@
 					});
 
 					// 댓글 삭제
-					$('.reply-delete-button').click(function(e){
-						e.preventDefault();
-						const replyId = $(this).attr("data-reply-id");
-						const message = "댓글을 삭제하시겠습니까?";
-						
-						if(confirm(message)){
-							$.ajax({
-								url : '${appRoot}/ex01/reply/remove/'+replyId,
-								type : 'DELETE',
-								success : function(){
-									console.log("댓글 삭제됨");
-									replyList();
-								}
-							});
-						}
-					});
+					replyDelete();
 				},
 				error : function(){
 					console.log("댓글 가져오기 실패");
@@ -173,6 +158,25 @@
 		// 댓글 리스트 호출
 		replyList();
 		
+		// 댓글 삭제
+		const replyDelete = function(){
+			$('.reply-delete-button').click(function(e){
+				e.preventDefault();
+				const replyId = $(this).attr("data-reply-id");
+				const message = "댓글을 삭제하시겠습니까?";
+				
+				if(confirm(message)){
+					$.ajax({
+						url : '${appRoot}/ex01/reply/remove/'+replyId,
+						type : 'DELETE',
+						success : function(){
+							console.log("댓글 삭제됨");
+							replyList();
+						}
+					});
+				}
+			});
+		}
 
 		
 
@@ -182,13 +186,13 @@
 <body>
 	<nav:navbar></nav:navbar>
 
-	<h1>${board.id }번게시글</h1>
+	<h1></h1>
 
 	<form class="box" id="formBoard" action="${appRoot }/ex01/board/modify"
 		method="post">
 		<input type="hidden" name="id" value="${board.id }" />
 		<div class="field">
-			<label class="label">제목</label>
+			<label class="label">${board.id }번 게시글 제목</label>
 			<div class="control">
 				<input class="input" required id="input1" type="text" name="title"
 					value="${board.title }" readonly>
@@ -217,7 +221,7 @@
 		<div class="card mb-2"  data-board-id="${board.id }">
 			<div class="card-header bg-light">
 				<i class="fa fa-comment fa"></i>
-				댓글작성
+				댓글 ${board.numOfReply } >
 			</div>
 			<div class="card-body">
 				<ul class="list-group list-group-flush">
