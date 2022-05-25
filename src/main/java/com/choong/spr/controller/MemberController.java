@@ -1,9 +1,6 @@
 package com.choong.spr.controller;
 
 
-import java.math.BigInteger;
-import java.net.URLEncoder;
-import java.security.SecureRandom;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,7 +24,6 @@ public class MemberController {
 	@Autowired
 	MemberService service;
 
-	private String CLIENT_ID = "myKQG3U17i94iAlkHWR4";
 	// 로그인 페이지-----------------------------------------------------
 	@GetMapping("loginPage")
 	public void userLoginPage1(HttpSession session, Model model) throws Exception{
@@ -67,6 +63,7 @@ public class MemberController {
 
 	@PostMapping("signUp")                  
 	public String signUp(@ModelAttribute MemberDto dto) throws Exception {
+		System.out.println(dto);
 		service.signUp(dto);
 		return "redirect:/naverlogin";
 	}

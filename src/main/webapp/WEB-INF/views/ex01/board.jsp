@@ -54,92 +54,126 @@
 		});
 		/* --------------------------------------------------------------------------------- */
 		/* 댓글목록 */
-		const data = {boardId : ${board.id}};
-		$.ajax({
-			url : '${appRoot}/ex01/reply/list',
-			type : 'POST',
-			data : data,
-			success : function(list){
-				const replyListElement = $('#replyList1');
-				console.log(list);
-				for(let i = 0; i < list.length; i++){
-					
-					const replyElement = $("<div class='d-flex' />");
-					//const replyElement = $("<p />");
-					replyElement.html(`
-							<div class="p-2">
-								<i class='mt-3 fa fa-reply fa fa-rotate-180' aria-hidden='true'></i>
-							</div>
-							<div class="flex-fill">
-								<div class="card mt-2">
-									<div class="card-header">
-										<table>
-											<tr class="align-middle">
-												<td rowspan="2" class="pr-2">
-													<i class="fa fa-user-o fa-2x"></i>
-												</td>
-												<td class="ml">\${list[i].id }</td>
-											</tr>
-											<tr>
-												<td>
-													<font size="2">\${list[i].inserted }</font>
-													<!--삭제 버튼  -->
-													<c:url value="/ex01/reply/remove" var="replyRemoveLink" />
-													<form action="${replyRemoveLink }" method="post"
-														id="reply-submit">
-														<input type="hidden" name="id" value="\${list[i].id }" />
-														<input type="hidden" name="boardId" value="\${list[i].id }" />
-														<button>
-															<i class="fa fa-window-close fa" aria-hidden="true"></i>
-														</button>
-														<!-- 수정 버튼 -->
-														<button id="edit-reply-button-open">수정</button>
-
-													</form>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div class="card-body">
-										<p id="reply-content" class="card-text">\${list[i].content }</p>
-									</div>
-									<c:url value="/ex01/reply/modify" var="replyModifyLink"></c:url>
-									<form action="${replyModifyLink }" method="post" id="reply-submit">
-										<input id="modify-reply-content" class="is-5 d-none" type="text"
-											value="\${list[i].content }" name="content" style="border:0 solid black"/>
-										<input type="hidden" name="id" value="\${list[i].id }" />
-										<input type="hidden" name="boardId" value="\${list[i].boardId }" />
-										<button class="is-5 d-none" id="edit-reply-button-close">수정완료</button>
-									</form>
+		const replyList = function(){
+			const data = {boardId : ${board.id}};
+			
+			$.ajax({
+	 			url : '${appRoot}/ex01/reply/list',
+				type : 'POST',
+				data : data,
+				success : function(list){
+					/* 로딩대기 전에 내용물 지우기? */ 
+					const replyListElement = $('#replyList1');
+					replyListElement.empty();
+					for(let i = 0; i < list.length; i++){
+						
+						const replyElement = $("<div class='d-flex' />");
+						//const replyElement = $("<p />");
+						replyElement.html(`
+								<div class="p-2">
+									<i class='mt-3 fa fa-reply fa fa-rotate-180' aria-hidden='true'></i>
 								</div>
-							</div>
-							`);
-					replyListElement.append(replyElement);
+								<div class="flex-fill">
+									<div class="card mt-2">
+										<div class="card-header">
+											<table>
+												<tr class="align-middle">
+													<td rowspan="2" class="pr-2">
+														<i class="fa fa-user-o fa-2x"></i>
+													</td>
+													<td class="ml">\${list[i].id }</td>
+												</tr>
+												<tr>
+													<td>
+														<font size="2">\${list[i].inserted }</font>
+														<!--삭제 버튼  -->
+														<form id="reply-submit">
+															<button class="reply-delete-button" data-reply-id="\${list[i].id }">
+																<i class="fa fa-window-close fa" aria-hidden="true"></i>
+															</button>
+															<!-- 수정 버튼 -->
+															<button id="edit-reply-button-open">수정</button>
+
+														</form>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div class="card-body">
+											<p id="reply-content" class="card-text">\${list[i].content }</p>
+										</div>
+										<div id="replyEditFormContainer\${list[i].id }"">
+											<form id="reply-submit">
+												<input id="modify-reply-content" class="is-5 d-none" type="text"
+													value="\${list[i].content }" name="content" style="border:0 solid black"/>
+												<button class="is-5 d-none" id="edit-reply-button-close" data-reply-id="\${list[i].id}" >수정완료</button>
+											</form>
+										</div>
+									</div>
+								</div>
+								`);
+						replyListElement.append(replyElement);
+					}  // for문 끝
+					console.log("123");
+					/*  댓글 수정버튼 전환*/
+					$("#edit-reply-button-open").click(function(e) {
+						e.preventDefault();
+						$("#reply-content").addClass("d-none")
+						$("#modify-reply-content").removeClass("d-none");
+						$("#edit-reply-button-open").addClass("d-none")
+						$("#edit-reply-button-close").removeClass("d-none");
+					});
+					
+					// 댓글 수정 controller
+					$('#edit-reply-button-close').click(function(e){
+						e.preventDefault();
+						const id = $(this).attr("data-reply-id");
+						const formElem = $('#replyEditFormContainer' + id).find('form');
+						
+						const data = {
+								id :  formElem.find("[name=id]").val(),
+								content : formElem.find("[name=content]").val() 
+						}
+						$.ajax({
+							url : '${appRoot}/ex01/reply/modify',
+							type : 'PUT',
+							data : JSON.stringify(data),
+							contentType : 'application/json',
+							success : function(data){
+								console.log("data");
+								replyList();
+							}
+						});
+					});
+
+					// 댓글 삭제
+					$('.reply-delete-button').click(function(e){
+						e.preventDefault();
+						const replyId = $(this).attr("data-reply-id");
+						const message = "댓글을 삭제하시겠습니까?";
+						
+						if(confirm(message)){
+							$.ajax({
+								url : '${appRoot}/ex01/reply/remove/'+replyId,
+								type : 'DELETE',
+								success : function(){
+									console.log("댓글 삭제됨");
+									replyList();
+								}
+							});
+						}
+					});
+				},
+				error : function(){
+					console.log("댓글 가져오기 실패");
 				}
-			},
-			error : function(){
-				console.log("댓글 가져오기 실패");
-			}
-		});
-		/*  댓글 수정*/
-		$("#edit-reply-button-open").click(function(e) {
-			e.preventDefault();
-			$("#reply-content").addClass("d-none")
-			$("#modify-reply-content").removeClass("d-none");
-			$("#edit-reply-button-open").addClass("d-none")
-			$("#edit-reply-button-close").removeClass("d-none");
-		});
+			});
+		}
 		
-		$('#edit-reply-button-close')
-		$.ajax({
-			url : '${appRoot}/ex01/reply/modify',
-			type : 'PUT',
-			data : JSON.stringify(data),
-			contentType : 'application/json',
-			success : function(data){
-				console.log("수정완료");
-			}
-		});
+		// 댓글 리스트 호출
+		replyList();
+		
+
 		
 
 	});

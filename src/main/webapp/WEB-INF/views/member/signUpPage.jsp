@@ -169,8 +169,7 @@
 	<div class="box">
 		<div class="column is-one-third  ">
 			<p class="title is-1 is-centered">회원가입</p>
-			<form action="${appRoot }/member/signUp" method="post"
-				id="formButton" onsubmit="return checks()">
+			<form action="${appRoot }/member/signUp" method="post" id="formButton" onsubmit="return checks()">
 				<div class="field">
 					<label class="label">ID</label>
 					<div class="control has-icons-left has-icons-right">
@@ -209,7 +208,7 @@
 					<label class="label">비밀번호 재확인</label>
 					<div class="control has-icons-left has-icons-right">
 						<input class="input is-success" type="password"
-							name="memberTempPW" id="tempPw" onchange="pwConfirm()"
+							 id="tempPw" onchange="pwConfirm()"
 							placeholder="비밀번호를 한번 더 입력하세요.">
 						<span class="icon is-small is-left">
 							<i class="fas fa-user"></i>
@@ -273,27 +272,6 @@
 				<!-- <p class="help is-success">This email is available</p>
 					<p class="help is-danger">This email is invalid</p> -->
 				</div>
-				<div class="field">
-					<label class="label">생년월일</label>
-					<div class="control">
-						<input type="text" name="memberDate" />
-					</div>
-				</div>
-
-				<div class="field">
-					<div class="control">
-						<label class="radio">
-							성별
-							<input type="radio" name="memberSex">
-							남
-						</label>
-						<label class="radio">
-							<input type="radio" name="memberSex">
-							여
-						</label>
-					</div>
-				</div>
-
 
 
 				<div class="field">

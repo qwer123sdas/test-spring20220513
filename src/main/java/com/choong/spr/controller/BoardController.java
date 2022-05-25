@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import com.choong.spr.domain.BoardDto;
-import com.choong.spr.domain.ReplyDto;
 import com.choong.spr.service.BoardService;
-import com.choong.spr.service.ReplyService;
 
 @Controller
 @RequestMapping("ex01")
