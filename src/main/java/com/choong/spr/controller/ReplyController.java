@@ -3,6 +3,7 @@ package com.choong.spr.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +20,7 @@ public class ReplyController {
 	@Autowired
 	ReplyService service;
 	// 댓글 목록 출력
-	@PostMapping("reply/list")
+	@PostMapping(path="reply/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public List<ReplyDto> list(int boardId){
 		return service.listReplyByBoardId(boardId);

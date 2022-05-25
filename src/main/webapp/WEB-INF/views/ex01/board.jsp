@@ -61,10 +61,59 @@
 			data : data,
 			success : function(list){
 				const replyListElement = $('#replyList1');
+				console.log(list);
 				for(let i = 0; i < list.length; i++){
-					//const replyElement = $("<div class='d-flex' />");
-					const replyElement = $("<p />");
-					replyElement.text(list[i].content);
+					
+					const replyElement = $("<div class='d-flex' />");
+					//const replyElement = $("<p />");
+					replyElement.html(`
+							<div class="p-2">
+								<i class='mt-3 fa fa-reply fa fa-rotate-180' aria-hidden='true'></i>
+							</div>
+							<div class="flex-fill">
+								<div class="card mt-2">
+									<div class="card-header">
+										<table>
+											<tr class="align-middle">
+												<td rowspan="2" class="pr-2">
+													<i class="fa fa-user-o fa-2x"></i>
+												</td>
+												<td class="ml">\${list[i].id }</td>
+											</tr>
+											<tr>
+												<td>
+													<font size="2">\${list[i].inserted }</font>
+													<!--삭제 버튼  -->
+													<c:url value="/ex01/reply/remove" var="replyRemoveLink" />
+													<form action="${replyRemoveLink }" method="post"
+														id="reply-submit">
+														<input type="hidden" name="id" value="\${list[i].id }" />
+														<input type="hidden" name="boardId" value="\${list[i].id }" />
+														<button>
+															<i class="fa fa-window-close fa" aria-hidden="true"></i>
+														</button>
+														<!-- 수정 버튼 -->
+														<button id="edit-reply-button-open">수정</button>
+
+													</form>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="card-body">
+										<p id="reply-content" class="card-text">\${list[i].content }</p>
+									</div>
+									<c:url value="/ex01/reply/modify" var="replyModifyLink"></c:url>
+									<form action="${replyModifyLink }" method="post" id="reply-submit">
+										<input id="modify-reply-content" class="is-5 d-none" type="text"
+											value="\${list[i].content }" name="content" style="border:0 solid black"/>
+										<input type="hidden" name="id" value="\${list[i].id }" />
+										<input type="hidden" name="boardId" value="\${list[i].boardId }" />
+										<button class="is-5 d-none" id="edit-reply-button-close">수정완료</button>
+									</form>
+								</div>
+							</div>
+							`);
 					replyListElement.append(replyElement);
 				}
 			},
@@ -151,7 +200,7 @@
 
 	<%-- <c:forEach items="${replyList }" var="reply"> --%>
 	<container id="replyList1">
-		<div class="d-flex" >
+<%-- 		<div class="d-flex" >
 			<div class="p-2">
 				<i class='mt-3 fa fa-reply fa fa-rotate-180' aria-hidden='true'></i>
 			</div>
@@ -198,7 +247,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 	</container>
 	<%-- </c:forEach> --%>
 
