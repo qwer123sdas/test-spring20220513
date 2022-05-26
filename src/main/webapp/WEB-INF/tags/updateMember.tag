@@ -24,5 +24,5 @@
 			<button>수정 완료</button>
 			<hr />
 			<div class="card-body text-secondary">
-				<a class="card-title">회원 탈퇴</a>
+				<a class="card-title" id="removeButton">회원 탈퇴</a>
 			</div>

@@ -49,7 +49,7 @@
 						<p>${sessionScope.name }회원님</p>
 						<form action="${appRoot }/member/logout">
 							<input type="hidden" name="path" value="${URI }" />
-							<button class="button is-light">Log out</button>
+							<button class="button is-light" id="logoutButton">Log out</button>
 						</form>
 					</div>
 				</c:if>

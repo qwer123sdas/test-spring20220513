@@ -48,7 +48,15 @@
 				let form1 = $("#formBoard");
 				let actionAttr = "${appRoot }/ex01/board/deletUser";
 				form1.attr("action", actionAttr);
-
+				
+				
+				alert('이미 게시글이 삭제되었습니다.');
+				history.pushState(null, null, location.href);
+				window.onpopstate = function(event) {
+				    history.go(1);
+				};
+				
+				
 				form1.submit();
 			}
 		});

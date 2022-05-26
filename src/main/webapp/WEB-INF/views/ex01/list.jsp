@@ -30,6 +30,7 @@
 
 <title>게시판</title>
 </head>
+
 <body>
   <nav:navbar></nav:navbar>
 	<!-- .container>.row>.col>h1{글 목록} -->
