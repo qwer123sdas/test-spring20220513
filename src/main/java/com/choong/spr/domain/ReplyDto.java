@@ -11,6 +11,6 @@ public class ReplyDto {
 	private int id;
 	private int boardId; // db는 board_Id
 	private String content;
-	@JsonFormat(shape = JsonFormat.Shape.STRING)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime inserted;
 }
