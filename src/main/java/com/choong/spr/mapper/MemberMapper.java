@@ -11,7 +11,8 @@ public interface MemberMapper {
 	String userLogin(MemberDto dto) throws Exception;
 	
 	// 회원 가입
-	void singUp(MemberDto dto);
+	int singUp(MemberDto dto);
+	int insertAuth(@Param("memberNO") int memberNO, @Param("role") String role, @Param("enable")int enable);
 	
 	// 아이디 중복 검사
 	int idCheck(String id);
@@ -20,7 +21,7 @@ public interface MemberMapper {
 	MemberDto userDetail(String id);
 
 	// 회원 정보 수정
-	void editUser(MemberDto dto);
+	int editUser(MemberDto dto);
 
 	// 회원 탈퇴
 	void deletUser(String id);
@@ -30,6 +31,7 @@ public interface MemberMapper {
 	
 	// BO, 유저 아이디 가져오기
 	NaverDto getUserBySnsId(String snsId);
+
 }
 
 

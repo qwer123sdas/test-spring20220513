@@ -58,9 +58,10 @@
 		var name = document.getElementById("name").value;
 		var zoneCode = document.getElementById("zoneCode").value;
 		var detailAddress = document.getElementById("detailAddress").value;
-		var memberRole = document.getElementById("memberRole").value;
+		var phone = document.getElementById("memberPhone").value;
 		var email = document.getElementById("email").value;
-		if (id != "" && pw != "" && tempPw != "" && name != "" && zoneCode !="" && detailAddress != "" && memberRole != "" && email !="") {
+		var nickName = document.getElementById("nickName").value;
+		if (id != "" && pw != "" && tempPw != "" && name != "" && zoneCode !="" && detailAddress != "" && phone != "" && email !="" && nickName != "") {
 			return true;
 		} else {
 			alert("전부 입력하시오");
@@ -228,6 +229,14 @@
 							placeholder="Text input" value="${name}">
 					</div>
 				</div>
+				
+				<div class="field">
+					<label class="label">닉네임</label>
+					<div class="control">
+						<input class="input" type="text" name="memberNickName" id="nickName"
+							placeholder="Text input" value="">
+					</div>
+				</div>
 
 				<!-- 주소  -->
 				<div class="field">
@@ -253,7 +262,7 @@
 				<div class="field">
 					<label class="label">전화번호</label>
 					<div class="control">
-						<input type="text" name="memberRole" id="memberRole"/>
+						<input type="text" name="memberPhone" id="phone"/>
 					</div>
 				</div>
 

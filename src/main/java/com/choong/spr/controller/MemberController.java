@@ -6,12 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,22 +33,18 @@ public class MemberController {
 	}
 
 	// 로그인 하기
-	@RequestMapping("login")
-	public ModelAndView userLogin(@ModelAttribute MemberDto dto, HttpSession session, RedirectAttributes  rttr) throws Exception {
-		boolean result = service.userLogin(dto, session);
-		ModelAndView mav = new ModelAndView();
-
-		if (result == true) {
-			mav.setViewName("redirect:/ex01/list");
-		} else {
-			//model.addAttribute(, );
-			System.out.println("로그인 안됨");
-			rttr.addFlashAttribute("message", "다시 로그인 해주세요.");
-			mav.setViewName("redirect:/naverlogin");
-		}
-		return mav;
-	}
-
+	/*
+	 * @RequestMapping("login") public ModelAndView userLogin(@ModelAttribute
+	 * MemberDto dto, HttpSession session, RedirectAttributes rttr) throws Exception
+	 * { boolean result = service.userLogin(dto, session); ModelAndView mav = new
+	 * ModelAndView();
+	 * 
+	 * if (result == true) { mav.setViewName("redirect:/ex01/list"); } else {
+	 * //model.addAttribute(, ); System.out.println("로그인 안됨");
+	 * rttr.addFlashAttribute("message", "다시 로그인 해주세요.");
+	 * mav.setViewName("redirect:/naverlogin"); } return mav; }
+	 */
+	
 	// 로그아웃 하기
 	@GetMapping("logout")
 	public String logout(HttpSession session, String path) {
@@ -63,8 +61,9 @@ public class MemberController {
 
 	@PostMapping("signUp")                  
 	public String signUp(@ModelAttribute MemberDto dto) throws Exception {
-		System.out.println(dto);
 		service.signUp(dto);
+		System.out.println(dto.getMemberNO());
+		service.addAuth(dto.getMemberNO());
 		return "redirect:/naverlogin";
 	}
 
@@ -91,11 +90,20 @@ public class MemberController {
 
 	// 회원 정보 수정
 	@PostMapping("editUser")
-	public String editPage(MemberDto dto, HttpSession session) {
-		service.editUser(dto);
+	public String editPage(MemberDto dto, String presentPW, HttpSession session) {
+		boolean success = service.editUser(dto, presentPW);
 
 		return "redirect:/member/userDetailPage";
 	}
+	// 비밀번호 수정 + 회원 정보 수정
+	@PostMapping("editUserAndPW")
+	public String editPageAndPW(MemberDto dto, String presentPW, String newPW, HttpSession session) {
+		service.editPageAndPW(dto, newPW);
+
+		return "redirect:/member/userDetailPage";
+	}
+
+	
 
 	// 회원 탈퇴
 	@PostMapping("deleteUser")

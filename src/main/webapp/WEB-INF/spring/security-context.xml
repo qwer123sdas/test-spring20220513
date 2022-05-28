@@ -10,7 +10,26 @@
 
 	<security:http>  
         <security:csrf disabled="true"/> 
-		<security:form-login/>
+		<security:form-login login-page="/login" 
+		 					default-target-url="/ex01/list" />
+		<security:logout logout-success-url="/ex01/list" />
 	</security:http>
-	<security:authentication-manager></security:authentication-manager>
+	
+	<!-- 성공 시 핸들러 등록 -->
+	<bean id="LoginSuccessHandler" class="com.choong.spr.authentication.LoginSuccessHandler">
+	</bean>
+	
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="
+					SELECT Member_ID, Member_PW, 1
+					FROM Member 
+					WHERE Member_ID = ?
+					"
+			authorities-by-username-query="SELECT a.Member_NO, a.role FROM Auth a JOIN Member m ON a.Member_NO = m.Member_NO WHERE m.Member_ID= ?" 
+			/>
+		</security:authentication-provider>
+	</security:authentication-manager>
 </beans>

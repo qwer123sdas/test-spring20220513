@@ -1,5 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!-- navBar -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -33,7 +34,7 @@
 
 		<div class="navbar-end">
 			<div class="navbar-item">
-				<c:if test="${empty sessionScope.name }">
+				<sec:authorize access="!isAuthenticated()">
 					<div class="buttons">
 						<button class="button is-light"
 							onclick="location.href='/spr/member/signUpPage'">
@@ -42,17 +43,17 @@
 						<button class="button is-light"
 							onclick="location.href='/spr/naverlogin'">Log in</button>
 					</div>
-				</c:if>
+				</sec:authorize>
 
-				<c:if test="${not empty sessionScope.name }">
+				<sec:authorize access="isAuthenticated()">
 					<div class="buttons">
 						<p>${sessionScope.name }회원님</p>
-						<form action="${appRoot }/member/logout">
-							<input type="hidden" name="path" value="${URI }" />
-							<button class="button is-light" id="logoutButton">Log out</button>
-						</form>
+						<button class="nav-link" type="submit" form="logoutForm1">로그아웃</button>
+						<div class="d-none">
+							<form action="${appRoot }/logout" id="logoutForm1" method="post">로그아웃</form>
+						</div>
 					</div>
-				</c:if>
+				</sec:authorize>
 			</div>
 		</div>
 	</div>

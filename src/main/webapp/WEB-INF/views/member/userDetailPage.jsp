@@ -69,9 +69,51 @@ window.onload = function(){
 				form.submit();
 			}
 		});
-		
+		// 비밀번호 수정하기 버튼
+		$('#passwordModify').click(function(e){
+			e.preventDefault();
+			$('#passwordModifyArea').removeClass('d-none');
+			
+			let form1 = $("#formBoard");
+			let actionAttr = "${appRoot }/member/editUserAndPW";
+			form1.attr("action", actionAttr);
+		});
+		// 비밀번호 수정취소
+		$('#passwordModifyCancle').click(function(e){
+			e.preventDefault();
+			$('#passwordModifyArea').addClass('d-none');
+			
+			let form1 = $("#formBoard");
+			let actionAttr = "${appRoot }/member/editUser";
+			form1.attr("action", actionAttr);
+		});
 
 	});
+	
+	function pwConfirm() {
+		var pw = document.getElementById("newPW");
+		var tempPw = document.getElementById("tempPw");
+
+		var temp_pw_msg = document.getElementById("temp_pw_msg");
+
+		if (!pwCheck()) {
+			pw_msg.innerHTML = "다시 확인해주세요.";
+			temp_pw_msg.innerHTML = "";
+			tempPw.value = "";
+			pw.focus();
+			return;
+		} else if (tempPw.value == "") {
+			temp_pw_msg.innerHTML = "필수 정보입니다.";
+			return;
+		} else if (pw.value != tempPw.value) {
+			temp_pw_msg.innerHTML = "비밀번호가 일치하지 않습니다.";
+			tempPw.focus();
+			return;
+		} else {
+			temp_pw_msg.innerHTML = "";
+			return true;
+		}
+	}
 </script>
 
 <style>
@@ -143,6 +185,10 @@ window.onload = function(){
 			<p class="card-text">${memberDto.memberID }</p>
 		</div>
 		<div class="card-body text-secondary">
+			<h5 class="card-title">비밀번호</h5>
+			<p class="card-text">*********</p>
+		</div>
+		<div class="card-body text-secondary">
 			<h5 class="card-title">핸드폰번호</h5>
 			<p class="card-text">${memberDto.memberRole }</p>
 		</div>
@@ -163,15 +209,16 @@ window.onload = function(){
 	</div>
 
 	<div class="card border-secondary mb-3" id="memberS">
-		<div class="card-header">Header</div>
+		<div class="card-header">보안설정</div>
 		<div class="card-body text-secondary">
-			<h5 class="card-title">Secondary card title</h5>
+			<h5 class="card-title"></h5>
 			<p class="card-text">Some quick example text to build on the card
 				title and make up the bulk of the card's content.</p>
 		</div>
 	</div>
 
-		<form action="${appRoot }/member/editUser" method="post"
+	<!-- 회원 개인정보 수정-->
+	<form action="${appRoot }/member/editUser" method="post"
 		id="updateMemberForm">
 		<div class="card border-secondary mb-3 d-none" id="updateMemberBoard">
 			<div class="card-header">기본정보</div>
@@ -184,6 +231,22 @@ window.onload = function(){
 				<h5 class="card-title">아이디</h5>
 				<p class="card-text">${memberDto.memberID }</p>
 			</div>
+			<div class="card-body text-secondary">
+				<h5 class="card-title"> 현재 비밀번호 <span class="tag is-primary" id="passwordModify" >수정</span></h5>
+				<input class="input is-success" type="text" name="memberPW"
+					value="" style="border: 1 solid black" />
+				<div class="d-none" id="passwordModifyArea">
+					<h5 class="card-title"> 신규 비밀번호</h5>
+					<input class="input is-success " type="text" name="newPW"
+						value="" style="border: 1 solid black" />
+					<h5 class="card-title"> 신규 비밀번호 재입력</h5>
+					<input class="input is-success" type="text" name="tempPW"
+						value="" style="border: 1 solid black" />
+					<p class="help is-danger" id="temp_pw_msg"></p>
+					<span class="tag is-primary" id="passwordModifyCancle" >취소</span>
+				</div>
+			</div>
+			
 			<div class="card-body text-secondary">
 				<h5 class="card-title">핸드폰번호</h5>
 				<input class="input is-success" type="text" name="memberRole"
@@ -215,11 +278,6 @@ window.onload = function(){
 						value="${memberDto.detailAddress }">
 				</div>
 			</div>
-<%-- 			<div class="card-body text-secondary">
-				<h5 class="card-title">생년월일</h5>
-				<input class="input is-success" type="text" name="memberDate"
-					value="${memberDto.memberDate }" style="border: 1 solid black" />
-			</div> --%>
 			<input type="hidden" name="memberID" value="${memberDto.memberID }" />
 			<button>수정 완료</button>
 			<hr />
@@ -228,6 +286,10 @@ window.onload = function(){
 				<button>회원 탈퇴</button>
 			</div>
 		</div>
+	</form>
+	
+	<form action="">
+		
 	</form>
 </c:if>
 

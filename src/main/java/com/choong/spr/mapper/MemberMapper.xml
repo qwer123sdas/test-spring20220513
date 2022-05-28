@@ -13,9 +13,9 @@
 	<!-- 회원 정보 페이지 -->
 	<select id="userDetail"
 		resultType="com.choong.spr.domain.MemberDto">
-		SELECT Member_ID memberID, Member_PW memberPW, Member_Name memberName,
-				Member_Date memberDate, Member_Sex memberSex, Member_Email memberEmail,
-				Member_Role memberRole, ZondCode zoneCode, MainAddress mainAddress, DetailAddress detailAddress
+		SELECT Member_NO memberNo, Member_ID memberID, Member_PW memberPW, Member_Name memberName,
+				Member_Email memberEmail, Member_Phone memberPhone, 
+				ZoneCode zoneCode, MainAddress mainAddress, DetailAddress detailAddress
 		FROM Member
 		WHERE
 		Member_ID=#{id}
@@ -45,19 +45,25 @@
 		WHERE a.Member_No = b.id
 	</select> -->
 	<!-- 회원가입 -->
-	<insert id="singUp" parameterType="com.choong.spr.domain.MemberDto">
-		INSERT INTO Member(Member_ID, Member_PW, Member_Name, Member_Email, Member_Role, ZondCode, MainAddress, DetailAddress)
-		  VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberEmail}, #{memberRole}, #{zoneCode}, #{mainAddress}, #{detailAddress})
+	<insert id="singUp" useGeneratedKeys="true" keyColumn="Member_NO" keyProperty="memberNO" parameterType="com.choong.spr.domain.MemberDto">
+		INSERT INTO Member(Member_ID, Member_PW, Member_Name, Member_Email, Member_Phone, Member_NickName, ZoneCode, MainAddress, DetailAddress)
+		  VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberNickName}, #{zoneCode}, #{mainAddress}, #{detailAddress})
 	</insert>
+	
+	<insert id="insertAuth">
+		INSERT INTO Auth(Member_NO, role, enable)
+		VALUES(#{memberNO}, #{role}, #{enable})
+	</insert>
+	
 
 	<!-- 회원정보 수정 -->
 	<update id="editUser">
 		UPDATE Member
 		SET Member_Name = #{memberName},
 		    Member_Email = #{memberEmail},
-		    Member_Role = #{memberRole},
+		    Member_Phone = #{memberPhone},
 		    Member_Date = #{memberDate},
-		    ZondCode = ${zoneCode},
+		    ZoneCode = ${zoneCode},
 		    MainAddress = #{mainAddress},
 		    DetailAddress = #{detailAddress}
 		WHERE Member_ID = #{memberID}

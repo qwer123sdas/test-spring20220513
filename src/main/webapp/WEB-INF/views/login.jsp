@@ -52,11 +52,11 @@
 	<div class="columns is-mobile is-centered">
 		<div class="column is-one-third">
 			<!-- 로그인 -->
-			<form action="${appRoot }/member/login" method="post">
+			<form action="${appRoot }/login" method="post">
 				<div class="field" style="float: none; margin: 0 auto;">
 					<label class="label">아이디</label>
 					<div class="control has-icons-left ">
-						<input class="input" type="text" name="memberID">
+						<input class="input" type="text" name="username">
 						<span class="icon is-small is-left">
 							<i class="fas fa-user"></i>
 						</span>
@@ -66,7 +66,7 @@
 				<div class="field">
 					<label class="label">패스워드</label>
 					<div class="control has-icons-left">
-						<input class="input" type="password" name="memberPW">
+						<input class="input" type="password" name="password">
 						<span class="icon is-small is-left">
 							<i class="fa-solid fa-unlock-keyhole"></i>
 						</span>
