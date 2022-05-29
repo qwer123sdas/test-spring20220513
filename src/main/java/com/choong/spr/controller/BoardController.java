@@ -1,5 +1,6 @@
 package com.choong.spr.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,8 +33,10 @@ public class BoardController {
 	@RequestMapping("list")
 	public void orderList(Model model, HttpSession session) {
 		List<BoardDto> boardList = service.findOrder();
+
 		model.addAttribute("boardList", boardList);
-		System.out.println("list 세션 " + session.getAttribute("name"));
+		System.out.println("list 세션 name " + session.getAttribute("name"));
+		System.out.println("list 세션 id " + session.getAttribute("id"));
 	}
 	
 	// 게시글 보기 

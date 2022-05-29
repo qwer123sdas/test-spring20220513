@@ -29,7 +29,7 @@
 			</c:if>
 		</div>
 
-
+	<a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
 
 
 		<div class="navbar-end">
