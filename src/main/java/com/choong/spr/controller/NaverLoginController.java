@@ -5,8 +5,10 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.security.Principal;
 import java.security.SecureRandom;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +48,9 @@ public class NaverLoginController {
 	private NaverLoginBO naverLoginBO;
 	@Autowired
 	private MemberBO memberBO;
+	
+	/*@Resource(name="userDetailsService")
+	protected UserDetailsService userDetailsService;*/
 	
 	// NaverUser naverUser = null;과 아래는 같음  : 사용자의 프로필 정보 조회하기 위함
 	private String apiResult = null;
@@ -67,12 +80,12 @@ public class NaverLoginController {
 
 	// callback
 	@RequestMapping("member/naverCallBack")
-	public String callback(RedirectAttributes rttr, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException{
+	public String callback(RedirectAttributes rttr, @RequestParam String code, @RequestParam String state,  HttpSession session, HttpServletRequest request) throws IOException, ParseException{
 		System.out.println("콜백!!");
 		/* 네이버 아이디로 로그인 인증이 끝나면 callback처리과정에서 AccessToken을 발급받을 수 있다. */
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state);
-		
+		System.out.println(oauthToken);
 		//1. 로그인 사용자 정보를 읽어온다.
 		/* 발급받은 AccessToken을 이용하여 현재 로그인한 네이버의 사용자 프로필 정보를 조회할 수 있다. */
 		apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
@@ -88,7 +101,6 @@ public class NaverLoginController {
 		 // NaverDto naverDto = memberBO.getUserByNaverUser(naverUser);
 		
 		 
-		
 		
 		//2. String형식인 apiResult를 json형태로 바꿈
 		JSONParser parser = new JSONParser();
@@ -114,6 +126,19 @@ public class NaverLoginController {
 		
 		/* ++ 만약 일치하는 사용자가 있다면 현재 세션에 사용자 로그인 정보를 저장 */
 		//4.파싱 닉네임 세션으로 저장
+		
+		// SpringSecurity 강제로 로그인 시키기
+		/*   UserDetails ckUserDetails = userDetailsService.loadUserByUsername(memberId);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(ckUserDetails, "USER_PASSWORD", ckUserDetails.getAuthorities());
+		
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		securityContext.setAuthentication(authentication);
+		HttpSession session1 = request.getSession(true);
+		session1.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);*/
+		
+	    
+	    
+	    
 		System.out.println("세션 저장 :  "+ name);
 		session.setAttribute("name", name); //세션 생성
 		session.setAttribute("id", memberId);
