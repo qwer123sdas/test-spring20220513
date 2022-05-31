@@ -24,13 +24,17 @@
 	<security:authentication-manager>
 	
 		<security:authentication-provider>
+			
 			<security:jdbc-user-service data-source-ref="dataSource"
 			users-by-username-query="
-					SELECT Member_ID, Member_PW, 1
+					SELECT Member_ID, Member_PW, enable
 					FROM Member 
 					WHERE Member_ID = ?
 					"
-			authorities-by-username-query="SELECT a.Member_NO, a.role FROM Auth a JOIN Member m ON a.Member_NO = m.Member_NO WHERE m.Member_ID= ?" 
+			authorities-by-username-query="SELECT a.Member_NO, a.role 
+										FROM Auth a 
+										JOIN Member m ON a.Member_NO = m.Member_NO 
+										WHERE m.Member_ID= ?" 
 			/>
 		</security:authentication-provider>
 	</security:authentication-manager>
