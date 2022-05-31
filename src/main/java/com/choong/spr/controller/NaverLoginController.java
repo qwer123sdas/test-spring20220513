@@ -7,6 +7,9 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.security.Principal;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +23,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -36,6 +42,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.choong.spr.BO.MemberBO;
 import com.choong.spr.controller.naver.NaverLoginBO;
 import com.choong.spr.controller.naver.NaverUser;
+import com.choong.spr.domain.MemberDto;
 import com.choong.spr.domain.NaverDto;
 import com.choong.spr.service.NaverService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -122,21 +129,23 @@ public class NaverLoginController {
 			rttr.addFlashAttribute("name", name);
 			return "redirect:/member/signUpPage";
 		}
+		// 비밀번호&권한 가져오기
+		MemberDto dto= service.loginMemberPWAndAuth(memberId);
+		String PW = dto.getMemberPW();
+		String roleStr = dto.getRole();
+		List<GrantedAuthority> roles = new ArrayList<>(1);
+		roles.add(new SimpleGrantedAuthority(roleStr));
 		
-		
-		/* ++ 만약 일치하는 사용자가 있다면 현재 세션에 사용자 로그인 정보를 저장 */
-		//4.파싱 닉네임 세션으로 저장
 		
 		// SpringSecurity 강제로 로그인 시키기
-		/*   UserDetails ckUserDetails = userDetailsService.loadUserByUsername(memberId);
-		Authentication authentication = new UsernamePasswordAuthenticationToken(ckUserDetails, "USER_PASSWORD", ckUserDetails.getAuthorities());
+		 User user = new User(memberId, PW, roles);
+		 Authentication auth = new UsernamePasswordAuthenticationToken(user, PW, roles);
+		 SecurityContextHolder.getContext().setAuthentication(auth);
 		
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		securityContext.setAuthentication(authentication);
-		HttpSession session1 = request.getSession(true);
-		session1.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);*/
-		
+
 	    
+		 /* ++ 만약 일치하는 사용자가 있다면 현재 세션에 사용자 로그인 정보를 저장 */
+		 //4.파싱 닉네임 세션으로 저장
 	    
 	    
 		System.out.println("세션 저장 :  "+ name);

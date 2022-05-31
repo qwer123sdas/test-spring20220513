@@ -98,7 +98,6 @@
 		</div>
 	</div>
 
-	<a href="spr/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
 
 
 			<!-- 네이버 로그인 창으로 이동 -->

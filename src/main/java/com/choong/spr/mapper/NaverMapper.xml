@@ -4,8 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choong.spr.mapper.NaverMapper">
 	<select id="signUpCheck" resultType="int">
-		SELECT count(Member_ID) FROM
-		Member
+		SELECT count(Member_ID)
+		FROM Member
 		WHERE Member_ID=#{memberId} AND Member_Name=#{name}
+	</select>
+	
+	<select id="loginMemberPWAndAuth" resultType="com.choong.spr.domain.MemberDto">
+		SELECT m.Member_PW memberPW, a.role role
+		FROM Member m JOIN Auth a ON m.Member_NO = a.Member_NO
+		WHERE m.Member_ID = #{memberId}
 	</select>
 </mapper>
