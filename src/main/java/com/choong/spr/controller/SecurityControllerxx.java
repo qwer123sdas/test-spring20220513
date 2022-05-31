@@ -13,7 +13,7 @@ import com.choong.spr.domain.MemberDto;
 import com.choong.spr.service.MemberService;
 
 
-public class SecurityController {
+public class SecurityControllerxx {
 	@Autowired
 	MemberService service;
 	

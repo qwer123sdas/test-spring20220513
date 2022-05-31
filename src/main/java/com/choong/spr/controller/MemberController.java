@@ -2,6 +2,8 @@ package com.choong.spr.controller;
 
 
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -90,8 +92,8 @@ public class MemberController {
 
 	// 회원 정보 수정
 	@PostMapping("editUser")
-	public String editPage(MemberDto dto, String presentPW, HttpSession session) {
-		boolean success = service.editUser(dto, presentPW);
+	public String editPage(MemberDto dto, String inputPW, HttpSession session, Principal principal) {
+		boolean success = service.editUser(dto, inputPW, principal);
 
 		return "redirect:/member/userDetailPage";
 	}

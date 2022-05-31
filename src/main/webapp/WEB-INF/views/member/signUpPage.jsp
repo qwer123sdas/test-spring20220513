@@ -53,7 +53,7 @@
 	function checks() {
 		// 값 불러오기  // value 불러오기
 		var id = document.getElementById("id").value;
-		var pW = document.getElementById("pw").value;
+		var pw = document.getElementById("pw").value;
 		var tempPw = document.getElementById("tempPw").value;
 		var name = document.getElementById("name").value;
 		var zoneCode = document.getElementById("zoneCode").value;

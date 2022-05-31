@@ -1,5 +1,6 @@
 package com.choong.spr.service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -98,15 +99,22 @@ public class MemberService implements MemberServiceImpl {
 	}
 
 	// (비밀번호 제외)회원 정보 수정
-	public boolean editUser(MemberDto dto, String presentPW) {
+	public boolean editUser(MemberDto dto, String inputPW, Principal principal) {
+		System.out.println("input : " + inputPW);
 		MemberDto presentDto = mapper.userDetail(dto.getMemberID());
-		String encodePW = presentDto.getMemberPW();
+		String presentEncodePW = presentDto.getMemberPW();
+		System.out.println("pre : " + presentEncodePW);
+		
 		// 기존 password가 일치할 때만 계속 진행
-		if(passwordEncoder.matches(presentPW, encodePW)) {
+		if(passwordEncoder.matches(inputPW, presentEncodePW)) {
+			presentDto.setPassword(passwordEncoder.encode(inputPW));
 			return mapper.editUser(dto) == 1;
 		}
 		return false;
 	}
+	
+	
+	
 	public void addAuth(int memberNo) {
 		// add auth(권한 주기)
 		mapper.insertAuth(memberNo, "ROLE_USER", 1);  //'ROLE_'를 통해 보안~~에 줌~~ 

@@ -70,7 +70,7 @@ window.onload = function(){
 			}
 		});
 		// 비밀번호 수정하기 버튼
-		$('#passwordModify').click(function(e){
+		$('#current_passwordForm').click(function(e){
 			e.preventDefault();
 			$('#passwordModifyArea').removeClass('d-none');
 			
@@ -89,6 +89,22 @@ window.onload = function(){
 		});
 
 	});
+	
+	function checks() {
+		// 값 불러오기  // value 불러오기
+		var pw = document.getElementById("inputPW").value;
+		var name = document.getElementById("name").value;
+		var zoneCode = document.getElementById("zoneCode").value;
+		var detailAddress = document.getElementById("detailAddress").value;
+		var phone = document.getElementById("phone").value;
+		var email = document.getElementById("email").value;
+		if (pw != "" && name != "") {
+			return true;
+		} else {
+			alert("전부 입력하시오");
+			return false;
+		}
+	}
 	
 	function pwConfirm() {
 		var pw = document.getElementById("newPW");
@@ -190,15 +206,11 @@ window.onload = function(){
 		</div>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">핸드폰번호</h5>
-			<p class="card-text">${memberDto.memberRole }</p>
+			<p class="card-text">${memberDto.memberPhone }</p>
 		</div>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">이메일 주소</h5>
 			<p class="card-text">${memberDto.memberEmail }</p>
-		</div>
-		<div class="card-body text-secondary">
-			<h5 class="card-title">생년월일</h5>
-			<p class="card-text">${memberDto.memberDate }</p>
 		</div>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">집주소</h5>
@@ -218,13 +230,12 @@ window.onload = function(){
 	</div>
 
 	<!-- 회원 개인정보 수정-->
-	<form action="${appRoot }/member/editUser" method="post"
-		id="updateMemberForm">
+	<form action="${appRoot }/member/editUser" method="post" id="updateMemberForm" onsubmit="return checks()">
 		<div class="card border-secondary mb-3 d-none" id="updateMemberBoard">
 			<div class="card-header">기본정보</div>
 			<div class="card-body text-secondary">
 				<h5 class="card-title">이름</h5>
-				<input class="input is-success" type="text" name="memberName"
+				<input class="input is-success" type="text" name="memberName" id="name"
 					value="${memberDto.memberName }" style="border: 1 solid black" />
 			</div>
 			<div class="card-body text-secondary">
@@ -232,8 +243,8 @@ window.onload = function(){
 				<p class="card-text">${memberDto.memberID }</p>
 			</div>
 			<div class="card-body text-secondary">
-				<h5 class="card-title"> 현재 비밀번호 <span class="tag is-primary" id="passwordModify" >수정</span></h5>
-				<input class="input is-success" type="text" name="memberPW"
+				<h5 class="card-title"> 현재 비밀번호 <span class="tag is-primary" id="input_passwordForm" >수정</span></h5>
+				<input class="input is-success" type="text" name="inputPW" id="inputPW"
 					value="" style="border: 1 solid black" />
 				<div class="d-none" id="passwordModifyArea">
 					<h5 class="card-title"> 신규 비밀번호</h5>
@@ -249,23 +260,23 @@ window.onload = function(){
 			
 			<div class="card-body text-secondary">
 				<h5 class="card-title">핸드폰번호</h5>
-				<input class="input is-success" type="text" name="memberRole"
-					value="${memberDto.memberRole }" style="border: 1 solid black" />
+				<input class="input is-success" type="text" name="memberPhone" id="phone"
+					value="${memberDto.memberPhone }" style="border: 1 solid black" />
 			</div>
 			<div class="card-body text-secondary">
 				<h5 class="card-title">이메일 주소</h5>
-				<input class="input is-success" type="text" name="memberEmail"
+				<input class="input is-success" type="text" name="memberEmail" id="email"
 					value="${memberDto.memberEmail }" style="border: 1 solid black" />
 			</div>
 
 			<div class="field">
 				<label class="label">주소</label>
 				<div class="control">
-					<input class="input" type="text" id="zoneCode" name="zoneCode"
+					<input class="input" type="text" id="zoneCode" name="zoneCode" id="zoneCode"
 						value="${memberDto.zoneCode }">
 				</div>
 				<div class="control">
-					<input class="input" type="text" id="mainAddress" name="mainAddress"
+					<input class="input" type="text" id="mainAddress" name="mainAddress" id="mainAddress"
 						value="${memberDto.mainAddress }">
 					<span class="tag is-primary" id="address_kakao" >우편번호 찾기</span>
 					<!-- <button id="address_kakao">우편번호 찾기</button> -->
@@ -274,7 +285,7 @@ window.onload = function(){
 			<div class="field">
 				<label class="label">상세 주소</label>
 				<div class="control">
-					<input class="input" type="text" name="detailAddress"
+					<input class="input" type="text" name="detailAddress" id="detailAddress"
 						value="${memberDto.detailAddress }">
 				</div>
 			</div>
