@@ -129,6 +129,9 @@ public class MemberService implements MemberServiceImpl {
 
 	// 회원 탈퇴
 	public void deleteUser(String id) {
+		// 
+		
+		// 멤버 테이블의 enable을 0으로 바꾸기
 		mapper.deletUser(id);
 	}
 

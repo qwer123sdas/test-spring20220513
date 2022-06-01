@@ -14,6 +14,9 @@
 							authentication-success-handler-ref="LoginSuccessHandler"
 		 					default-target-url="/ex01/list" />
 		<security:logout logout-success-url="/ex01/list" />
+		
+		<security:intercept-url pattern="/ex01/write" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/member/userDetailPage" access="isAuthenticated()"/>
 	</security:http>
 	
 	<!-- 성공 시 핸들러 등록 -->

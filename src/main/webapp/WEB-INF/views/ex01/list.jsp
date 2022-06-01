@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -59,7 +60,6 @@
 						<c:forEach items="${boardList }" var="board">
 							<tr>
 								<td>${board.id }</td>
-								<c:if test="${not empty sessionScope.name }">
 									<td>
 										<a href="${appRoot }/ex01/board/${board.id }">
 											${board.title } </a>
@@ -71,21 +71,6 @@
 									</c:if>
 									</td>
 									<td>${board.inserted }</td>
-								</c:if>
-
-								<c:if test="${empty sessionScope.name }">
-									<td>
-										<a> ${board.title } </a>
-										<c:if test="${board.numOfReply > 0 }">
-											<span class="badge rounded-pill bg-light text-dark">
-												<i class="fa-solid fa-comment-dots"></i>
-												${board.numOfReply }
-											</span>
-										</c:if>
-									</td>
-
-									<td>${board.inserted }</td>
-								</c:if>
 							</tr>
 						</c:forEach>
 

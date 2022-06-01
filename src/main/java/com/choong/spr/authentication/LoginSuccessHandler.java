@@ -41,9 +41,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		String name = dto.getMemberName();
 	
 
-		request.getSession().setAttribute("id", id);
 		request.getSession().setAttribute("name", name);
-		request.getAttribute(id);
 		request.getAttribute(name);
 		response.sendRedirect(url);
 		

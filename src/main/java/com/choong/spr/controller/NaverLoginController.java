@@ -152,7 +152,6 @@ public class NaverLoginController {
 	    
 		System.out.println("세션 저장 :  "+ name);
 		session.setAttribute("name", name); //세션 생성
-		session.setAttribute("id", memberId);
 		rttr.addAttribute("result", apiResult);
 		return "redirect:/ex01/list";
 

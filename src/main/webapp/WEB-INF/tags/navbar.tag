@@ -19,14 +19,10 @@
 
 	<div id="navbarBasicExample" class="navbar-menu">
 		<div class="navbar-start">
-			<c:if test="${empty sessionScope.name }">
-				<a class="navbar-item"> 글 작성 </a>
-			</c:if>
-			<c:if test="${not empty sessionScope.name }">
+			<sec:authorize access="isAuthenticated()">
 				<a class="navbar-item" href="${appRoot }/ex01/write"> 글 작성 </a>
-				<a class="navbar-item" href="${appRoot }/member/userDetailPage"> 회원 정보
-				</a>
-			</c:if>
+				<a class="navbar-item" href="${appRoot }/member/userDetailPage"> 회원 정보</a>
+			</sec:authorize>
 		</div>
 
 
