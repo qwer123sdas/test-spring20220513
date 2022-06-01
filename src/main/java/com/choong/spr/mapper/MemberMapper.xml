@@ -23,8 +23,8 @@
 
 	<!-- 아이디 중복 검사 -->
 	<select id="idCheck" resultType="int">
-		SELECT count(Member_ID) FROM
-		Member
+		SELECT count(Member_ID) 
+		FROM Member
 		WHERE Member_ID=#{id}
 	</select>
 	
@@ -34,6 +34,15 @@
 		Member
 		WHERE Member_Name=#{userName}
 	</select>
+	
+	<!-- 스프링 시큐리티, BO 유저이름 가져오기-->
+	
+	<select id="getUserNameById" resultType="com.choong.spr.domain.MemberDto">
+		SELECT Member_Name memberName
+		FROM Member
+		WHERE Member_ID=#{id}
+	</select>
+	
 	
 	<!-- 네이버 아이디로 로그인 사용자 유니크 식별자를 통하여 가입정보를 조회 -->
 <!-- 	<select id="getUserBySnsId" resultMap="com.choong.spr.domain.NaverDto">
@@ -46,13 +55,32 @@
 	</select> -->
 	<!-- 회원가입 -->
 	<insert id="singUp" useGeneratedKeys="true" keyColumn="Member_NO" keyProperty="memberNO" parameterType="com.choong.spr.domain.MemberDto">
-		INSERT INTO Member(Member_ID, Member_PW, Member_Name, Member_Email, Member_Phone, Member_NickName, ZoneCode, MainAddress, DetailAddress)
-		  VALUES(#{memberID}, #{memberPW}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberNickName}, #{zoneCode}, #{mainAddress}, #{detailAddress})
+		INSERT INTO Member(Member_ID, 
+							Member_PW, 
+							Member_Name, 
+							Member_Email,
+							Member_Phone,
+							Member_NickName, 
+							ZoneCode, 
+							MainAddress, 
+							DetailAddress, 
+							enable)
+		  VALUES(#{memberID}, 
+		  		#{memberPW}, 
+		  		#{memberName}, 
+		  		#{memberEmail}, 
+		  		#{memberPhone}, 
+		  		#{memberNickName}, 
+		  		#{zoneCode}, 
+		  		#{mainAddress}, 
+		  		#{detailAddress},
+		  		#{enable}
+		  		)
 	</insert>
 	
 	<insert id="insertAuth">
-		INSERT INTO Auth(Member_NO, role, enable)
-		VALUES(#{memberNO}, #{role}, #{enable})
+		INSERT INTO Auth(Member_NO, role)
+		VALUES(#{memberNO}, #{role})
 	</insert>
 	
 

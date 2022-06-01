@@ -92,18 +92,17 @@ public class MemberController {
 
 	// 회원 정보 수정
 	@PostMapping("editUser")
-	public String editPage(MemberDto dto, String inputPW, HttpSession session, Principal principal) {
-		boolean success = service.editUser(dto, inputPW, principal);
+	public String editPage(MemberDto dto, String inputPW, String newPW, HttpSession session) {
+		if(newPW.equals("") || newPW == null) {
+			boolean success = service.editUser(dto, inputPW, null);
+		}else {
+			boolean success = service.editUser(dto, inputPW, newPW);
+			
+		}
 
 		return "redirect:/member/userDetailPage";
 	}
-	// 비밀번호 수정 + 회원 정보 수정
-	@PostMapping("editUserAndPW")
-	public String editPageAndPW(MemberDto dto, String presentPW, String newPW, HttpSession session) {
-		service.editPageAndPW(dto, newPW);
 
-		return "redirect:/member/userDetailPage";
-	}
 
 	
 

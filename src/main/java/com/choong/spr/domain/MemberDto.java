@@ -25,6 +25,8 @@ public class MemberDto {
 	private String mainAddress;
 	private String detailAddress;
 	
+	private int enable;
+	
 	private String role;
 	
 }

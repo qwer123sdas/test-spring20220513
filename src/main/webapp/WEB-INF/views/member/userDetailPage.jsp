@@ -70,7 +70,7 @@ window.onload = function(){
 			}
 		});
 		// 비밀번호 수정하기 버튼
-		$('#current_passwordForm').click(function(e){
+		$('#input_passwordForm').click(function(e){
 			e.preventDefault();
 			$('#passwordModifyArea').removeClass('d-none');
 			
@@ -105,12 +105,29 @@ window.onload = function(){
 			return false;
 		}
 	}
+	function pwCheck() {
+		var pwReg = /^[a-zA-Z0-9`\-=\\\[\];',\./~!@#\$%\^&\*\(\)_\+|\{\}:"<>\?]{8,16}$/;
+		var pw = document.getElementById("newPW").value;
+		var pw_msg = document.getElementById("newPW_msg");
+
+		if (pw == "") {
+			pw_msg.innerHTML = "필수 정보입니다.";
+			return;
+		} else if (!pwReg.test(pw)) {
+			pw_msg.innerHTML = "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
+			return;
+		} else {
+			pw_msg.innerHTML = "";
+			return true;
+		}
+	}
 	
 	function pwConfirm() {
 		var pw = document.getElementById("newPW");
-		var tempPw = document.getElementById("tempPw");
+		var tempPw = document.getElementById("newPWConfirm");
 
-		var temp_pw_msg = document.getElementById("temp_pw_msg");
+		var pw_msg = document.getElementById("newPW_msg");
+		var temp_pw_msg = document.getElementById("newPW_confirm_msg");
 
 		if (!pwCheck()) {
 			pw_msg.innerHTML = "다시 확인해주세요.";
@@ -120,6 +137,7 @@ window.onload = function(){
 			return;
 		} else if (tempPw.value == "") {
 			temp_pw_msg.innerHTML = "필수 정보입니다.";
+			tempPw.focus();
 			return;
 		} else if (pw.value != tempPw.value) {
 			temp_pw_msg.innerHTML = "비밀번호가 일치하지 않습니다.";
@@ -248,12 +266,13 @@ window.onload = function(){
 					value="" style="border: 1 solid black" />
 				<div class="d-none" id="passwordModifyArea">
 					<h5 class="card-title"> 신규 비밀번호</h5>
-					<input class="input is-success " type="text" name="newPW"
+					<input class="input is-success " type="text" name="newPW" id="newPW"  onchange="pwCheck()"
 						value="" style="border: 1 solid black" />
+					<p class="help is-danger" id="newPW_msg"></p>
 					<h5 class="card-title"> 신규 비밀번호 재입력</h5>
-					<input class="input is-success" type="text" name="tempPW"
+					<input class="input is-success" type="text" id="newPWConfirm" onchange="pwConfirm()"
 						value="" style="border: 1 solid black" />
-					<p class="help is-danger" id="temp_pw_msg"></p>
+					<p class="help is-danger" id="newPW_confirm_msg"></p>
 					<span class="tag is-primary" id="passwordModifyCancle" >취소</span>
 				</div>
 			</div>

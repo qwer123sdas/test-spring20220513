@@ -51,7 +51,7 @@ public class MemberService implements MemberServiceImpl {
 		// 암호 인코더
 		String encodePW = passwordEncoder.encode(dto.getMemberPW());
 		dto.setMemberPW(encodePW);
-		
+		dto.setEnable(1);
 		mapper.singUp(dto);
 	}
 	
@@ -99,15 +99,20 @@ public class MemberService implements MemberServiceImpl {
 	}
 
 	// (비밀번호 제외)회원 정보 수정
-	public boolean editUser(MemberDto dto, String inputPW, Principal principal) {
-		System.out.println("input : " + inputPW);
+	public boolean editUser(MemberDto dto, String inputPW, String newPW) {
+		
 		MemberDto presentDto = mapper.userDetail(dto.getMemberID());
 		String presentEncodePW = presentDto.getMemberPW();
-		System.out.println("pre : " + presentEncodePW);
 		
 		// 기존 password가 일치할 때만 계속 진행
 		if(passwordEncoder.matches(inputPW, presentEncodePW)) {
-			presentDto.setPassword(passwordEncoder.encode(inputPW));
+			// 비밀번호를 수정할 때
+			if(newPW != null) {
+				presentDto.setMemberPW(passwordEncoder.encode(newPW));
+				return mapper.editUser(dto) == 1;
+			}
+			
+			presentDto.setMemberPW(passwordEncoder.encode(inputPW));
 			return mapper.editUser(dto) == 1;
 		}
 		return false;
@@ -117,14 +122,10 @@ public class MemberService implements MemberServiceImpl {
 	
 	public void addAuth(int memberNo) {
 		// add auth(권한 주기)
-		mapper.insertAuth(memberNo, "ROLE_USER", 1);  //'ROLE_'를 통해 보안~~에 줌~~ 
+		mapper.insertAuth(memberNo, "ROLE_USER");  //'ROLE_'를 통해 보안~~에 줌~~ 
 		
 	}
 	
-	// 회원 정보비밀번호 수정
-	public void editPageAndPW(MemberDto dto, String newPW) {
-		
-	}
 
 	// 회원 탈퇴
 	public void deleteUser(String id) {

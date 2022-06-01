@@ -12,7 +12,7 @@ public interface MemberMapper {
 	
 	// 회원 가입
 	int singUp(MemberDto dto);
-	int insertAuth(@Param("memberNO") int memberNO, @Param("role") String role, @Param("enable")int enable);
+	int insertAuth(@Param("memberNO") int memberNO, @Param("role") String role);
 	
 	// 아이디 중복 검사
 	int idCheck(String id);
@@ -31,6 +31,9 @@ public interface MemberMapper {
 	
 	// BO, 유저 아이디 가져오기
 	NaverDto getUserBySnsId(String snsId);
+	
+	// 스프링시큐리티, 유저 아이디로 유저 이름 가져오기
+	MemberDto getUserNameById(String id);
 
 }
 

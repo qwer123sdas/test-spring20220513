@@ -132,6 +132,8 @@ public class NaverLoginController {
 		// 비밀번호&권한 가져오기
 		MemberDto dto= service.loginMemberPWAndAuth(memberId);
 		String PW = dto.getMemberPW();
+		
+		
 		String roleStr = dto.getRole();
 		List<GrantedAuthority> roles = new ArrayList<>(1);
 		roles.add(new SimpleGrantedAuthority(roleStr));

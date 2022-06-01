@@ -17,9 +17,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import com.choong.spr.domain.MemberDto;
 import com.choong.spr.domain.UserDto;
+import com.choong.spr.mapper.MemberMapper;
 import com.choong.spr.service.MemberService;
 
 public class LoginSuccessHandler implements AuthenticationSuccessHandler{
+	@Autowired
+	MemberMapper memberMapper;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -34,9 +37,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		//Collection<GrantedAuthority> authList = dto.getPassword();
 		String url="/spr/ex01/list";
 		String id = authentication.getName();
+		MemberDto dto = memberMapper.getUserNameById(id);
+		String name = dto.getMemberName();
+	
 
 		request.getSession().setAttribute("id", id);
+		request.getSession().setAttribute("name", name);
 		request.getAttribute(id);
+		request.getAttribute(name);
 		response.sendRedirect(url);
 		
 	}
