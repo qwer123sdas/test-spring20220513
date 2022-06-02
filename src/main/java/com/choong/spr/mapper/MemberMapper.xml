@@ -43,6 +43,11 @@
 		WHERE Member_ID=#{id}
 	</select>
 	
+	<select id="getUserNumberById" resultType="int">
+		SELECT Member_NO memberNO
+		FROM Member
+		WHERE Member_ID = #{id}
+	</select>
 	
 	<!-- 네이버 아이디로 로그인 사용자 유니크 식별자를 통하여 가입정보를 조회 -->
 <!-- 	<select id="getUserBySnsId" resultMap="com.choong.spr.domain.NaverDto">
@@ -98,8 +103,8 @@
 	</update>
 	
 	<!-- 회원 탈퇴 -->
-	<delete id="deletUser">
-		DELETE FROM Member
-  		WHERE Member_ID = #{id}
+	<!-- 프로시저 처리 -->
+	<delete id="deletUser" statementType="CALLABLE">
+		{call deletUser(#{memberNO})}
 	</delete>
 </mapper>

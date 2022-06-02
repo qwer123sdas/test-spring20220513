@@ -202,12 +202,9 @@ window.onload = function(){
 			미정
 		</a>
 	</article>
-<c:if test="${empty sessionScope.name }">
-	<form action="${appRoot }/spr/naverlogin"></form>
-	<button>로그인 하시오 </button>
-</c:if>
+
 	
-<c:if test="${not empty sessionScope.name }">
+
 	<div class="card border-secondary mb-3" id="memberDetail">
 		<div class="card-header">기본정보</div>
 		<div class="card-body text-secondary">
@@ -321,7 +318,7 @@ window.onload = function(){
 	<form action="">
 		
 	</form>
-</c:if>
+
 
 </body>
 </html>

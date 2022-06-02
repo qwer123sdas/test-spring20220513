@@ -24,7 +24,7 @@ public interface MemberMapper {
 	int editUser(MemberDto dto);
 
 	// 회원 탈퇴
-	void deletUser(String id);
+	void deletUser(int memberNO);
 	
 	// BO, 유저 이름 가져오기
 	MemberDto getUserByUserName(String userName);
@@ -34,6 +34,9 @@ public interface MemberMapper {
 	
 	// 스프링시큐리티, 유저 아이디로 유저 이름 가져오기
 	MemberDto getUserNameById(String id);
+	
+	// 회원 탈퇴시,, 유저 고유 번호 가져오기
+	int getUserNumberById(String id);
 
 }
 

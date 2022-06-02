@@ -84,8 +84,7 @@ public class MemberController {
 	public String userDetailPage(HttpSession session, Model model) throws Exception {
 		String id = (String) session.getAttribute("id");
 		MemberDto memberDto = service.userDetail(id);
-
-		session.setAttribute("name", memberDto.getMemberName());
+		
 		model.addAttribute("memberDto", memberDto);
 		return "member/userDetailPage";
 	}

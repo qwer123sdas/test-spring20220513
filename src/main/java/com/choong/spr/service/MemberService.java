@@ -129,10 +129,17 @@ public class MemberService implements MemberServiceImpl {
 
 	// 회원 탈퇴
 	public void deleteUser(String id) {
-		// 
+		// 댓글 삭제
 		
-		// 멤버 테이블의 enable을 0으로 바꾸기
-		mapper.deletUser(id);
+		// 게시글 삭제
+		
+		
+	// 프로시저로 처리하기
+		// 고유 번호 가져오기
+		int memberNO = mapper.getUserNumberById(id);
+		
+		// 권위 삭제 + 계정 데이터 삭제
+		mapper.deletUser(memberNO);
 	}
 
 

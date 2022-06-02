@@ -37,12 +37,15 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		//Collection<GrantedAuthority> authList = dto.getPassword();
 		String url="/spr/ex01/list";
 		String id = authentication.getName();
+		
 		MemberDto dto = memberMapper.getUserNameById(id);
 		String name = dto.getMemberName();
 	
 
 		request.getSession().setAttribute("name", name);
+		request.getSession().setAttribute("id", id);
 		request.getAttribute(name);
+		request.getAttribute(id);
 		response.sendRedirect(url);
 		
 	}
