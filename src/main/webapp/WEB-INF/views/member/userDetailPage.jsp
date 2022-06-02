@@ -61,7 +61,7 @@ window.onload = function(){
 
 		$("#deleteMember").click(function(e) {
 			e.preventDefault();
-			if (confirm("삭제하시겠습니까?")) {
+			if (confirm("계정을 삭제하면 30일 동안 재가입이 불가능 합니다. 삭제하시겠습니까?")) {
 				let form = $("#updateMemberForm");
 				let actionAttr = "${appRoot }/member/deleteUser";
 				form.attr("action", actionAttr);
@@ -98,10 +98,10 @@ window.onload = function(){
 		var detailAddress = document.getElementById("detailAddress").value;
 		var phone = document.getElementById("phone").value;
 		var email = document.getElementById("email").value;
-		if (pw != "" && name != "") {
+		if (pw != "" && name != "" && zoneCode != "" && detailAddress != "" && phone != "" && email != "") {
 			return true;
 		} else {
-			alert("전부 입력하시오");
+			alert("전부 입력하시오.");
 			return false;
 		}
 	}
@@ -259,7 +259,7 @@ window.onload = function(){
 			</div>
 			<div class="card-body text-secondary">
 				<h5 class="card-title"> 현재 비밀번호 <span class="tag is-primary" id="input_passwordForm" >수정</span></h5>
-				<input class="input is-success" type="text" name="inputPW" id="inputPW"
+				<input class="input is-success" type="password" name="inputPW" id="inputPW"
 					value="" style="border: 1 solid black" />
 				<div class="d-none" id="passwordModifyArea">
 					<h5 class="card-title"> 신규 비밀번호</h5>

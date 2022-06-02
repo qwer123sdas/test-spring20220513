@@ -121,14 +121,20 @@ public class NaverLoginController {
 		String memberId = (String)response_obj.get("id");
 		
 		
-		// ++ 회원가입된 계정 유무 확인
-		/* ++ 만약 일치하는 사용자가 없다면 현재 로그인한 네이버 사용자 계정으로 회원가입이 가능하도록 가입페이지로 전달한다 */
+		// 회원가입된 계정 유무 확인
+		// ++ 만약 일치하는 사용자가 없다면 현재 로그인한 네이버 사용자 계정으로 회원가입이 가능하도록 가입페이지로 전달한다 
 		int result = service.signUpCheck(name, memberId);
 		if(result == 0) {
 			rttr.addFlashAttribute("id", memberId);
 			rttr.addFlashAttribute("name", name);
 			return "redirect:/member/signUpPage";
 		}
+		
+		// 네이버연동은 안되어 있지만, 회원가입은 되어있는 경우
+		// Member 테이블에서 이메일이 같은지 확인 여부 -> SNS_INFO테이블 기본값 INSERT한 후에 회원가입 유도하기
+		
+		
+		
 		// 비밀번호&권한 가져오기
 		MemberDto dto= service.loginMemberPWAndAuth(memberId);
 		String PW = dto.getMemberPW();
