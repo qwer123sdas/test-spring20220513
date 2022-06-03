@@ -19,6 +19,17 @@
   	FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
   	WHERE b.id = #{id}
   </select>
+<!-- 게시글 작성 -->
+	<!-- 게시글 내용 -->
+	<insert useGeneratedKeys="true" id="writeBoard" keyColumn="id" keyProperty="id">
+		INSERT INTO Board(title, body)
+		VALUES (#{title}, #{body})
+	</insert>
+	<!-- 파일 -->
+	<insert id="insertFile">
+		INSERT INTO File(board_id, fileName)
+		VALUES(#{id}, #{filename})
+	</insert>
   
  <!-- delete -->
  	<delete id="deleteBoard">
@@ -34,9 +45,4 @@
     	WHERE id = #{id}
  	</update>
   
-<!-- 게시글 작성 -->
-	<insert useGeneratedKeys="true" id="writeBoard" keyColumn="id" keyProperty="id">
-		INSERT INTO Board(title, body)
-		VALUES (#{title}, #{body})
-	</insert>
  </mapper>

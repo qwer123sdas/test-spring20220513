@@ -34,7 +34,7 @@
 	<c:url value="/ex01/board/write" var="writeLink" />
 	<!-- 글 작성  -->
 	<%-- ${appRoot}/ex01/write2 --%>
-	<form class="box" action="${writeLink }" method="post">
+	<form class="box" action="${writeLink }" method="post" enctype="multipart/form-data">
 		<div class="field">
 			<label class="label">제목</label>
 			<div class="control">
@@ -46,8 +46,9 @@
 		<textarea class="textarea" name="body"
 			placeholder="10 lines of textarea" rows="10"
 			placeholder="내용을 입력해주세요."> </textarea>
-
-
+		<label class="label">파일</label>
+		<input type="file" name="file" accept="image/*"/>
+		<div class="mb-5"></div>
 		<button class="button is-primary">등록</button>
 	</form>
 
