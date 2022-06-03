@@ -103,18 +103,26 @@ public class MemberService implements MemberServiceImpl {
 		
 		MemberDto presentDto = mapper.userDetail(dto.getMemberID());
 		String presentEncodePW = presentDto.getMemberPW();
-		
+
+		System.out.println("inputPW");
+		System.out.println(presentEncodePW);
+	
 		// 기존 password가 일치할 때만 계속 진행
 		if(passwordEncoder.matches(inputPW, presentEncodePW)) {
-			// 비밀번호를 수정할 때
-			if(newPW != null) {
-				presentDto.setMemberPW(passwordEncoder.encode(newPW));
-				return mapper.editUser(dto) == 1;
-			}
 			
-			presentDto.setMemberPW(passwordEncoder.encode(inputPW));
-			return mapper.editUser(dto) == 1;
+			// 비밀번호를 수정안할 때
+			if(newPW.equals("")) {
+				System.out.println("비밀번호 제외 수정 성공");
+				presentDto.setMemberPW(passwordEncoder.encode(newPW));
+				return mapper.editUserExceptPW(dto) == 1;
+			}
+			// 비밀번호 수정할 때
+			System.out.println("비밀번호까지 수정 성공!");
+			String encodedNewPW = passwordEncoder.encode(newPW);
+			return mapper.editUserALL(dto, encodedNewPW) == 1;
 		}
+		System.out.println("결과 false");
+		
 		return false;
 	}
 	
@@ -140,6 +148,17 @@ public class MemberService implements MemberServiceImpl {
 		
 		// 권위 삭제 + 계정 데이터 삭제
 		mapper.deletUser(memberNO);
+	}
+
+	// 비밀번호 찾기(아이디, 이메일 검사)
+	public boolean selectMemberByNameAndEmail(String id, String email) {
+		return mapper.selectMemberByNameAndEmail(id, email) == 1;
+	}
+
+	// 비밀번호 찾기(비밀번호 변경)
+	public void newPWChange(String id, String pw) {
+		String EncodedPW = passwordEncoder.encode(pw); 
+		mapper.restPW(id, EncodedPW);
 	}
 
 

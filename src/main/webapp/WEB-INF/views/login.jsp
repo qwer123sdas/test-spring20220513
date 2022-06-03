@@ -82,7 +82,7 @@
 			<div class="tabs is-centered is-6-desktop">
 				<ul>
 					<li>
-						<a target="_blank" href="" class="find_text">비밀번호 찾기</a>
+						<a target="_blank" href="${appRoot }/member/pw_find" class="find_text">비밀번호 찾기</a>
 					</li>
 					<li>
 						<a target="_blank" href="" class="find_text">아이디 찾기</a>

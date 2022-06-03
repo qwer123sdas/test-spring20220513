@@ -13,9 +13,15 @@
 	<!-- 회원 정보 페이지 -->
 	<select id="userDetail"
 		resultType="com.choong.spr.domain.MemberDto">
-		SELECT Member_NO memberNo, Member_ID memberID, Member_PW memberPW, Member_Name memberName,
-				Member_Email memberEmail, Member_Phone memberPhone, 
-				ZoneCode zoneCode, MainAddress mainAddress, DetailAddress detailAddress
+		SELECT Member_NO memberNo, 
+				Member_ID memberID, 
+				Member_PW memberPW, 
+				Member_Name memberName,
+				Member_Email memberEmail, 
+				Member_Phone memberPhone, 
+				ZoneCode zoneCode, 
+				MainAddress mainAddress, 
+				DetailAddress detailAddress
 		FROM Member
 		WHERE
 		Member_ID=#{id}
@@ -49,6 +55,13 @@
 		WHERE Member_ID = #{id}
 	</select>
 	
+	<!-- 비밀번호 찾기(이름, 이메일 검사) -->
+	<select id="selectMemberByNameAndEmail" resultType="int">
+		SELECT Count(Member_ID)
+		FROM Member
+		WHERE Member_ID = #{id} AND Member_Email = #{email}
+	</select>
+	
 	<!-- 네이버 아이디로 로그인 사용자 유니크 식별자를 통하여 가입정보를 조회 -->
 <!-- 	<select id="getUserBySnsId" resultMap="com.choong.spr.domain.NaverDto">
 		SELECT a.Member_Name,
@@ -58,6 +71,9 @@
 		FROM Member a, Naver_INFO b
 		WHERE a.Member_No = b.id
 	</select> -->
+	
+	
+	
 	<!-- 회원가입 -->
 	<insert id="singUp" useGeneratedKeys="true" keyColumn="Member_NO" keyProperty="memberNO" parameterType="com.choong.spr.domain.MemberDto">
 		INSERT INTO Member(Member_ID, 
@@ -90,15 +106,33 @@
 	
 
 	<!-- 회원정보 수정 -->
-	<update id="editUser">
+	<update id="editUserExceptPW">
 		UPDATE Member
 		SET Member_Name = #{memberName},
 		    Member_Email = #{memberEmail},
 		    Member_Phone = #{memberPhone},
-		    Member_Date = #{memberDate},
-		    ZoneCode = ${zoneCode},
+		    ZoneCode = #{zoneCode},
 		    MainAddress = #{mainAddress},
 		    DetailAddress = #{detailAddress}
+		WHERE Member_ID = #{memberID}
+	</update>
+	<update id="editUserALL">
+		UPDATE Member
+		SET Member_Name = #{dto.memberName},
+			Member_PW = #{encodedNewPW},
+		    Member_Email = #{dto.memberEmail},
+		    Member_Phone = #{dto.memberPhone},
+		    ZoneCode = #{dto.zoneCode},
+		    MainAddress = #{dto.mainAddress},
+		    DetailAddress = #{dto.detailAddress}
+		WHERE Member_ID = #{dto.memberID}
+	</update>
+	
+	
+	<!--  -->
+	<update id="restPW">
+		UPDATE Member
+		SET Member_PW = #{resetPW}
 		WHERE Member_ID = #{memberID}
 	</update>
 	

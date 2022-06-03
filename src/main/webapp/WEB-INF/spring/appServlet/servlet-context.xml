@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="com.choong.spr.controller" />
 	
+	
+	
 	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 
 

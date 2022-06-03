@@ -74,8 +74,8 @@ window.onload = function(){
 			e.preventDefault();
 			$('#passwordModifyArea').removeClass('d-none');
 			
-			let form1 = $("#formBoard");
-			let actionAttr = "${appRoot }/member/editUserAndPW";
+ 			let form1 = $("#updateMemberForm");
+			let actionAttr = "${appRoot }/member/editUser";
 			form1.attr("action", actionAttr);
 		});
 		// 비밀번호 수정취소
@@ -83,7 +83,7 @@ window.onload = function(){
 			e.preventDefault();
 			$('#passwordModifyArea').addClass('d-none');
 			
-			let form1 = $("#formBoard");
+			let form1 = $("#updateMemberForm");
 			let actionAttr = "${appRoot }/member/editUser";
 			form1.attr("action", actionAttr);
 		});
