@@ -8,7 +8,10 @@
 	<!-- 게시판 리스트 가져오기 -->
 	<select id="selectOrder"
 		resultType="com.choong.spr.domain.BoardDto">
-		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply
+		SELECT b.id, 
+				b.title, 
+				b.inserted, 
+				COUNT(r.id) numOfReply
 		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
 		GROUP BY b.id
 		ORDER BY id
@@ -18,15 +21,14 @@
 	<select id="getBoard"
 		resultType="com.choong.spr.domain.BoardDto">
 		SELECT b.id,
-		b.title,
-		b.body,
-		b.inserted,
-		COUNT(DISTINCT r.id) numOfReply,
-		m.nickName writerNickName,
-		COUNT(f.id) hasFile
-		FROM Board b
-		LEFT JOIN Reply r ON b.id = r.board_id
-		LEFT JOIN File f ON b.id = f.boardId
+				b.title,
+				b.body,
+				b.inserted,
+				COUNT(DISTINCT r.id) numOfReply,
+				<!-- m.nickName writerNickName, -->
+				COUNT(f.id) hasFile 
+		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
+					 LEFT JOIN File f ON b.id = f.board_id
 		WHERE b.id = #{id}
 	</select>
 	

@@ -13,6 +13,8 @@ public class BoardDto {
 	private LocalDateTime inserted;
 	private int numOfReply;
 	
+	private String writerNickName;
+	
 	private List<String> fileName;
 	
 	private boolean hasFile;
