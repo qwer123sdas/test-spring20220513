@@ -66,7 +66,7 @@
 				success : function(list){
 					/* 로딩대기 전에 내용물 지우기? */ 
 					const replyListElement = $('#replyList1');
-					replyListElement.empty();
+			 		replyListElement.empty();
 					for(let i = 0; i < list.length; i++){
 						
 						const replyElement = $("<div class='d-flex' />");
@@ -237,60 +237,5 @@
 			</div>
 		</div>
 	</form>
-
-	<%-- <c:forEach items="${replyList }" var="reply"> --%>
-	<container id="replyList1">
-<%-- 		<div class="d-flex" >
-			<div class="p-2">
-				<i class='mt-3 fa fa-reply fa fa-rotate-180' aria-hidden='true'></i>
-			</div>
-			<div class="flex-fill">
-				<div class="card mt-2">
-					<div class="card-header">
-						<table>
-							<tr class="align-middle">
-								<td rowspan="2" class="pr-2">
-									<i class="fa fa-user-o fa-2x"></i>
-								</td>
-								<td class="ml">${reply.id }</td>
-							</tr>
-							<tr>
-								<td>
-									<font size="2">${reply.inserted }</font>
-									<!--삭제 버튼  -->
-									<c:url value="/ex01/reply/remove" var="replyRemoveLink" />
-									<form action="${replyRemoveLink }" method="post"
-										id="reply-submit">
-										<input type="hidden" name="id" value="${reply.id }" />
-										<input type="hidden" name="boardId" value="${board.id }" />
-										<button>
-											<i class="fa fa-window-close fa" aria-hidden="true"></i>
-										</button>
-										<!-- 수정 버튼 -->
-										<button id="edit-reply-button-open">수정</button>
-
-									</form>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div class="card-body">
-						<p id="reply-content" class="card-text">${reply.content }</p>
-					</div>
-					<c:url value="/ex01/reply/modify" var="replyModifyLink"></c:url>
-					<form action="${replyModifyLink }" method="post" id="reply-submit">
-						<input id="modify-reply-content" class="is-5 d-none" type="text"
-							value="${reply.content }" name="content" style="border:0 solid black"/>
-						<input type="hidden" name="id" value="${reply.id }" />
-						<input type="hidden" name="boardId" value="${board.id }" />
-						<button class="is-5 d-none" id="edit-reply-button-close">수정완료</button>
-					</form>
-				</div>
-			</div>
-		</div> --%>
-	</container>
-	<%-- </c:forEach> --%>
-
-
 </body>
 </html>

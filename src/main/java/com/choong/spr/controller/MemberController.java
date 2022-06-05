@@ -25,13 +25,13 @@ import com.choong.spr.configuration.ApplicationConfig;
 import com.choong.spr.domain.Mail;
 import com.choong.spr.domain.MemberDto;
 import com.choong.spr.service.MailService;
-import com.choong.spr.service.MemberService;
+import com.choong.spr.service.MemberServiceImpl;
 
 @Controller
 @RequestMapping("member")
 public class MemberController {
 	@Autowired
-	MemberService service;
+	MemberServiceImpl service;
 
 	@Autowired
 	MailService mailService;
@@ -44,7 +44,8 @@ public class MemberController {
 	}
 
 	// 로그인 하기
-	/*
+	// 스프링 시큐리티 쓰면서 필요없어짐
+	/*  
 	@RequestMapping("login") 
 	public ModelAndView userLogin(@ModelAttribute MemberDto dto, HttpSession session, RedirectAttributes rttr) throws Exception{ 
 		boolean result = service.userLogin(dto, session); 

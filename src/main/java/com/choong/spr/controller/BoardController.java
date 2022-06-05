@@ -1,9 +1,7 @@
 package com.choong.spr.controller;
 
-import java.security.Principal;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +67,7 @@ public class BoardController {
 	// 게시글 수정
 	@PostMapping("board/modify")
 	public String modifyBoard(BoardDto boardDto) {
-		boolean success = service.modifyBoard(boardDto);
+		service.modifyBoard(boardDto);
 		
 		return "redirect:/ex01/board/" + boardDto.getId();
 	}
@@ -77,7 +75,7 @@ public class BoardController {
 	// 게시글 삭제
 	@PostMapping("board/delete")
 	public String removeBoard(int id) {
-		boolean success = service.deleteBoard(id);
+		service.deleteBoard(id);
 		return "redirect:/ex01/list";
 	}
 	

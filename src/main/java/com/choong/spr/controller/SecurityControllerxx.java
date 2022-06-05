@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choong.spr.domain.MemberDto;
-import com.choong.spr.service.MemberService;
+import com.choong.spr.service.MemberServiceImpl;
 
 
 public class SecurityControllerxx {
 	@Autowired
-	MemberService service;
+	MemberServiceImpl service;
 	
+	/*
 	@RequestMapping("login")
 	public String currentUser(HttpSession session, String id, RedirectAttributes rttr) {
 		System.out.println(session);
@@ -28,4 +29,5 @@ public class SecurityControllerxx {
 		rttr.addAttribute("name", userName);
 		return "redirect:/ex01/list";
 	}
+	*/
 }

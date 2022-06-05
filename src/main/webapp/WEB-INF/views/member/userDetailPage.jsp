@@ -315,10 +315,5 @@ window.onload = function(){
 		</div>
 	</form>
 	
-	<form action="">
-		
-	</form>
-
-
 </body>
 </html>

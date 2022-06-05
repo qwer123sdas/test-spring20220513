@@ -40,10 +40,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choong.spr.BO.MemberBO;
-import com.choong.spr.controller.naver.NaverLoginBO;
 import com.choong.spr.controller.naver.NaverUser;
 import com.choong.spr.domain.MemberDto;
 import com.choong.spr.domain.NaverDto;
+import com.choong.spr.service.NaverLoginBO;
 import com.choong.spr.service.NaverService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
