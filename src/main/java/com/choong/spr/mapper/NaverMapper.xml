@@ -10,7 +10,8 @@
 	</select>
 	
 	<select id="loginMemberPWAndAuth" resultType="com.choong.spr.domain.MemberDto">
-		SELECT m.Member_PW memberPW, a.role role
+		SELECT m.Member_PW memberPW, 
+				a.role role
 		FROM Member m JOIN Auth a ON m.Member_NO = a.Member_NO
 		WHERE m.Member_ID = #{memberId}
 	</select>

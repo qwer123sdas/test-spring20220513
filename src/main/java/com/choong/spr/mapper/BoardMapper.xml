@@ -4,53 +4,59 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choong.spr.mapper.BoardMapper">
 
-<!-- select -->
-  <!-- 게시판 리스트 가져오기 -->
-  <select id="selectOrder" resultType="com.choong.spr.domain.BoardDto">
-  	SELECT  b.id, b.title, b.inserted, COUNT(r.id) numOfReply
-  	FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
-  	GROUP BY b.id
-  	ORDER BY id
-  </select>
-  
-  <!--게시글 가져오기  -->
-  <select id="getBoard" resultType="com.choong.spr.domain.BoardDto" >
-  	SELECT b.id, 
-  			b.title, 
-  			b.body, 
-  			b.inserted, 
-  			COUNT(DISTINCT r.id) numOfReply,  
-  			m.nickName writerNickName,
-			COUNT(f.id) hasFile
-  	FROM Board b 
-  			LEFT JOIN Reply r ON b.id = r.board_id
-  			LEFT JOIN File f ON b.id = f.boardId
-  	WHERE b.id = #{id}
-  </select>
-<!-- 게시글 작성 -->
+	<!-- select -->
+	<!-- 게시판 리스트 가져오기 -->
+	<select id="selectOrder"
+		resultType="com.choong.spr.domain.BoardDto">
+		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply
+		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
+		GROUP BY b.id
+		ORDER BY id
+	</select>
+
+	<!--게시글 가져오기 -->
+	<select id="getBoard"
+		resultType="com.choong.spr.domain.BoardDto">
+		SELECT b.id,
+		b.title,
+		b.body,
+		b.inserted,
+		COUNT(DISTINCT r.id) numOfReply,
+		m.nickName writerNickName,
+		COUNT(f.id) hasFile
+		FROM Board b
+		LEFT JOIN Reply r ON b.id = r.board_id
+		LEFT JOIN File f ON b.id = f.boardId
+		WHERE b.id = #{id}
+	</select>
+	
+	<!-- 게시글 작성 -->
 	<!-- 게시글 내용 -->
-	<insert useGeneratedKeys="true" id="writeBoard" keyColumn="id" keyProperty="id">
+	<insert useGeneratedKeys="true" id="writeBoard" keyColumn="id"
+		keyProperty="id">
 		INSERT INTO Board(title, body)
 		VALUES (#{title}, #{body})
 	</insert>
 	<!-- 파일 -->
 	<insert id="insertFile">
 		INSERT INTO File(board_id, fileName)
-		VALUES(#{id}, #{filename})
+		VALUES(#{id},
+		#{filename})
 	</insert>
-  
- <!-- delete -->
- 	<delete id="deleteBoard">
- 		DELETE FROM Board
-  		WHERE id = #{id}
- 	</delete>
- 	
- <!--게시글 수정  -->
- 	<update id="modifyBoard">
- 		UPDATE Board
-   	 	SET title = #{title},
-     	     body = #{body}
-    	WHERE id = #{id}
- 	</update>
-  
- </mapper>
+
+	<!--게시글 수정 -->
+	<update id="modifyBoard">
+		UPDATE Board
+		SET title = #{title},
+		body = #{body}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- delete -->
+	<delete id="deleteBoard">
+		DELETE FROM Board
+		WHERE id = #{id}
+	</delete>
+
+
+</mapper>

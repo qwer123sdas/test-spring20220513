@@ -37,7 +37,7 @@
 	<!-- BO 유저이름 가져오기-->
 	<select id="getUserByUserName" resultType="com.choong.spr.domain.MemberDto">
 		SELECT Member_Name memberName
-		Member
+		FROM Member
 		WHERE Member_Name=#{userName}
 	</select>
 	
@@ -75,7 +75,8 @@
 	
 	
 	<!-- 회원가입 -->
-	<insert id="singUp" useGeneratedKeys="true" keyColumn="Member_NO" keyProperty="memberNO" parameterType="com.choong.spr.domain.MemberDto">
+	<insert id="singUp" useGeneratedKeys="true" keyColumn="Member_NO" 
+			keyProperty="memberNO" parameterType="com.choong.spr.domain.MemberDto">
 		INSERT INTO Member(Member_ID, 
 							Member_PW, 
 							Member_Name, 
@@ -116,6 +117,7 @@
 		    DetailAddress = #{detailAddress}
 		WHERE Member_ID = #{memberID}
 	</update>
+	
 	<update id="editUserALL">
 		UPDATE Member
 		SET Member_Name = #{dto.memberName},
@@ -129,7 +131,7 @@
 	</update>
 	
 	
-	<!--  -->
+	<!-- 비밀번호 잃어버렸을 때 비밀번호 초기화 -->
 	<update id="restPW">
 		UPDATE Member
 		SET Member_PW = #{resetPW}

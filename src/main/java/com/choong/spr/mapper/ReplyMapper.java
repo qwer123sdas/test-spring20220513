@@ -17,6 +17,7 @@ public interface ReplyMapper {
 	// 댓글 삭제
 	void removeReply(int id);
 	
+	// 게시글 삭제할 때 : 게시판 아이디로부터 댓글 삭제
 	void deleteReplyByBoard(int id);
 
 }
