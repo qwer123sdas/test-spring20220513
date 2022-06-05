@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -203,7 +204,17 @@
 		<label class="label">내용</label>
 		<textarea class="textarea" id="textarea1" name="body"
 			placeholder="10 lines of textarea" rows="10" readonly>${board.body } </textarea>
-		<img src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/board/${board.id }/${board.fileName }" alt="" />
+		<c:forEach items="${board.fileName }" var="file">
+			<%
+			String file = (String)pageContext.getAttribute("file");
+			String encodedFileName = URLEncoder.encode(file, "utf-8");
+			pageContext.setAttribute("encodedFileName", encodedFileName);
+			%>
+			<figure class="image is-48x48">
+	        	<img src="${imageUrl }/folder/${board.id }/${encodedFileName }" alt="Placeholder image">
+	         </figure>
+        </c:forEach>
+		<%-- <img src="https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/board/${board.id }/${board.fileName }" alt="" /> --%>
 		<div class="field">
 			<label class="label">작성일시</label>
 			<div class="control">

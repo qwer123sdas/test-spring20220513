@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,12 +34,17 @@ public class BoardService {
 	
 	private S3Client s3; 
 	
-	@PostConstruct
+	
+	@PostConstruct   // s3 빈 생성
 	public void init() {
 		Region region = Region.AP_NORTHEAST_2;
 		this.s3 = S3Client.builder()
 						.region(region)
 						.build();
+	}
+	@PreDestroy // s3 빈이 사라지기 전
+	public void destroy() {
+		this.s3.close();
 	}
 	
 	// 게시글 목록
@@ -46,10 +52,17 @@ public class BoardService {
 		return mapper.selectOrder();
 	}
 
-	// 게시글 출력
+	// id에 맞는 게시글 출력
 	public BoardDto getBoard(int id) {
-		return mapper.getBoard(id);
+		BoardDto board = mapper.getBoardById(id);
+		
+		// 여러가지 업로드된 데이터 가져오기
+		List<String> fileNames = mapper.selectFileNameByBoard(id);
+		board.setFileName(fileNames);
+		
+		return board;
 	}
+
 	
 	// 게시글 작성
 	@Transactional

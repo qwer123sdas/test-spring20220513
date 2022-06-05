@@ -10,8 +10,10 @@ public interface BoardMapper {
 	// 게시글 목록
 	List<BoardDto> selectOrder();
 	
-	// 게시글 보기
-	BoardDto getBoard(int id);
+	// id에 맞는 게시글 보기
+	BoardDto getBoardById(int id);
+	// // 여러가지 업로드된 데이터 가져오기
+	List<String> selectFileNameByBoard(int boardId);
 	
 	// 게시글 삭제
 	int deleteBoard(int id);
@@ -24,5 +26,6 @@ public interface BoardMapper {
 
 	// 게시글 작성자 아이디 + 파일명
 	void insertFile(@Param("id") int id, @Param("filename")String filename);
+
 
 }
