@@ -210,7 +210,7 @@
 			String encodedFileName = URLEncoder.encode(file, "utf-8");
 			pageContext.setAttribute("encodedFileName", encodedFileName);
 			%>
-			<figure class="image is-48x48">
+			<figure class="image is-128x128">
 	        	<img src="${imageUrl }/folder/${board.id }/${encodedFileName }" alt="Placeholder image">
 	         </figure>
         </c:forEach>
