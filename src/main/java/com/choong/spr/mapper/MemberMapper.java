@@ -25,7 +25,7 @@ public interface MemberMapper {
 	int editUserExceptPW(MemberDto dto);
 		// 비밀번호 수정 o
 	int editUserALL(@Param("dto")MemberDto dto, @Param("encodedNewPW")String encodedNewPW);
-
+	
 	// 회원 탈퇴
 	void deletUser(int memberNO);
 	
@@ -45,6 +45,7 @@ public interface MemberMapper {
 	int selectMemberByNameAndEmail(@Param("id")String id, @Param("email")String email);
 	// 비밀번호 찾기(비밀번호 초기화)
 	void restPW(@Param("resetPW") String resetPW, @Param("memberID")String memberID);
+
 
 	
 

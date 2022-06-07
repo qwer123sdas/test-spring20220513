@@ -94,11 +94,12 @@ window.onload = function(){
 		// 값 불러오기  // value 불러오기
 		var pw = document.getElementById("inputPW").value;
 		var name = document.getElementById("name").value;
+		var nickName = document.getElementById("memberNickName").value;
 		var zoneCode = document.getElementById("zoneCode").value;
 		var detailAddress = document.getElementById("detailAddress").value;
 		var phone = document.getElementById("phone").value;
 		var email = document.getElementById("email").value;
-		if (pw != "" && name != "" && zoneCode != "" && detailAddress != "" && phone != "" && email != "") {
+		if (pw != "" && name != "" && nickName != "" && zoneCode != "" && detailAddress != "" && phone != "" && email != "") {
 			return true;
 		} else {
 			alert("전부 입력하시오.");
@@ -202,14 +203,23 @@ window.onload = function(){
 			미정
 		</a>
 	</article>
-
+	
 	
 
 	<div class="card border-secondary mb-3" id="memberDetail">
 		<div class="card-header">기본정보</div>
+		<c:if test="${not empty message }">
+			<div class="alert alert-primary">
+				<p>${message }</p>
+			</div>
+		</c:if>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">이름</h5>
 			<p class="card-text">${memberDto.memberName }</p>
+		</div>
+		<div class="card-body text-secondary">
+			<h5 class="card-title">닉네임</h5>
+			<p class="card-text">${memberDto.memberNickName }</p>
 		</div>
 		<div class="card-body text-secondary">
 			<h5 class="card-title">아이디</h5>
@@ -256,6 +266,11 @@ window.onload = function(){
 			<div class="card-body text-secondary">
 				<h5 class="card-title">아이디</h5>
 				<p class="card-text">${memberDto.memberID }</p>
+			</div>
+			<div class="card-body text-secondary">
+				<h5 class="card-title">닉네임</h5>
+				<input class="input is-success" type="text" name="memberNickName" id="memberNickName"
+					value="${memberDto.memberNickName }" style="border: 1 solid black" />
 			</div>
 			<div class="card-body text-secondary">
 				<h5 class="card-title"> 현재 비밀번호 <span class="tag is-primary" id="input_passwordForm" >수정</span></h5>

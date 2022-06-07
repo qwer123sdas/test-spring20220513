@@ -72,7 +72,7 @@
 									</c:if>
 									</td>
 									<td>${board.writerNickName }</td>
-									<td>${board.inserted }</td>
+									<td>${board.prettyInserted }</td>
 							</tr>
 						</c:forEach>
 

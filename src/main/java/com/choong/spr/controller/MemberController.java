@@ -109,18 +109,28 @@ public class MemberController {
 
 	// 회원 정보 수정
 	@PostMapping("editUser")
-	public String editPage(MemberDto dto, String inputPW, String newPW, HttpSession session) {
+	public String editPage(MemberDto dto, String inputPW, String newPW, HttpSession session, RedirectAttributes rttr) {
 		System.out.println("비밀번호 수정 ? : " + newPW);
 		
 		if(newPW.equals("") || newPW == null) {
 			System.out.println("비밀번호 수정 x");
 			boolean success = service.editUser(dto, inputPW, "");
+			
+			if(!success) {
+				rttr.addFlashAttribute("message", "비밀번호가 틀렸습니다.");
+				return "redirect:/member/userDetailPage";
+			}
 		}else {
 			System.out.println("비밀번호 수정 o");
 			boolean success = service.editUser(dto, inputPW, newPW);
 			
+			if(!success) {
+				rttr.addFlashAttribute("message", "비밀번호가 틀렸습니다.");
+				return "redirect:/member/userDetailPage";
+			}
 		}
 
+		rttr.addFlashAttribute("message", "회원정보가 수정 되었습니다.");
 		return "redirect:/member/userDetailPage";
 	}
 	

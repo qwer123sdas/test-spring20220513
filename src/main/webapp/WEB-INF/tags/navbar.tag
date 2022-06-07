@@ -43,7 +43,7 @@
 				<sec:authorize access="isAuthenticated()">
 					<div class="buttons">
 						<p>${sessionScope.name }회원님</p>
-						<button class="nav-link" type="submit" form="logoutForm1">로그아웃</button>
+						<button class="button is-light nav-link" type="submit" form="logoutForm1">로그아웃</button>
 						<div class="d-none">
 							<form action="${appRoot }/logout" id="logoutForm1" method="post">로그아웃</form>
 						</div>

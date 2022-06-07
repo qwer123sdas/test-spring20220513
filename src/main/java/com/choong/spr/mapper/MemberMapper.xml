@@ -17,6 +17,7 @@
 				Member_ID memberID, 
 				Member_PW memberPW, 
 				Member_Name memberName,
+				Member_NickName memberNickName,
 				Member_Email memberEmail, 
 				Member_Phone memberPhone, 
 				ZoneCode zoneCode, 
@@ -110,6 +111,7 @@
 	<update id="editUserExceptPW">
 		UPDATE Member
 		SET Member_Name = #{memberName},
+			Member_NickName = #{memberNickName},
 		    Member_Email = #{memberEmail},
 		    Member_Phone = #{memberPhone},
 		    ZoneCode = #{zoneCode},

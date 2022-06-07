@@ -81,6 +81,7 @@ public class MemberServiceImpl implements MemberService {
 	public int idCheck(String id) {
 		return mapper.idCheck(id);
 	}
+	
 
 	// 로그 아웃
 	public void logout(HttpSession session) {
@@ -157,6 +158,8 @@ public class MemberServiceImpl implements MemberService {
 		String EncodedPW = passwordEncoder.encode(pw); 
 		mapper.restPW(id, EncodedPW);
 	}
+
+
 
 
 
