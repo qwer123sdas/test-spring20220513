@@ -17,15 +17,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	성공!!
-	<form action="${appRoot }/member/pw_new" method="POST">
-	<input type="hidden" name="id" value="${id }"/>
-		새 비밀번호
-		<input type="text" name="password"/>
-		새 비밀번호 확인
-		<input type="text" name="passwordTemp"/>
-		<button>비밀번호 변경</button>
-	</form>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 col-lg-6"> <!-- 고정 크기 12, lg변화에 따라 6고정 -->
+				<h1>새 비밀번호 등록</h1>
+				<form action="${appRoot }/member/pw_new" method="POST">
+					<input type="hidden" name="id" value="${id }"/>
+					<label for="usernameInput1" class="form-label"> 새 비밀번호 </label>
+					<input type="text" name="password" placeholder="새 비밀번호를 입력해주세요.">
+					<br />
+					<label for="usernameInput1" class="form-label"> 새 비밀번호 </label>
+					<input type="text" name="passwordTemp" placeholder="새 비밀번호를 다시 한번 입력해주세요.">
+					<br />
+					<input class="btn btn-primary" type="submit" id="check" value="비밀번호 변경 완료">
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
 	
 </body>
 </html>

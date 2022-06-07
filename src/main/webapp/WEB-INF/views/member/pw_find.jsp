@@ -17,19 +17,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="${appRoot }/member/pw_auth" method="post">
-		<div class="textbox">
-	  		<label for="text">아이디</label>
-	  		<input name="id"  type="text" />
-	   		<div class="error">아이디를 입력하세요  </div>
-	 	</div>
-	 	
-		<div class="textbox">
-	  		<label for="email">이메일</label>
-	  		<input name="email"  type="email" /> <!-- required="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)?$/i" -->
-	  	<div class="error">유효하지 않은 이메일주소 입니다  </div>
-		</div><br><br>
-	   <button>비밀번호 찾기</button>
-	</form>
+	
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 col-lg-6"> <!-- 고정 크기 12, lg변화에 따라 6고정 -->
+				<h1>비밀번호 찾기</h1>
+				<form action="${appRoot }/member/pw_auth" method="post">
+					<label for="usernameInput1" class="form-label"> 아이디 </label>
+					<input class="form-control" name="id"  type="text"/>
+
+					<label for="userpasswordInput1" class="form-label"> 이메일 </label>
+					<input class="form-control" name="email"  type="email"  />
+					<br />
+
+					<input class="btn btn-primary" type="submit" value="비밀번호" />
+
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

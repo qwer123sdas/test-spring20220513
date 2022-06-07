@@ -17,7 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="${appRoot }/member/pw_set" method="post">
+<%-- 	<form action="${appRoot }/member/pw_set" method="post">
 	<input type="hidden" name ="num" value="${num }">
 	<input type="hidden" name="id" value="${id }"/>
 		<div class=content>
@@ -26,6 +26,20 @@
 			<div class="error"> </div>
 		</div><br><br>
 			<input type="submit" id="check" value="확인">
-	</form>
+	</form> --%>
+	
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 col-lg-6"> <!-- 고정 크기 12, lg변화에 따라 6고정 -->
+				<h1>인증번호 확인</h1>
+				<form action="${appRoot }/member/pw_set" method="post">
+				<input type="hidden" name ="num" value="${num }">
+				<input type="hidden" name="id" value="${id }"/>
+				<input type="text" name="email_injeung" placeholder="인증번호를 입력하세요">
+				<input class="btn btn-primary" type="submit" value="확인" />
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
