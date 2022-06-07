@@ -15,7 +15,11 @@
 		 					default-target-url="/ex01/list" />
 		<security:logout logout-success-url="/ex01/list" />
 		
+		<!-- 게시글 create, update, delete -->
 		<security:intercept-url pattern="/ex01/write" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/ex01/board/modify" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/ex01/board/delete" access="isAuthenticated()"/>
+		
 		<security:intercept-url pattern="/member/userDetailPage" access="isAuthenticated()"/>
 	</security:http>
 	

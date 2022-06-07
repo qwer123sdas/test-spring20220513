@@ -66,9 +66,9 @@ public class BoardService {
 	
 	// 게시글 작성
 	@Transactional
-	public void writeBoard(BoardDto boardDto, MultipartFile file) {
+	public void writeBoard(BoardDto boardDto, MultipartFile file, String member_id) {
 		//boardDto.setInserted(LocalDateTime.now());
-		
+		boardDto.setMemberId(member_id);
 		// 게시글 등록
 		mapper.writeBoard(boardDto);
 		

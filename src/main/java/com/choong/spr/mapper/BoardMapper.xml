@@ -10,11 +10,13 @@
 		resultType="com.choong.spr.domain.BoardDto">
 		SELECT b.id, 
 				b.title, 
-				b.inserted, 
+				b.inserted,
+				m.Member_NickName writerNickName, 
 				COUNT(r.id) numOfReply
 		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
+					LEFT JOIN Member m ON b.member_id = m.Member_ID
 		GROUP BY b.id
-		ORDER BY id
+		ORDER BY id DESC
 	</select>
 
 	<!--게시글 가져오기 -->
@@ -24,10 +26,12 @@
 				b.title,
 				b.body,
 				b.inserted,
+				b.member_id memberId,
 				COUNT(DISTINCT r.id) numOfReply,
-				<!-- m.nickName writerNickName, -->
-				COUNT(f.id) hasFile 
+				m.Member_NickName writerNickName,
+				COUNT(f.id) hasFile
 		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
+					 LEFT JOIN Member m ON b.member_id = m.Member_ID
 					 LEFT JOIN File f ON b.id = f.board_id
 		WHERE b.id = #{id}
 	</select>
@@ -42,8 +46,8 @@
 	<!-- 게시글 내용 -->
 	<insert useGeneratedKeys="true" id="writeBoard" keyColumn="id"
 		keyProperty="id">
-		INSERT INTO Board(title, body)
-		VALUES (#{title}, #{body})
+		INSERT INTO Board(title, body, member_id)
+		VALUES (#{title}, #{body}, #{memberId})
 	</insert>
 	<!-- 파일 -->
 	<insert id="insertFile">

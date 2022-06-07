@@ -49,6 +49,7 @@
 								<i class="fa-solid fa-hashtag"></i>
 							</th>
 							<th>제목</th>
+							<th>작성자</th>
 							<th>
 								작성일시
 								<i class="fa-solid fa-calendar"></i>
@@ -70,6 +71,7 @@
 										</span>
 									</c:if>
 									</td>
+									<td>${board.writerNickName }</td>
 									<td>${board.inserted }</td>
 							</tr>
 						</c:forEach>

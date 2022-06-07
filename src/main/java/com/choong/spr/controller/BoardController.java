@@ -1,5 +1,6 @@
 package com.choong.spr.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -57,10 +58,8 @@ public class BoardController {
 		
 	}
 	@PostMapping("board/write")
-	public String writeBoardProcess(BoardDto boardDto, MultipartFile file) {
-		
-		
-		service.writeBoard(boardDto, file);
+	public String writeBoardProcess(BoardDto boardDto, MultipartFile file, Principal principal) {
+		service.writeBoard(boardDto, file, principal.getName());
 		return "redirect:/ex01/board/" + boardDto.getId();
 	}
 	

@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@ page import="java.util.*"%>
 <%
@@ -47,7 +48,7 @@
 			e.preventDefault();
 			if (confirm("삭제하시겠습니까?")) {
 				let form1 = $("#formBoard");
-				let actionAttr = "${appRoot }/ex01/board/deletUser";
+				let actionAttr = "${appRoot }/ex01/board/delete";
 				form1.attr("action", actionAttr);
 				
 				
@@ -201,6 +202,13 @@
 					value="${board.title }" readonly>
 			</div>
 		</div>
+		<div class="field">
+			<label class="label">작성자</label>
+			<div class="control">
+				<input class="input" required  type="text" name="writerNickName"
+					value="${board.writerNickName }" readonly>
+			</div>
+		</div>
 		<label class="label">내용</label>
 		<textarea class="textarea" id="textarea1" name="body"
 			placeholder="10 lines of textarea" rows="10" readonly>${board.body } </textarea>
@@ -222,9 +230,14 @@
 					value="${board.inserted }" readonly>
 			</div>
 		</div>
-		<button class="button is-primary" id="edit-button1">수정하기</button>
-		<button class="button is-primary d-none" id="modify-submit1">수정완료</button>
-		<button class="button is-primary" id="delete-submit1">삭제하기</button>
+		<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal" var="principal"/>
+			<c:if test="${principal.username == board.memberId }">
+				<button class="button is-primary" id="edit-button1">수정하기</button>
+				<button class="button is-primary d-none" id="modify-submit1">수정완료</button>
+				<button class="button is-primary" id="delete-submit1">삭제하기</button>
+			</c:if>
+		</sec:authorize>
 	</form>
 
 	<!-- 댓글 ------------------------------------------------------------------------>
