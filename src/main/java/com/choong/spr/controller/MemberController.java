@@ -96,6 +96,16 @@ public class MemberController {
 		}
 		res.getWriter().print(result);
 	}
+	// 닉네임 중복 검사
+	@PostMapping("/nickNameCheck")
+	public void nickNameCheck(String nickName, HttpServletResponse res) throws Exception{
+		System.out.println(nickName);
+		int result = 0;
+		if(service.nickNameCheck(nickName) != 0) {
+			result = 1;
+		}
+		res.getWriter().print(result);
+	}
 
 	// 회원 정보 페이지 --------------------------------------------------------------------
 	@RequestMapping("userDetailPage")

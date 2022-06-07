@@ -81,7 +81,11 @@ public class MemberServiceImpl implements MemberService {
 	public int idCheck(String id) {
 		return mapper.idCheck(id);
 	}
-	
+	//  닉네임 중복 검사
+	public int nickNameCheck(String nickName) {
+		return mapper.nickNameCheck(nickName);
+	}
+
 
 	// 로그 아웃
 	public void logout(HttpSession session) {
@@ -158,6 +162,7 @@ public class MemberServiceImpl implements MemberService {
 		String EncodedPW = passwordEncoder.encode(pw); 
 		mapper.restPW(id, EncodedPW);
 	}
+
 
 
 

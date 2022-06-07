@@ -32,7 +32,7 @@
 <title>회원가입</title>
 <!-- 네이버 callBack시 필요한 부분 -->
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
+/* 	var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
 			"http://13.124.183.14/spr/member/naverCallBack");
 	// 네이버 사용자 프로필 조회
 	naver_id_login.get_naver_userprofile("naverSignInCallback()");
@@ -46,10 +46,13 @@
 			var birthday = naver_id_login.getProfileData('birthday');
 			var mobile = naver_id_login.getProfileData('mobile'); */
 		}
-	}
+	} */
 		
 </script>
 <script>
+	// 중복, 암호 확인 변수
+
+	
 	function checks() {
 		// 값 불러오기  // value 불러오기
 		var id = document.getElementById("id").value;
@@ -64,23 +67,29 @@
 		if (id != "" && pw != "" && tempPw != "" && name != "" && zoneCode !="" && detailAddress != "" && phone != "" && email !="" && nickName != "") {
 			return true;
 		} else {
-			alert("전부 입력하시오");
+			alert("전부 입력하시오.");
 			return false;
 		}
 	}
 
-	// 아이디 중복 여부 
+	// 아이디 중복 여부 + // 닉네임 중복 확인
 	$(document).ready(function() {
 		var id = document.getElementById("id");
 		$("#idCheck").on('click', function() {
+			
 			$.ajax({
 				type : 'POST',
 				url : '${appRoot}/member/idCheck?id=' + $('#id').val(),
 				success : function(data) {
-					if (data == 0) {
+					if ($('#id').val() == ""){
+						alert("사용 불가능")
+						$('#id-success').addClass("d-none");
+						$('#id-danger').removeClass("d-none");
+					}else if(data == 0) {
 						alert("사용가능")
 						$('#id-success').removeClass("d-none");
 						$('#id-danger').addClass("d-none");
+						idOk = true;
 					} else {
 						alert("사용 불가능")
 						$('#id-success').addClass("d-none");
@@ -91,6 +100,26 @@
 				}
 			});
 		});
+		$('#nickNameCheck').on('click', function(){
+			$.ajax({
+				type : 'POST',
+				url : '${appRoot}/member/nickNameCheck?nickName=' + $('#nickName').val(),
+				success : function(data) {
+					if ($('#nickName').val() == ""){
+						nickName_msg_danger.innerHTML = "필수 정보입니다.";
+						nickName.focus();
+						return;
+					}else if(data == 1) {
+						nickName_msg_danger.innerHTML = "닉네임이 중복됩니다.";
+						id.value = "";
+						nickName.focus();
+					} else {
+						nickName_msg_success.innerHTML = "사용 가능합니다.";
+					}
+				}
+			});	
+		})
+		
 	});
 	// 비밀 번호 확인
 	// inpu 태그에 onchange="pwCheck()" 넣기
@@ -137,6 +166,10 @@
 			return true;
 		}
 	}
+	
+	
+
+	// 이메일 중복 확인
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -183,7 +216,9 @@
 							<i class="fas fa-check"></i>
 						</span>
 					</div>
-					<button type="button" id="idCheck">중복 확인</button>
+					<div class="control">
+						<span class="tag is-primary" id="idCheck" >중복 확인</span>
+					</div>
 					<p class="help is-success d-none" id="id-success">This ID is
 						available</p>
 					<p class="help is-danger d-none" id="id-danger">This ID is
@@ -236,6 +271,11 @@
 						<input class="input" type="text" name="memberNickName" id="nickName"
 							placeholder="Text input" value="">
 					</div>
+					<div class="control">
+						<span class="tag is-primary" id="nickNameCheck" >중복 확인</span>
+					</div>
+					<p class="help is-danger" id="nickName_msg_danger"></p>
+					<p class="help is-success" id="nickName_msg_success"></p>
 				</div>
 
 				<!-- 주소  -->

@@ -200,7 +200,13 @@ window.onload = function(){
 			<span class="panel-icon">
 				<i class="fas fa-book" aria-hidden="true"></i>
 			</span>
-			미정
+			작성한 게시글 보기
+		</a>
+		<a class="panel-block">
+			<span class="panel-icon">
+				<i class="fas fa-book" aria-hidden="true"></i>
+			</span>
+			좋아요 누른 게시글 보기
 		</a>
 	</article>
 	
@@ -321,11 +327,11 @@ window.onload = function(){
 				</div>
 			</div>
 			<input type="hidden" name="memberID" value="${memberDto.memberID }" />
-			<button>수정 완료</button>
+			<button class="button is-success is-fullwidth">수정 완료</button>
 			<hr />
 
 			<div class="card-body text-secondary" id="deleteMember">
-				<button>회원 탈퇴</button>
+				<button class="button is-black">회원 탈퇴</button>
 			</div>
 		</div>
 	</form>

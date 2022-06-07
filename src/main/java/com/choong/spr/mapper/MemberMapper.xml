@@ -34,7 +34,12 @@
 		FROM Member
 		WHERE Member_ID=#{id}
 	</select>
-	
+	<!-- 닉네임 중복 검사 -->
+	<select id="nickNameCheck" resultType="int">
+		SELECT count(Member_NickName) 
+		FROM Member
+		WHERE Member_NickName=#{nickName}
+	</select>
 	<!-- BO 유저이름 가져오기-->
 	<select id="getUserByUserName" resultType="com.choong.spr.domain.MemberDto">
 		SELECT Member_Name memberName

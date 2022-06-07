@@ -16,6 +16,8 @@ public interface MemberMapper {
 	
 	// 아이디 중복 검사
 	int idCheck(String id);
+	//  닉네임 중복 검사
+	int nickNameCheck(String nickName);
 	
 	// 회원 정보 페이지
 	MemberDto userDetail(String id);
@@ -45,6 +47,8 @@ public interface MemberMapper {
 	int selectMemberByNameAndEmail(@Param("id")String id, @Param("email")String email);
 	// 비밀번호 찾기(비밀번호 초기화)
 	void restPW(@Param("resetPW") String resetPW, @Param("memberID")String memberID);
+
+	
 
 
 	
