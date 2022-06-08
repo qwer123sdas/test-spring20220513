@@ -13,6 +13,7 @@ public class ReplyDto {
 	private String writerNickName;
 	private String memberId; // db는 member_id
 	private String content;
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime inserted;
 	

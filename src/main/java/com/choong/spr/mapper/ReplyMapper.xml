@@ -18,8 +18,8 @@
 	</select>
 	<!-- 댓글 추가 -->
 	<insert id="addReply">
-		INSERT INTO Reply (board_id, content)
-		VALUE(#{boardId}, #{content})
+		INSERT INTO Reply (board_id, content, member_id)
+		VALUE(#{boardId}, #{content}, #{memberId})
 	</insert>
 	
 	<!-- 댓글 수정 -->

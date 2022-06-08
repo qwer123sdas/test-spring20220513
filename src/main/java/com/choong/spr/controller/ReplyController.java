@@ -39,9 +39,13 @@ public class ReplyController {
 	}
 	
 	// 댓글 추가
-	@RequestMapping("reply/add")
-	public String addReply(ReplyDto reply) {
-		service.addReply(reply);
+	@RequestMapping(path="reply/add", produces = "text/plain;charset=UTF-8")
+	public String addReply(ReplyDto reply, Principal principal) {
+		if(principal != null) {
+			String memberId = principal.getName();
+			reply.setMemberId(memberId);
+			service.addReply(reply);
+		}
 		
 		return "redirect:/ex01/board/" + reply.getBoardId();
 	}

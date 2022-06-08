@@ -102,11 +102,7 @@
 											<p id="reply-content" class="card-text">\${list[i].content }</p>
 										</div>
 										<div id="replyEditFormContainer\${list[i].id }"">
-											<form id="reply-submit">
-												<input id="modify-reply-content" class="is-5 d-none" type="text"
-													value="\${list[i].content }" name="content" style="border:0 solid black"/>
-												<button class="is-5 d-none" id="edit-reply-button-close" data-reply-id="\${list[i].id}" >수정완료</button>
-											</form>
+											
 										</div>
 									</div>
 								</div>
@@ -122,7 +118,15 @@
 									</button>
 									<!-- 수정 버튼 -->
 									<button id="edit-reply-button-open">수정</button>
-									`)
+									`);
+							
+							$('#replyEditFormContainer' + list[i].id).html(`
+							<form id="reply-submit">
+								<input type="hidden" name="id" value="\${list[i].id}"/>
+								<input id="modify-reply-content" class="is-5 d-none" type="text"
+									value="\${list[i].content }" name="content" style="border:0 solid black"/>
+								<button class="is-5 d-none" id="edit-reply-button-close" data-reply-id="\${list[i].id}" >수정완료</button>
+							</form>`);
 						}
 						
 					}  // for문 끝
@@ -136,28 +140,9 @@
 						$("#edit-reply-button-close").removeClass("d-none");
 					});
 					
-					// 댓글 수정 controller
-					$('#edit-reply-button-close').click(function(e){
-						e.preventDefault();
-						const id = $(this).attr("data-reply-id");
-						const formElem = $('#replyEditFormContainer' + id).find('form');
-						
-						const data = {
-								id :  formElem.find("[name=id]").val(),
-								content : formElem.find("[name=content]").val() 
-						}
-						$.ajax({
-							url : '${appRoot}/ex01/reply/modify',
-							type : 'PUT',
-							data : JSON.stringify(data),
-							contentType : 'application/json',
-							success : function(data){
-								console.log("data");
-								replyList();
-							}
-						});
-					});
-
+					// 댓글 수정
+					replyModify();
+					
 					// 댓글 삭제
 					replyDelete();
 				},
@@ -169,6 +154,32 @@
 		
 		// 댓글 리스트 호출
 		replyList();
+		
+		// 댓글 수정
+		const replyModify = function(){
+			$('#edit-reply-button-close').click(function(e){
+				e.preventDefault();
+				const id = $(this).attr("data-reply-id");
+				const formElem = $('#replyEditFormContainer' + id).find('form');
+				
+				console.log(formElem.find("[name=id]").val());
+				
+				const data = {
+						id :  formElem.find("[name=id]").val(),
+						content : formElem.find("[name=content]").val() 
+				}
+				$.ajax({
+					url : '${appRoot}/ex01/reply/modify',
+					type : 'PUT',
+					data : JSON.stringify(data),
+					contentType : 'application/json',
+					success : function(data){
+						console.log("data");
+						replyList();
+					}
+				});
+			});
+		}
 		
 		// 댓글 삭제
 		const replyDelete = function(){
@@ -183,7 +194,7 @@
 						type : 'DELETE',
 						success : function(){
 							console.log("댓글 삭제됨");
-							replyList();
+							window.location.reload();
 						}
 					});
 				}
