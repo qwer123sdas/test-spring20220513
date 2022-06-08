@@ -130,7 +130,8 @@
 						}
 						
 					}  // for문 끝
-					console.log("123");
+					
+					
 					/*  댓글 수정버튼 전환*/
 					$("#edit-reply-button-open").click(function(e) {
 						e.preventDefault();
@@ -162,8 +163,6 @@
 				const id = $(this).attr("data-reply-id");
 				const formElem = $('#replyEditFormContainer' + id).find('form');
 				
-				console.log(formElem.find("[name=id]").val());
-				
 				const data = {
 						id :  formElem.find("[name=id]").val(),
 						content : formElem.find("[name=content]").val() 
@@ -174,7 +173,6 @@
 					data : JSON.stringify(data),
 					contentType : 'application/json',
 					success : function(data){
-						console.log("data");
 						replyList();
 					}
 				});
@@ -193,7 +191,6 @@
 						url : '${appRoot}/ex01/reply/remove/'+replyId,
 						type : 'DELETE',
 						success : function(){
-							console.log("댓글 삭제됨");
 							window.location.reload();
 						}
 					});
@@ -259,7 +256,7 @@
 		</sec:authorize>
 	</form>
 
-	<!-- 댓글 ------------------------------------------------------------------------>
+	<!-- 댓글 ---------------+--------------------------------------------------------->
 	<c:url value="/ex01/reply/add" var="replyAddLink"></c:url>
 	<form action="${appRoot}/ex01/reply/add">
 		<input type="hidden" name="boardId" value="${board.id }" />
@@ -280,6 +277,7 @@
 			</div>
 		</div>
 	</form>
+
 	<div id="replyList1">
 	</div>
 </body>
