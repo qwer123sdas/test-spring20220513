@@ -5,11 +5,14 @@
 <mapper namespace="com.choong.spr.mapper.ReplyMapper">
 	<!-- 댓글 목록 -->
 	<select id="listReplyByBoardId" resultType="com.choong.spr.domain.ReplyDto">
-	SELECT id id, 
-	       board_id boardId,
-	       content,
-	       inserted
-	FROM Reply
+	SELECT r.id id, 
+	       r.board_id boardId,
+	       m.Member_NickName writerNickName,
+	       r.member_id memberId,
+	       r.content,
+	       r.inserted,
+	       IF(m.Member_ID = #{loginId}, 1, 0) own
+	FROM Reply r JOIN Member m ON r.member_id = m.Member_ID
 	WHERE board_id = #{boardId}
 	ORDER BY id DESC
 	</select>

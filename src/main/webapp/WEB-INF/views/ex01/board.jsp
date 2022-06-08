@@ -31,7 +31,7 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
-<title>${board.id }번게시글</title>
+<title>${board.id }번 게시글</title>
 <script>
 	$(document).ready(function() {
 		/* 게시글 */
@@ -85,19 +85,14 @@
 													<td rowspan="2" class="pr-2">
 														<i class="fa fa-user-o fa-2x"></i>
 													</td>
-													<td class="ml">\${list[i].id }</td>
+													<td class="ml">\${list[i].writerNickName }</td>
 												</tr>
 												<tr>
 													<td>
 														<font size="2">\${list[i].inserted }</font>
-														<!--삭제 버튼  -->
-														<form id="reply-submit">
-															<button class="reply-delete-button" data-reply-id="\${list[i].id }">
-																<i class="fa fa-window-close fa" aria-hidden="true"></i>
-															</button>
-															<!-- 수정 버튼 -->
-															<button id="edit-reply-button-open">수정</button>
-
+													
+														<!--댓글 수정 삭제 버튼 위치 -->
+														<form class="replyEditFormContainer\${list[i].id }" id="reply-submit">
 														</form>
 													</td>
 												</tr>
@@ -117,6 +112,19 @@
 								</div>
 								`);
 						replyListElement.append(replyElement);
+						
+						/* 로그인한 계정에 따라 댓글 삭제 수정할 수있도록 */
+						if(list[i].own){
+							$('.replyEditFormContainer'+list[i].id).html(`
+									<!-- 삭제 버튼 -->
+									<button class="reply-delete-button" data-reply-id="\${list[i].id }">
+										<i class="fa fa-window-close fa" aria-hidden="true"></i>
+									</button>
+									<!-- 수정 버튼 -->
+									<button id="edit-reply-button-open">수정</button>
+									`)
+						}
+						
 					}  // for문 끝
 					console.log("123");
 					/*  댓글 수정버튼 전환*/

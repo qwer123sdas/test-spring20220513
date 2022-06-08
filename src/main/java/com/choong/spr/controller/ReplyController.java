@@ -1,5 +1,6 @@
 package com.choong.spr.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,14 @@ public class ReplyController {
 	// 댓글 목록 출력
 	@PostMapping(path="reply/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public List<ReplyDto> list(int boardId){
-		return service.listReplyByBoardId(boardId);
+	public List<ReplyDto> list(int boardId, Principal principal){
+		if(principal == null) {
+			// 로그인 안할 때
+			return service.getReplyByBoardId(boardId);
+		}else {
+			// 로그인 한 상태일 때
+			return service.listReplyWithOwnByBoardId(boardId, principal.getName());
+		}
 	}
 	
 	// 댓글 추가
