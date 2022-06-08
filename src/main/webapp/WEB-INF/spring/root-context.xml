@@ -18,6 +18,7 @@
 	<!-- properties  -->
 	<context:property-placeholder location="classpath:mydb2.properties"/>
 	
+	<!-- configuration 중, spring security -->
 	<context:component-scan base-package="com.choong.spr.configuration"/>
 	
 	<!--data source  -->

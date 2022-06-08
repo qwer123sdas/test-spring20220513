@@ -12,6 +12,7 @@
         <security:csrf disabled="true"/> 
 		<security:form-login login-page="/login" 
 							authentication-success-handler-ref="LoginSuccessHandler"
+							authentication-failure-handler-ref="LoginFailureHandler"
 		 					default-target-url="/ex01/list" />
 		<security:logout logout-success-url="/ex01/list" />
 		
