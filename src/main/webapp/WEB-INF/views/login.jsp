@@ -111,11 +111,10 @@
 		<!-- 메세지 -->
 	<c:if test="${not empty message }">
 		<div class="alert alert-primary">아이디나 비밀번호가 일치 하지 않습니다.</div>
+		<div class="alert alert-primary">${sessionScope.message }
+			<c:remove var="message" scope="session"></c:remove>
+		</div>
 	</c:if>
-	<div class="alert alert-primary">${sessionScope.message }
-		<c:remove var="message" scope="session"></c:remove>
-	</div>
-	
 	
 
 </body>
