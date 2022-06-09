@@ -15,10 +15,15 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		String url="/spr/naverlogin";
-		String message = "아이디나 비밀번호가 틀렸습니다.";
 		
-		request.getAttribute(message);
+		exception.printStackTrace();
+		writePrintErrorResponse(response, exception);
+		
 		response.sendRedirect(url);
+	}
+	
+	private void writePrintErrorResponse(HttpServletResponse response, AuthenticationException exception) {
+		
 	}
 
 }

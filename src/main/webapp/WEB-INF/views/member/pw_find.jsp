@@ -30,7 +30,7 @@
 					<input class="form-control" name="email"  type="email"  />
 					<br />
 
-					<input class="btn btn-primary" type="submit" value="비밀번호" />
+					<input class="btn btn-primary" type="submit" value="비밀번호 찾으러 가기" />
 
 				</form>
 			</div>
