@@ -27,7 +27,7 @@
 	<!-- 성공 시 핸들러 등록 -->
 	<bean id="LoginSuccessHandler" class="com.choong.spr.authentication.LoginSuccessHandler" />
 	<!-- 실패 시 핸들러 -->
-	<bean id="LoginSuccessHandler" class="com.choong.spr.authentication.LoginFailureHandler" />
+	<bean id="LoginFailureHandler" class="com.choong.spr.authentication.LoginFailureHandler" />
 	
 	
 	<security:authentication-manager>
