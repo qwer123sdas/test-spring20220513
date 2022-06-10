@@ -31,63 +31,54 @@
 <title>Insert title here</title>
 </head>
 <style>
+body {
+	box-sizing: border-box;
+	margin: 0px;
+	font-family: Consolas, monospace;
+}
+
+.jb-container {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 </style>
 <body>
+	<div class="container jb-container">
+		<div class="list-item-content">
+			<form action="${appRoot }/login" method="post">
+				<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-	<div class="container">
-		<div class="box ">
-			<div class="list-item-content">
-				<div class="columns is-mobile is-centered">
-					<div class="column is-one-third">
-						<!-- 로그인 -->
-						<form action="${appRoot }/login" method="post">
-							<div class="field" style="float: none; margin: 0 auto;">
-								<label class="label">아이디</label>
-								<div class="control has-icons-left ">
-									<input class="input" type="text" name="username">
-									<span class="icon is-small is-left">
-										<i class="fas fa-user"></i>
-									</span>
-								</div>
-							</div>
-
-							<div class="field">
-								<label class="label">패스워드</label>
-								<div class="control has-icons-left">
-									<input class="input" type="password" name="password">
-									<span class="icon is-small is-left">
-										<i class="fa-solid fa-unlock-keyhole"></i>
-									</span>
-								</div>
-							</div>
-							<div class="">
-								<button class="button is-link is-fullwidth">
-									<span>로그인</span>
-								</button>
-
-							</div>
-						</form>
-						<div class="tabs is-centered is-6-desktop">
-							<ul>
-								<li>
-									<a target="_blank" href="${appRoot }/member/pw_find"
-										class="find_text">비밀번호 찾기</a>
-								</li>
-								<li>
-									<a target="_blank" href="" class="find_text">아이디 찾기</a>
-								</li>
-								<li>
-									<a target="_blank" href="${appRoot }/member/signUpPage"
-										class="find_text">회원가입</a>
-								</li>
-
-							</ul>
-						</div>
+				<div class="field" style="float: none; margin: 0 auto;">
+					<label class="label">아이디</label>
+					<div class="control has-icons-left ">
+						<input class="input" type="text" name="username">
+						<span class="icon is-small is-left">
+							<i class="fas fa-user"></i>
+						</span>
+					</div>
+				</div>
+				<div class="field">
+					<label class="label">패스워드</label>
+					<div class="control has-icons-left">
+						<input class="input" type="password" name="password">
+						<span class="icon is-small is-left">
+							<i class="fa-solid fa-unlock-keyhole"></i>
+						</span>
 					</div>
 				</div>
 
-
-
+				<div class="checkbox mb-3">
+					<label>
+						<input type="checkbox" value="remember-me">
+						Remember me
+					</label>
+				</div>
+				<button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+				<div class="text-success">
+					<hr>
+				</div>
 				<!-- 네이버 로그인 창으로 이동 -->
 				<div id="naver_id_login" style="text-align: center">
 					<a href="${url }">
@@ -95,18 +86,45 @@
 							src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" />
 					</a>
 				</div>
+				<div class="text-success">
+					<hr>
+				</div>
+				<div class="text-center">
+					<a class="small" href="forgot-password.html">비밀번호 찾기</a>
+				</div>
+				<div class="text-center">
+					<a class="small" href="register.html">회원가입 하러 가기</a>
+				</div>
+				<div class="tabs is-centered is-6-desktop">
+					<ul>
+						<li>
+							<a target="_blank" href="${appRoot }/member/pw_find"
+								class="find_text">비밀번호 찾기</a>
+						</li>
+						<li>
+							<a target="_blank" href="" class="find_text">아이디 찾기</a>
+						</li>
+						<li>
+							<a target="_blank" href="${appRoot }/member/signUpPage"
+								class="find_text">회원가입</a>
+						</li>
+					</ul>
+				</div>
 
-				<!-- 메세지 -->
-				<c:if test="${not empty message }">
-					<div class="alert alert-primary">아이디나 비밀번호가 일치 하지 않습니다.</div>
-					<div class="alert alert-primary">${sessionScope.message }
-						<c:remove var="message" scope="session"></c:remove>
-					</div>
-				</c:if>
+			</form>
 
-			</div>
+
+
+			<!-- 메세지 -->
+			<c:if test="${not empty message }">
+				<div class="alert alert-primary">${sessionScope.message }
+					<c:remove var="message" scope="session"></c:remove>
+				</div>
+			</c:if>
+
 		</div>
 	</div>
+
 	</div>
 </body>
 </html>
