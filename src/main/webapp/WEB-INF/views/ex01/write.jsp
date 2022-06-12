@@ -17,6 +17,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
 	integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
 <!--Jquery -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -24,8 +25,12 @@
 <!-- Bulma  -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<!-- summernote  -->
+ <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-<title>Insert title here</title>
+<title>게시글 작성하기 </title>
+
 </head>
 <body>
 	<nav:navbar></nav:navbar>
@@ -43,15 +48,26 @@
 			</div>
 		</div>
 		<label class="label">내용</label>
-		<textarea class="textarea" name="body"
-			placeholder="10 lines of textarea" rows="10"
-			placeholder="내용을 입력해주세요."> </textarea>
+
+		<textarea class="textarea"  id="summernote" name="body"> </textarea>
 		<label class="label">파일</label>
 		<input type="file" name="file" accept="image/*"/>
 		<div class="mb-5"></div>
 		<button class="button is-primary">등록</button>
 	</form>
-
-
+	<script>
+	$(document).ready(function() {
+		//여기 아래 부분
+		$('#summernote').summernote({
+			  height: 300,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+	          
+		});
+	});
+	</script>
 </body>
 </html>
