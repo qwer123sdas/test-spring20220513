@@ -38,10 +38,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
 	// 스프링 시큐리티 로그인 시 생기는 예외 들
 	private String getExceptionMessage(AuthenticationException exception) {
-		if (exception instanceof UsernameNotFoundException) {
-			return "비밀번호가 불일치합니다.";
-		} else if (exception instanceof BadCredentialsException) {
-			return "해당하는 유저가 존재하지 않습니다.";
+		if (exception instanceof BadCredentialsException) {
+			return "아이디나 비밀번호가 불일치합니다.";
 		} else if (exception instanceof DisabledException){
 			return "사용할 수 없는 계정입니다.";
 		}else{	
