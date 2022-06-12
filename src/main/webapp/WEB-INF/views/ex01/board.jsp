@@ -28,7 +28,10 @@
 <!-- Bulma  -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-
+<!-- summernote  -->
+ <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+ 
 <title>${board.id }번 게시글</title>
 <script>
 	$(document).ready(function() {
@@ -36,10 +39,12 @@
 		$("#edit-button1").click(function(e) {
 			e.preventDefault();
 			$("#input1").removeAttr("readonly");
-			$("#textarea1").removeAttr("readonly");
+			$("#summernote").removeAttr("readonly");
 			$("#edit-button1").addClass("d-none");
 			$("#delete-submit1").addClass("d-none");
 			$("#modify-submit1").removeClass("d-none");
+			$("#body").addClass("d-none");
+			$("#content").removeClass("d-none");
 		});
 		// 메인화면 페이지 로드 함수
         $('#summernote').summernote({
@@ -230,8 +235,14 @@
 			</div>
 		</div>
 		<label class="label">내용</label>
-		<textarea class="textarea" id="textarea1" name="body"
-			placeholder="10 lines of textarea" rows="10" readonly>${board.body } </textarea>
+		
+		<div class="panel-body" id="body">${board.body }</div>
+		<div class="d-none" id=content>
+			<textarea class="textarea"  id="summernote" name="body"
+				placeholder="10 lines of textarea" rows="10" readonly>${board.body } 
+			</textarea>
+		</div>
+		
 		<c:forEach items="${board.fileName }" var="file">
 			<%
 			String file = (String)pageContext.getAttribute("file");

@@ -3,6 +3,7 @@ package com.choong.spr.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.choong.spr.domain.BoardDto;
 import com.choong.spr.service.BoardService;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("ex01")
@@ -60,8 +64,25 @@ public class BoardController {
 	@PostMapping("board/write")
 	public String writeBoardProcess(BoardDto boardDto, MultipartFile file, Principal principal) {
 		service.writeBoard(boardDto, file, principal.getName());
+		
 		return "redirect:/ex01/board/" + boardDto.getId();
 	}
+	
+	
+	// summerNote를 통해 이미지 업로드 + 이를 aws에 저장
+	@PostMapping(value="uploadImageToS3ForSummerNote",  produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String uploadImageToS3ForSummerNote(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request ) {
+		JsonObject jsonObject = new JsonObject();
+		String urlName = service.uploadImageToS3ForSummerNote(multipartFile);
+		jsonObject.addProperty("url", urlName);
+		
+		return jsonObject.toString();
+	}
+	
+	
+	
+	
 	
 	// 게시글 수정
 	@PostMapping("board/modify")

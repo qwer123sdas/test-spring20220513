@@ -55,6 +55,12 @@
 		VALUES(#{id},
 		#{filename})
 	</insert>
+	<!-- 서머노트 -->
+	<insert id="insertBoardImage">
+		INSERT INTO Board_Image(imageName)
+		VALUES(#{imageName})
+	</insert>
+	
 
 	<!--게시글 수정 -->
 	<update id="modifyBoard">
