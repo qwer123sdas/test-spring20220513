@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choong.spr.mapper.SummerNoteMapper">
+	<insert id="InsertSummerNoteTable" parameterType="com.choong.spr.domain.SummerNoteDto">
+		INSERT INTO SummerNote_Board(file, member_id)
+		VALUES (#{file}, #{memberId})
+	</insert>
+	
+	<select id="getFileName" resultType="com.choong.spr.domain.SummerNoteDto">
+		SELECT file, member_id
+		FORM SummerNote_Board
+		WHERE member_id = #{member_id}
+	</select>
+</mapper>

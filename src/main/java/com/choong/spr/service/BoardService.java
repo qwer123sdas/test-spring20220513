@@ -17,13 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.choong.spr.domain.BoardDto;
+import com.choong.spr.domain.SummerNoteDto;
 import com.choong.spr.mapper.BoardMapper;
 import com.choong.spr.mapper.ReplyMapper;
+import com.choong.spr.mapper.SummerNoteMapper;
 import com.google.gson.JsonObject;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
@@ -35,6 +38,9 @@ public class BoardService {
 	
 	@Autowired
 	ReplyMapper replyMapper;
+	
+	@Autowired
+	SummerNoteMapper summerNoteMapper;
 	
 	@org.springframework.beans.factory.annotation.Value("${aws.s3.bucketName}")
 	private String bucketName;
@@ -82,16 +88,41 @@ public class BoardService {
 		// 게시글 등록
 		mapper.writeBoard(boardDto);
 		
-		// 파일 등록
+		// 업로드 파일 등록-----------------------
 		if(file.getSize() > 0) {
 			mapper.insertFile(boardDto.getId(), file.getOriginalFilename());
 			
 			// aws s3에 업로드(저장)
 			saveFileAwsS3(boardDto.getId(), file); 
 		}
+		// 업로드 파일 등록 끝---------------------
+		
+		
+		// 서머노트 파일 등록 ---------------------
+		
+		int mainId = boardDto.getId();
+		
+		
+		// 임시 s3에서 진짜 s3로 넣기
+			// 먼저 db에서 파일명 가져오기
+		SummerNoteDto summerDto = summerNoteMapper.getFileName(member_id);
+		int summerId = summerDto.getId();
+		String fileName = summerDto.getFile();
+			// s3에 넣기
+		// copyFileAwsS3("bucket0207-spring0520-teacher-test", "folder/temp/"+ summerId + "/" + fileName, "folder/" + mainId + "/" + fileName );
+		saveFileAwsS3(mainId, fileName);
+			// db에 넣기
+		
+		// 임시 aws 파일 삭제
+		deletesummerNoteFromAwsS3(fileName);
+		
+		// 임시 테이블 db삭제
+		summerNoteMapper.deleteObject(member_id);
+		
+		// 서머노트 끝-------------------------
 	}
 
-	// aws s3에 업로드(저장)
+	// 메인 aws s3에 업로드(저장)
 	private void saveFileAwsS3(int id, MultipartFile file) {
 		// board/temp/12344.png
 		String key = "folder/" + id + "/" + file.getOriginalFilename();
@@ -112,22 +143,47 @@ public class BoardService {
 		}
 	}
 	
-	
-	// 서머노트의 textarea 사진 업로드
-	public String uploadImageToS3ForSummerNote(MultipartFile multipartFile) {
-		// 파일 등록
-		if(multipartFile.getSize() > 0) {
-			// summernote aws s3에 업로드(저장)
-			String savedFileName = summerNoteUploadFile(multipartFile); 
-			
-			// summernote aws s3사진 삭제
-			//deletesummerNoteFromAwsS3(savedFileName);
-			
-			return awsS3Url + "folder/temp/" +  savedFileName;  // url로 보냄
+	// temp aws s3에서 메인 s3로 저장
+	private void saveFileAwsS3(int id, String file) {
+		// board/temp/12344.png
+		String key = "folder/" + id + "/" + file;
+		
+		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
+				.bucket(bucketName) 					// bucket 위치 설정
+				.key(key)								// 키
+				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
+		
+		RequestBody requestBody;
+		try {
+			requestBody = RequestBody.fromInputStream(file.getInputStream(), file.getSize());
+			amazonS3.putObject(putObjectRequest, requestBody);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
 		}
-		return "";
 	}
-	// summernote aws s3사진 즉시 삭제 메소드
+	
+	// aws s3, 다른 폴더로 복사
+	
+	private void copyFileAwsS3(String bucketName, String sourceKey, String destinationKey) {
+		try {
+            CopyObjectRequest copyObjRequest = CopyObjectRequest.builder()
+                    .w                    .
+                    
+                    .withRegion(clientRegion)
+                    .build();
+
+            
+            amazonS3.copyObject(copyObjRequest);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+	}
+	
+
+	// summernote aws s3사진 삭제 메소드
 	private void deletesummerNoteFromAwsS3(String savedFileName) {
 		String url = "folder/temp/" + savedFileName;
 		DeleteObjectRequest deleteBucketRequest;
@@ -137,30 +193,8 @@ public class BoardService {
 												 .build();
 		amazonS3.deleteObject(deleteBucketRequest);
 	}
-	public String summerNoteUploadFile(MultipartFile file) {
-		// 이름의 겹치치 않게 파일명 전환
-		String originalFileName = file.getOriginalFilename();	//오리지날 파일명
-		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-		
-		String key = "folder/temp/" + savedFileName;
-		
-		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
-				.bucket(bucketName) 					// bucket 위치 설정
-				.key(key)								// 키
-				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
-		RequestBody requestBody;
-		try {
-			requestBody = RequestBody.fromInputStream(file.getInputStream(), file.getSize());
-			amazonS3.putObject(putObjectRequest, requestBody);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
-		}
-		
-		return savedFileName;
-	}
+	
+
 
 	// 게시글 작성 End---------------
 
