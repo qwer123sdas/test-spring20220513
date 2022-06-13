@@ -69,16 +69,6 @@ public class BoardController {
 	}
 	
 	
-	// summerNote를 통해 이미지 업로드 + 이를 aws에 저장
-	@PostMapping(value="uploadImageToS3ForSummerNote",  produces = "application/json; charset=utf8")
-	@ResponseBody
-	public String uploadImageToS3ForSummerNote(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request ) {
-		JsonObject jsonObject = new JsonObject();
-		String urlName = service.uploadImageToS3ForSummerNote(multipartFile);
-		jsonObject.addProperty("url", urlName);
-		
-		return jsonObject.toString();
-	}
 	
 	
 	

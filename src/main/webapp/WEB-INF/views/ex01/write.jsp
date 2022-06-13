@@ -77,10 +77,10 @@
 		});
 		
         function uploadImageToS3ForSummerNote(file) {
-            data = new FormData();
-            data.append("file", file);
+            data = new FormData(); // file를 담을 객체
+            data.append("file", file); // file를 담고 ajax에서 넘겨줌
             $.ajax({
-                url: 'uploadImageToS3ForSummerNote',
+                url: '${appRoot}/uploadImageToS3ForSummerNote',
                 data: data,
                 type: "POST",
                 cache: false,
@@ -91,7 +91,7 @@
                 	console.log(data);
                 	console.log(data.fileUrl);
                 	
-                    $('#summernote').summernote('editor.insertImage', data.url);
+                    $('#summernote').summernote('editor.insertImage', data.url);  // aws s3에 저장한 이미지 url을 넘기므로 summernote에서 보이게 됨
                 },
                 error: function (data) {
                     alert(data.responseText);
