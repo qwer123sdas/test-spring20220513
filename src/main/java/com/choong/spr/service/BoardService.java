@@ -165,22 +165,23 @@ public class BoardService {
 	}
 	
 	// aws s3, 다른 폴더로 복사
-	/*
+	
 	private void copyFileAwsS3(String bucketName, String sourceKey, String destinationKey) {
 		try {
-            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                    .withCredentials(new ProfileCredentialsProvider())
+            CopyObjectRequest copyObjRequest = CopyObjectRequest.builder()
+                    .w                    .
+                    
                     .withRegion(clientRegion)
                     .build();
 
-            CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey);
+            
             amazonS3.copyObject(copyObjRequest);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
 	}
-	*/
+	
 
 	// summernote aws s3사진 삭제 메소드
 	private void deletesummerNoteFromAwsS3(String savedFileName) {
