@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -112,16 +113,29 @@ public class BoardService {
 	}
 	
 	
-	// 서머노트에서 aws로 사진 업로드
+	// 서머노트의 textarea 사진 업로드
 	public String uploadImageToS3ForSummerNote(MultipartFile multipartFile) {
 		// 파일 등록
 		if(multipartFile.getSize() > 0) {
-			// aws s3에 업로드(저장)
-			String url = summerNoteUploadFile(multipartFile); 
-			//mapper.insertBoardImage(url);
-			return awsS3Url + "folder/temp/" +  url;
+			// summernote aws s3에 업로드(저장)
+			String savedFileName = summerNoteUploadFile(multipartFile); 
+			
+			// summernote aws s3사진 삭제
+			//deletesummerNoteFromAwsS3(savedFileName);
+			
+			return awsS3Url + "folder/temp/" +  savedFileName;  // url로 보냄
 		}
 		return "";
+	}
+	// summernote aws s3사진 즉시 삭제 메소드
+	private void deletesummerNoteFromAwsS3(String savedFileName) {
+		String url = "folder/temp/" + savedFileName;
+		DeleteObjectRequest deleteBucketRequest;
+		deleteBucketRequest = DeleteObjectRequest.builder()
+												 .bucket(bucketName)
+												 .key(url)
+												 .build();
+		amazonS3.deleteObject(deleteBucketRequest);
 	}
 	public String summerNoteUploadFile(MultipartFile file) {
 		// 이름의 겹치치 않게 파일명 전환
