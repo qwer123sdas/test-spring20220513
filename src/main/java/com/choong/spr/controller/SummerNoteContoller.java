@@ -19,13 +19,15 @@ public class SummerNoteContoller {
 	@Autowired
 	SummerNoteService service;
 	
+	private final String awsS3Url = "https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/";
+	
 	// summerNote를 통해 이미지 업로드 + 이를 aws에 저장 + 임시 테이블에 저장
 	@PostMapping(value="uploadImageToS3ForSummerNote",  produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadImageToS3ForSummerNote(@RequestParam("file") MultipartFile multipartFile, Principal principal, HttpServletRequest request ) {
 		JsonObject jsonObject = new JsonObject();
 		String urlName = service.uploadImageToS3ForSummerNote(multipartFile, principal.getName());
-		jsonObject.addProperty("url", urlName);
+		jsonObject.addProperty("url", awsS3Url + urlName);
 		
 		return jsonObject.toString();
 	}

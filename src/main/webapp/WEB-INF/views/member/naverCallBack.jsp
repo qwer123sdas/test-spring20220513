@@ -13,8 +13,8 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var naver_id_login = new naver_id_login("myKQG3U17i94iAlkHWR4",
-				"http://13.124.183.14/spr/member/naverCallBack");
+		var naver_id_login = new naver_id_login("QaaoyYqWFh16CqARTtPa",
+				"http://localhost:8080/spr/member/naverCallBack");
 		// 접근 토큰 값 출력
 		//$('body').append('<h4>접속토큰:' + naver_id_login.oauthParams.access_token + '</h4>');
 		// 네이버 사용자 프로필 조회

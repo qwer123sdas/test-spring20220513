@@ -3,14 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choong.spr.mapper.SummerNoteMapper">
-	<insert id="InsertSummerNoteTable" parameterType="com.choong.spr.domain.SummerNoteDto">
+	<insert useGeneratedKeys="true" id="InsertSummerNoteTable" 
+			parameterType="com.choong.spr.domain.SummerNoteDto" keyColumn="id" keyProperty="id">
 		INSERT INTO SummerNote_Board(file, member_id)
 		VALUES (#{file}, #{memberId})
 	</insert>
 	
 	<select id="getFileName" resultType="com.choong.spr.domain.SummerNoteDto">
-		SELECT file, member_id
-		FORM SummerNote_Board
-		WHERE member_id = #{member_id}
+		SELECT id,
+				file, 
+			   member_id memberId
+		FROM SummerNote_Board
+		WHERE member_id = #{memberId}
 	</select>
+	
+	<delete id="deleteObject">
+		DELETE FROM SummerNote_Board
+		WHERE member_id = #{memberId}
+	</delete>
 </mapper>

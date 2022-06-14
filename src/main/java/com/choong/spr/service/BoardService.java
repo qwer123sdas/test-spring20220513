@@ -3,6 +3,9 @@ package com.choong.spr.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -27,9 +30,11 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
+import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
 @Service
 public class BoardService {
@@ -48,7 +53,6 @@ public class BoardService {
 	private S3Client amazonS3; 
 	private final String awsS3Url = "https://bucket0207-spring0520-teacher-test.s3.ap-northeast-2.amazonaws.com/";
 	
-	private String boardImageName;
 	
 	@PostConstruct   // s3 빈 생성
 	public void init() {
@@ -82,9 +86,9 @@ public class BoardService {
 	// 게시글 작성 Start----------------
 	
 	@Transactional
-	public void writeBoard(BoardDto boardDto, MultipartFile file, String member_id) {
+	public void writeBoard(BoardDto boardDto, MultipartFile file, String memberId) {
 		//boardDto.setInserted(LocalDateTime.now());
-		boardDto.setMemberId(member_id);
+		boardDto.setMemberId(memberId);
 		// 게시글 등록
 		mapper.writeBoard(boardDto);
 		
@@ -105,19 +109,26 @@ public class BoardService {
 		
 		// 임시 s3에서 진짜 s3로 넣기
 			// 먼저 db에서 파일명 가져오기
-		SummerNoteDto summerDto = summerNoteMapper.getFileName(member_id);
+		System.out.println(memberId);
+		SummerNoteDto summerDto = summerNoteMapper.getFileName(memberId);
 		int summerId = summerDto.getId();
 		String fileName = summerDto.getFile();
+		
+		System.out.println("서머노트 임시 폴더 번호 : " + summerId);
+		System.out.println("폴더 명 : " + fileName);
+		
 			// s3에 넣기
-		// copyFileAwsS3("bucket0207-spring0520-teacher-test", "folder/temp/"+ summerId + "/" + fileName, "folder/" + mainId + "/" + fileName );
-		saveFileAwsS3(mainId, fileName);
+		System.out.println("aws 복사 성공");
+		copyFileAwsS3("bucket0207-spring0520-teacher-test", "folder/temp/"+ summerId + "/" + fileName, "folder/" + mainId + "/" + fileName );
 			// db에 넣기
 		
 		// 임시 aws 파일 삭제
+		System.out.println("aws 임시 파일 삭제");
 		deletesummerNoteFromAwsS3(fileName);
 		
 		// 임시 테이블 db삭제
-		summerNoteMapper.deleteObject(member_id);
+		System.out.println("임시 디비 삭제");
+		summerNoteMapper.deleteObject(memberId);
 		
 		// 서머노트 끝-------------------------
 	}
@@ -143,44 +154,32 @@ public class BoardService {
 		}
 	}
 	
-	// temp aws s3에서 메인 s3로 저장
-	private void saveFileAwsS3(int id, String file) {
-		// board/temp/12344.png
-		String key = "folder/" + id + "/" + file;
-		
-		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-				.acl(ObjectCannedACL.PUBLIC_READ) 		 // acl : 권한 설정
-				.bucket(bucketName) 					// bucket 위치 설정
-				.key(key)								// 키
-				.build(); 								 // 이를 통해 PutObjectRequest객체 만듬
-		
-		RequestBody requestBody;
-		try {
-			requestBody = RequestBody.fromInputStream(file.getInputStream(), file.getSize());
-			amazonS3.putObject(putObjectRequest, requestBody);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
-		}
-	}
 	
 	// aws s3, 다른 폴더로 복사
-	
 	private void copyFileAwsS3(String bucketName, String sourceKey, String destinationKey) {
-		try {
-            CopyObjectRequest copyObjRequest = CopyObjectRequest.builder()
-                    .w                    .
-                    
-                    .withRegion(clientRegion)
-                    .build();
+        
+        String encodedUrl = null;
+        try {
+            encodedUrl = URLEncoder.encode(bucketName + "/" + sourceKey, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("URL could not be encoded: " + e.getMessage());
+        }
+		
+        CopyObjectRequest copyReq = CopyObjectRequest.builder()
+                .copySource(encodedUrl)
+                .destinationBucket(bucketName)
+                .destinationKey(destinationKey)
+                .build();
 
-            
-            amazonS3.copyObject(copyObjRequest);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+        try {
+            CopyObjectResponse copyRes = amazonS3.copyObject(copyReq);
+            copyRes.copyObjectResult().toString();
+        } catch (S3Exception e) {
+        	e.printStackTrace();
+			throw new RuntimeException(e); // 트랜잭션 때문에 모두 실패????????????
         }
 	}
+           
 	
 
 	// summernote aws s3사진 삭제 메소드
