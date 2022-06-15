@@ -124,7 +124,7 @@ public class BoardService {
 		
 		// 임시 aws 파일 삭제
 		System.out.println("aws 임시 파일 삭제");
-		deletesummerNoteFromAwsS3(fileName);
+		deletesummerNoteFromAwsS3(summerId + "/" + fileName);
 		
 		// 임시 테이블 db삭제
 		System.out.println("임시 디비 삭제");
