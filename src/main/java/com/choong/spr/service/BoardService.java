@@ -112,24 +112,17 @@ public class BoardService {
 		System.out.println(memberId);
 		SummerNoteDto summerDto = summerNoteMapper.getFileName(memberId);
 		int summerId = summerDto.getId();
-		String fileName = summerDto.getFile();
+		String fileName = summerDto.getFileName();
 		
 		System.out.println("서머노트 임시 폴더 번호 : " + summerId);
 		System.out.println("폴더 명 : " + fileName);
 		
 			// s3에 넣기
-		System.out.println("aws 복사 성공");
-		copyFileAwsS3("bucket0207-spring0520-teacher-test", "folder/temp/"+ summerId + "/" + fileName, "folder/" + mainId + "/" + fileName );
+		//System.out.println("aws 복사 성공");
+		//copyFileAwsS3("bucket0207-spring0520-teacher-test", "folder/temp/"+ summerId + "/" + fileName, "folder/" + mainId + "/" + fileName );
 			// db에 넣기
 		
-		// 임시 aws 파일 삭제
-		System.out.println("aws 임시 파일 삭제");
-		deletesummerNoteFromAwsS3(summerId + "/" + fileName);
-		
-		// 임시 테이블 db삭제
-		System.out.println("임시 디비 삭제");
-		summerNoteMapper.deleteObject(memberId);
-		
+
 		// 서머노트 끝-------------------------
 	}
 
@@ -201,9 +194,9 @@ public class BoardService {
 	// 게시글 삭제 + 댓글 삭제
 	@Transactional
 	public boolean deleteBoard(int id) {
+		replyMapper.deleteReplyByBoard(id);
 		int cnt = mapper.deleteBoard(id);
 		
-		replyMapper.deleteReplyByBoard(id);
 		return cnt == 1;
 				
 	}
