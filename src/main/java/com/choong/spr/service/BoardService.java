@@ -109,13 +109,13 @@ public class BoardService {
 		
 		// 임시 s3에서 진짜 s3로 넣기
 			// 먼저 db에서 파일명 가져오기
-		System.out.println(memberId);
-		SummerNoteDto summerDto = summerNoteMapper.getFileName(memberId);
-		int summerId = summerDto.getId();
-		String fileName = summerDto.getFileName();
+		//System.out.println(memberId);
+		//SummerNoteDto summerDto = summerNoteMapper.getFileName(memberId);
+		//int summerId = summerDto.getId();
+		//String fileName = summerDto.getFileName();
 		
-		System.out.println("서머노트 임시 폴더 번호 : " + summerId);
-		System.out.println("폴더 명 : " + fileName);
+		//System.out.println("서머노트 임시 폴더 번호 : " + summerId);
+		//System.out.println("폴더 명 : " + fileName);
 		
 			// s3에 넣기
 		//System.out.println("aws 복사 성공");
